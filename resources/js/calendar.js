@@ -47,7 +47,7 @@ export default () => ({
         "November",
         "December",
     ],
-    DAYS: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    DAYS: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 
     convertFromYmd(dateYmd) {
         const year = Number(dateYmd.substr(0, 4));
@@ -244,7 +244,8 @@ export default () => ({
         }
         const minute = dateTime.getMinutes().toString().padStart(2, "0");
         //const second  = dateTime.getSeconds().toString().padStart(2, '0');
-        return dayName + " " + month + " " + date + " " + year;
+        // return dayName + " " + month + " " + date + " " + year;
+        return date + "/" + dateTime.getMonth() + "/" + year;
     },
 
     getTimeString(end) {
@@ -355,9 +356,12 @@ export default () => ({
         let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
 
         // find where to start calendar day of week
-        let dayOfWeek = new Date(this.year, this.month).getDay();
+        let dayOfWeek = new Date(this.year, this.month, 1).getDay() - 1;
+        if (dayOfWeek < 0) {
+            dayOfWeek = 6; // Adjust if dayOfWeek is Sunday (should be 6 instead of -1)
+        }
         let blankdaysArray = [];
-        for (var i = 1; i <= dayOfWeek; i++) {
+        for (var i = 0; i < dayOfWeek; i++) {
             blankdaysArray.push(i);
         }
 

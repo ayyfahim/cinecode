@@ -1,6 +1,6 @@
 <div>
     <div class="dropdown" x-data="{ openSort: false }">
-        <div tabindex="0" role="button" class="btn m-1" @click.away="openSort = false" @click="openSort = !openSort">
+        <div tabindex="0" role="button" class="btn" @click.away="openSort = false" @click="openSort = !openSort">
             Sort: Release date
             <svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block"
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">
@@ -14,20 +14,20 @@
             x-transition:leave-start="transform opacity-100 scale-100"
             x-transition:leave-end="transform opacity-0 scale-95">
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Default"
-                    value="default" /></li>
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    aria-label="Default" value="default" /></li>
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Retro"
-                    value="retro" /></li>
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    aria-label="Retro" value="retro" /></li>
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Cyberpunk"
-                    value="cyberpunk" /></li>
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    aria-label="Cyberpunk" value="cyberpunk" /></li>
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Valentine"
-                    value="valentine" /></li>
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    aria-label="Valentine" value="valentine" /></li>
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Aqua"
-                    value="aqua" /></li>
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    aria-label="Aqua" value="aqua" /></li>
         </ul>
     </div>
     {{-- <div @click.away="openSort = false" class="relative justify-self-end" x-data="{ openSort: false, sortType: 'Release Date' }">
@@ -46,11 +46,11 @@
             x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
             x-transition:leave-start="transform opacity-100 scale-100"
             x-transition:leave-end="transform opacity-0 scale-95" class="absolute z-50 w-full  origin-top-right">
-            <div class="px-2 pt-2 pb-2 bg-white rounded-md shadow-lg dark:bg-cine-neutral dark:text-neutral-content"
+            <div class="px-2 pt-2 pb-2 bg-white rounded-md shadow-lg dark:bg-cine-highlight-1 dark:text-neutral-content"
                 data-theme="dark">
                 <div class="flex flex-col">
                     <a @click="sortType='Most disscussed',openSort=!openSort" x-show="sortType != 'Most disscussed'"
-                        class="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200 hover:text-cine-neutral "
+                        class="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200 hover:text-cine-highlight-1 "
                         href="#">
 
                         <div class="">
@@ -59,7 +59,7 @@
                     </a>
 
                     <a @click="sortType='Most popular',openSort=!openSort" x-show="sortType != 'Most popular'"
-                        class="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200 hover:text-cine-neutral "
+                        class="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200 hover:text-cine-highlight-1 "
                         href="#">
 
                         <div class="">
@@ -68,7 +68,7 @@
                     </a>
 
                     <a @click="sortType='Most upvoted',openSort=!openSort" x-show="sortType != 'Most upvoted'"
-                        class="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200 hover:text-cine-neutral "
+                        class="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200 hover:text-cine-highlight-1 "
                         href="#">
 
                         <div class="">

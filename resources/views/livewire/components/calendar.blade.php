@@ -69,11 +69,11 @@
                                                 :class="{
                                                     'font-bold': isToday(date) ==
                                                         true,
-                                                    'bg-blue-800 text-white rounded-l-full': isDateFrom(date) ==
+                                                    'bg-cine-highlight-1 text-white rounded-l-full': isDateFrom(date) ==
                                                         true,
-                                                    'bg-blue-800 text-white rounded-r-full': isDateTo(date) ==
+                                                    'bg-cine-highlight-1 text-white rounded-r-full': isDateTo(date) ==
                                                         true,
-                                                    'bg-blue-200': isInRange(date) == true
+                                                    'bg-cine-highlight-1/40': isInRange(date) == true
                                                 }">
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
                                     <button @click="showDatepicker = false"
                                         class="px-2 py-1 border border-gray-300 hover:border-gray-500 rounded-md">Cancel</button>
                                     <button @click="outputDateValues(); showDatepicker = false"
-                                        class="px-2 py-1 border border-blue-600 bg-blue-500 hover:bg-blue-300 text-white rounded-md">OK</button>
+                                        class="px-2 py-1 border border-cine-highlight-1 bg-cine-highlight-1 hover:bg-cine-highlight-1/40 text-white rounded-md">OK</button>
                                 </div>
 
                             </div>

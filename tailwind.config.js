@@ -9,6 +9,7 @@ export default {
         extend: {
             colors: {
                 "cine-neutral": "#15161b",
+                "cine-highlight-1": "#27d25b",
             },
         },
     },

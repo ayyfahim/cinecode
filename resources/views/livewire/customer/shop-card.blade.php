@@ -1,5 +1,5 @@
 <div>
-    <div x-data="{ modelOpen: false }">
+    <div>
         <div class="card w-full bg-base-100 shadow-xl cursor-pointer" @click="modelOpen =!modelOpen">
             <figure><img src="{{ asset('black-panther-poster.jpg') }}" alt="Shoes" />
             </figure>
@@ -8,7 +8,5 @@
                 <p class="text-sm">Wakanda Forever!</p>
             </div>
         </div>
-
-        <livewire:customer.shop-card-modal :product_id="$product_id" />
     </div>
 </div>
