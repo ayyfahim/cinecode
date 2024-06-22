@@ -1,8 +1,8 @@
-<div>
-    <div x-show="modelOpen" class="fixed z-10 inset-0 flex items-center justify-center">
+<div class="p-0">
+    <div x-show="modelOpen" class="fixed z-[60] inset-0 flex items-center justify-center">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         <div x-show="modelOpen"
-            class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-md w-full m-4"
+            class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-md w-full m-4 max-h-screen"
             x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"

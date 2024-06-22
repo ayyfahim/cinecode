@@ -1,6 +1,7 @@
 <div>
     <div class="dropdown" x-data="{ openSort: false }">
-        <div tabindex="0" role="button" class="btn" @click.away="openSort = false" @click="openSort = !openSort">
+        <div tabindex="0" role="button" class="btn sm:text-sm text-xs" @click.away="openSort = false"
+            @click="openSort = !openSort">
             Sort: Release date
             <svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block"
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">
@@ -14,19 +15,19 @@
             x-transition:leave-start="transform opacity-100 scale-100"
             x-transition:leave-end="transform opacity-0 scale-95">
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
                     aria-label="Default" value="default" /></li>
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
                     aria-label="Retro" value="retro" /></li>
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
                     aria-label="Cyberpunk" value="cyberpunk" /></li>
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
                     aria-label="Valentine" value="valentine" /></li>
             <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-neutral-content checked:!border-cine-highlight-1"
+                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
                     aria-label="Aqua" value="aqua" /></li>
         </ul>
     </div>

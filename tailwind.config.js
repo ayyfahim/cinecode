@@ -10,6 +10,7 @@ export default {
             colors: {
                 "cine-neutral": "#15161b",
                 "cine-highlight-1": "#27d25b",
+                "blue-gray-900": "#263238",
             },
         },
     },

@@ -4,16 +4,34 @@
             <div class="">
                 <div>
                     <div class="relative" @keydown.escape="closeDatepicker()" @click.outside="closeDatepicker()">
-                        <div class="flex flex-wrap md:gap-3 gap-2 items-center">
+                        <div class="sm:flex hidden flex-wrap md:gap-3 gap-2 items-center">
                             <h3 class="text-sm font-semibold">Validity Period</h3>
-                            <h4 class="text-sm font-semibold hidden sm:block">from</h4>
+                            <h4 class="text-sm font-semibold">from</h4>
                             <input type="text" class="input input-bordered input-xs text-neutral"
                                 @click="endToShow = 'from'; init(); showDatepicker = true" x-model="outputDateFromValue"
                                 :class="{ 'font-semibold': endToShow == 'from' }" />
-                            <h4 class="text-sm font-semibold hidden sm:block">to</h4>
-                            <input type="text" class="input input-bordered input-xs text-neutral hidden sm:block"
+                            <h4 class="text-sm font-semibold">to</h4>
+                            <input type="text" class="input input-bordered input-xs text-neutral"
                                 @click="endToShow = 'to'; init(); showDatepicker = true" x-model="outputDateToValue"
                                 :class="{ 'font-semibold': endToShow == 'to' }" />
+                        </div>
+                        <div class="flex sm:hidden flex-wrap flex-col md:gap-3 gap-2">
+                            <div class="flex flex-wrap gap-1">
+                                <h3 class="text-sm font-semibold">Validity Period</h3>
+                                <h4 class="text-sm font-semibold">from:</h4>
+                                <div class="w-full"></div>
+                                <input type="text" class="input input-bordered input-xs text-neutral"
+                                    @click="endToShow = 'from'; init(); showDatepicker = true"
+                                    x-model="outputDateFromValue" :class="{ 'font-semibold': endToShow == 'from' }" />
+                            </div>
+                            <div class="flex flex-wrap gap-1">
+                                <h3 class="text-sm font-semibold">Validity Period</h3>
+                                <h4 class="text-sm font-semibold">to:</h4>
+                                <div class="w-full"></div>
+                                <input type="text" class="input input-bordered input-xs text-neutral"
+                                    @click="endToShow = 'to'; init(); showDatepicker = true" x-model="outputDateToValue"
+                                    :class="{ 'font-semibold': endToShow == 'to' }" />
+                            </div>
                         </div>
                         <div class="absolute bg-white mt-2 rounded-lg shadow p-4 sm:w-80 w-full text-neutral"
                             x-show="showDatepicker" x-transition>

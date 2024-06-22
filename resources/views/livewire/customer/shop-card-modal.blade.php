@@ -1,8 +1,8 @@
 <div>
-    <div x-show="modelOpen" class="fixed z-10 inset-0 flex items-center justify-center">
+    <div x-show="modelOpen" class="fixed z-[60] inset-0 flex items-center justify-center">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         <div x-show="modelOpen"
-            class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-lg w-full m-4"
+            class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-lg w-full m-4 max-h-screen"
             x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
@@ -16,10 +16,10 @@
                     </svg>
                 </button>
             </div>
-            <div class="max-w-screen-lg p-8 overflow-y-auto text-white grid md:grid-cols-4 md:gap-6"
+            <div class="max-w-screen-lg p-8 sm:pt-8 pt-4 overflow-y-auto text-white grid md:grid-cols-4 md:gap-6"
                 style="max-height: 70vh; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
 
-                <div class="col-span-1">
+                <div class="col-span-1 hidden sm:block">
                     <figure>
                         <img src="{{ asset('black-panther-poster.jpg') }}" class="md:w-full max-w-36" alt="Shoes" />
                     </figure>
@@ -53,14 +53,40 @@
                         <h3 class="text-sm font-semibold">No Group Found.</h3>
                     </div>
                     <div
-                        class="grid grid-flow-rows border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2">
+                        class="grid grid-flow-rows border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2  overflow-x-scroll">
                         @for ($i = 0; $i < 30; $i++)
-                            <div class="grid grid-cols-4 gap-3 justify-items-center items-center">
+                            <div class="grid grid-cols-4 gap-3 items-center min-w-[350px]">
                                 <h4 class="text-sm font-semibold justify-self-start">Cinema #{{ $i + 1 }}</h4>
-                                <h4 class="text-sm font-semibold">City #{{ $i + 1 }}</h4>
-                                <h4 class="text-sm font-semibold">Country #{{ $i + 1 }}</h4>
+                                @if ($i == 3)
+                                    <h4 class="text-sm font-semibold truncate">Schmedeswurtherwesterdeich</h4>
+                                @else
+                                    <h4 class="text-sm font-semibold truncate">City #{{ $i + 1 }}</h4>
+                                @endif
+
+                                @if ($i == 0)
+                                    <h4 class="text-sm font-semibold truncate">United Kingdom of Great Britain</h4>
+                                @else
+                                    <h4 class="text-sm font-semibold truncate">Country #{{ $i + 1 }}</h4>
+                                @endif
                                 <input type="checkbox" checked="checked"
                                     class="checkbox justify-self-end border-white/50 border" />
+                            </div>
+                        @endfor
+                    </div>
+
+                    <div class="flex flex-wrap sm:hidden gap-[5px]">
+                        @for ($i = 0; $i < 30; $i++)
+                            <div class="flex items-center gap-[3px]">
+                                <h4 class="text-sm font-semibold text-white">Cinema #{{ $i + 1 }}</h4>
+                                <button
+                                    class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
+                                    wire:click="cancelCinema()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
                         @endfor
                     </div>

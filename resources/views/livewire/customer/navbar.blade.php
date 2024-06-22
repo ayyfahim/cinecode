@@ -18,8 +18,7 @@
                 <ul class="menu menu-horizontal px-1">
                     <li x-data="{ settingsOpen: false, modelOpen: $wire.entangle('modelOpen') }" @mouseenter="settingsOpen = true" @mouseleave="settingsOpen = false">
                         <details class="z-50" :open="settingsOpen">
-                            <summary :open="settingsOpen"><a href="{{ route('customer.settings') }}"
-                                    class="{{ request()->is('customer/settings') ? 'active' : '' }}">Settings</a>
+                            <summary :open="settingsOpen">Settings
                             </summary>
                             <ul class="min-w-52 !mt-0" x-show="settingsOpen"
                                 x-transition:enter="transition ease-out duration-200 transform"
@@ -27,6 +26,9 @@
                                 x-transition:enter-end="opacity-100 translate-y-0"
                                 x-transition:leave="transition ease-out duration-200"
                                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-cloak>
+                                <li><a href="{{ route('customer.settings') }}"
+                                        class="{{ request()->is('customer/settings') ? 'active' : '' }}">Settings</a>
+                                </li>
                                 <li @click="modelOpen = !modelOpen">
                                     <button>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-neutral-content"
@@ -63,9 +65,12 @@
                     </div>
                     <ul tabindex="0"
                         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a>Order</a></li>
-                        <li><a>History</a></li>
-                        <li><a>Settings</a></li>
+                        <li><a href="{{ route('customer.shop') }}"
+                                class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>
+                        <li><a href="{{ route('customer.order.history') }}"
+                                class="{{ request()->is('customer/order/history') ? 'active' : '' }}">History</a></li>
+                        <li><a href="{{ route('customer.settings') }}"
+                                class="{{ request()->is('customer/settings') ? 'active' : '' }}">Settings</a></li>
                         <li><a>Logout</a></li>
                     </ul>
                 </div>

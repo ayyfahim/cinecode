@@ -12,21 +12,20 @@
                     </svg>
                 </label>
             </div>
-
             <div class=" justify-self-end">
-
                 <livewire:components.sort-menu />
             </div>
         </div>
     </div>
-    <div class="grid gap-4 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 grid-cols-2" x-data="{ modelOpen: false }">
+
+    <div class="grid sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 sm:justify-normal justify-center gap-4"
+        x-data="{ modelOpen: false }">
         @for ($i = 0; $i < 30; $i++)
             <livewire:customer.shop-card :key="$i" :product_id="$i" />
         @endfor
         <livewire:customer.shop-card-modal />
     </div>
     <div class="flex justify-center mt-6">
-        {{-- grid-cols-2 --}}
         <div class="join">
             <button class="join-item btn">«</button>
             <button class="join-item btn">Page 3</button>
