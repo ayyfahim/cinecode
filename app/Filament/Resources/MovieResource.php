@@ -21,6 +21,8 @@ class MovieResource extends Resource
 
     protected static ?string $navigationLabel = 'Movie Management';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -38,6 +40,11 @@ class MovieResource extends Resource
                                     ->image()
                                     ->previewable(true)
                                     ->required(),
+
+                                Forms\Components\Select::make('distributors')
+                                    ->multiple()
+                                    ->preload()
+                                    ->relationship(titleAttribute: 'distributor_name')
                             ]),
 
                         Forms\Components\Section::make('Versions')

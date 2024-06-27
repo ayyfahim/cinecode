@@ -23,11 +23,13 @@ class DistributorResource extends Resource
 
     // protected static ?string $title = 'Customer Management';
 
-    protected static ?string $navigationLabel = 'Customer Management';
+    protected static ?string $navigationLabel = 'Distributor Management';
 
     // protected static ?string $heading = 'Customer Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -39,10 +41,6 @@ class DistributorResource extends Resource
                         [
                             Forms\Components\TextInput::make('distributor_name')
                                 ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('password')
-                                ->helperText('Leave empty for distributors to generate them.')
-                                ->password()
                                 ->maxLength(255),
                             Forms\Components\Toggle::make('allow_credit')
                                 ->live()

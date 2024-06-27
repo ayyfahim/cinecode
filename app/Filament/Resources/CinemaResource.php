@@ -24,6 +24,8 @@ class CinemaResource extends Resource
 
     protected static ?string $navigationLabel = 'Cinema Management';
 
+    protected static ?int $navigationSort = 3;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -34,12 +36,7 @@ class CinemaResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->required()
-                                    ->maxLength(255),
-
-                                Forms\Components\TextInput::make('password')
-                                    ->password()
-                                    ->maxLength(255),
-
+                                    ->maxLength(255)
                             ]),
                         Forms\Components\Section::make('Location')
                             ->schema([
@@ -47,20 +44,27 @@ class CinemaResource extends Resource
                                     ->required()
                                     ->live()
                                     ->label('Country')
-                                    ->options(Country::pluck('name', 'id')),
+                                    ->options(Country::whereIn('name', ['Germany', 'Austria', 'Switzerland', 'Luxembourg'])
+                                        ->orderByRaw("FIELD(name, 'Germany', 'Austria', 'Switzerland', 'Luxembourg')")
+                                        ->pluck('name', 'id')
+                                        ->union(Country::whereNotIn('name', ['Germany', 'Austria', 'Switzerland', 'Luxembourg'])->pluck('name', 'id'))),
 
-                                Forms\Components\Select::make('city_id')
+                                Forms\Components\TextInput::make('city_name')
                                     ->required()
-                                    ->label('City')
-                                    ->placeholder(fn (Forms\Get $get): string => empty($get('country_id')) ? 'First select country' : 'Select an option')
-                                    ->options(function (?Cinema $record, Forms\Get $get, Forms\Set $set) {
-                                        if (!empty($record) && !empty($get('country_id'))) {
-                                            $set('country_id', $record->country_id);
-                                            $set('city_id', $record->city_id);
-                                        }
+                                    ->maxLength(255)
 
-                                        return State::where('country_id', $get('country_id'))->pluck('name', 'id');
-                                    }),
+                                // Forms\Components\Select::make('city_id')
+                                //     ->required()
+                                //     ->label('City')
+                                //     ->placeholder(fn (Forms\Get $get): string => empty($get('country_id')) ? 'First select country' : 'Select an option')
+                                //     ->options(function (?Cinema $record, Forms\Get $get, Forms\Set $set) {
+                                //         if (!empty($record) && !empty($get('country_id'))) {
+                                //             $set('country_id', $record->country_id);
+                                //             $set('city_id', $record->city_id);
+                                //         }
+
+                                //         return State::where('country_id', $get('country_id'))->pluck('name', 'id');
+                                //     }),
                             ]),
 
                         Forms\Components\Section::make('Emails')
@@ -83,6 +87,7 @@ class CinemaResource extends Resource
                         Forms\Components\Section::make('Status')
                             ->schema([
                                 Forms\Components\Toggle::make('visible_to_all')
+                                    ->default('true')
                                     ->required(),
                             ]),
                     ])
@@ -99,6 +104,8 @@ class CinemaResource extends Resource
                 Tables\Columns\TextColumn::make('city.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('country.name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('distributor.name')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('visible_to_all')
                     ->boolean(),

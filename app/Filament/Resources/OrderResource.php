@@ -21,6 +21,8 @@ class OrderResource extends Resource
 
     protected static ?string $navigationLabel = 'Order Management';
 
+    protected static ?int $navigationSort = 4;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -49,15 +51,31 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('cinema.name')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('cinema.city_name')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('movie.name')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('movie.versions.version_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('downloaded')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Order Date')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('validity_period_from')
+                    ->dateTime()
+                    ->label('Validity Period From')
+                    ->default(now())
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('validity_period_to')
+                    ->dateTime()
+                    ->default(now())
+                    ->label('Validity Period To')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

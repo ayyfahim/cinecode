@@ -245,7 +245,7 @@ export default () => ({
         const minute = dateTime.getMinutes().toString().padStart(2, "0");
         //const second  = dateTime.getSeconds().toString().padStart(2, '0');
         // return dayName + " " + month + " " + date + " " + year;
-        return date + "/" + dateTime.getMonth() + "/" + year;
+        return date + "." + dateTime.getMonth() + "." + year;
     },
 
     getTimeString(end) {

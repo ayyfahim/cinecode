@@ -18,8 +18,7 @@
         </div>
     </div>
 
-    <div class="grid sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 sm:justify-normal justify-center gap-4"
-        x-data="{ modelOpen: false }">
+    <div class="grid gap-4 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 grid-cols-2" x-data="{ modelOpen: false }">
         @for ($i = 0; $i < 30; $i++)
             <livewire:customer.shop-card :key="$i" :product_id="$i" />
         @endfor

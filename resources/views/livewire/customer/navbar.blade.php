@@ -29,6 +29,9 @@
                                 <li><a href="{{ route('customer.settings') }}"
                                         class="{{ request()->is('customer/settings') ? 'active' : '' }}">Settings</a>
                                 </li>
+                                <li><a href="{{ route('customer.settings.cinema.index') }}"
+                                        class="{{ request()->is('customer/settings/cinemas') ? 'active' : '' }}">Cinemas</a>
+                                </li>
                                 <li @click="modelOpen = !modelOpen">
                                     <button>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-neutral-content"

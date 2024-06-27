@@ -1,5 +1,5 @@
 <div>
-    <div class="min:h-screen flex flex-wrap">
+    <div class="min-h-screen flex flex-wrap">
         <div class="xl:w-5/6 w-full">
             <div class="prose prose-sm md:prose-base max-w-full flex-grow pt-10">
                 <h1>Order History</h1>

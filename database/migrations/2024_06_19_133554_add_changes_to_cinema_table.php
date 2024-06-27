@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::table('cinemas', function (Blueprint $table) {
             $table->dropColumn(['city', 'country']);
 
-            $table->unsignedBigInteger('city_id');
+            $table->string('city_name');
             $table->unsignedBigInteger('country_id');
             $table->string('unique_hash')->nullable()->change();
-            $table->dateTime('downloaded_player')->change();
+            $table->dateTime('downloaded_player')->change()->default(null);
         });
     }
 

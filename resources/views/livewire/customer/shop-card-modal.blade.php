@@ -2,7 +2,7 @@
     <div x-show="modelOpen" class="fixed z-[60] inset-0 flex items-center justify-center">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         <div x-show="modelOpen"
-            class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-lg w-full m-4 max-h-screen"
+            class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-xl w-full m-4 max-h-screen"
             x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
@@ -16,12 +16,12 @@
                     </svg>
                 </button>
             </div>
-            <div class="max-w-screen-lg p-8 sm:pt-8 pt-4 overflow-y-auto text-white grid md:grid-cols-4 md:gap-6"
+            <div class="p-8 sm:pt-8 pt-4 overflow-y-auto text-white grid md:grid-cols-4 md:gap-6"
                 style="max-height: 70vh; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
 
                 <div class="col-span-1 hidden sm:block">
                     <figure>
-                        <img src="{{ asset('black-panther-poster.jpg') }}" class="md:w-full max-w-36" alt="Shoes" />
+                        <img src="{{ asset('black-panther-poster.jpg') }}" class="md:w-full max-w-60" alt="Shoes" />
                     </figure>
                 </div>
                 <div class="col-span-3 grid grid-flow-rows gap-y-5">
@@ -48,30 +48,134 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
+                        <a href="{{ route('customer.settings.cinema.index') }}" class="text-3xl" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 1000 1000"
+                                fill="currentColor">
+                                <metadata>IcoFont Icons</metadata>
+                                <title>plus</title>
+                                <glyph glyph-name="plus" unicode="&#xefc2;" horiz-adv-x="1000" />
+                                <path
+                                    d="M935.4 459.6c-1-14.100000000000023-3.1000000000000227-29.200000000000045-6.7999999999999545-45.30000000000001h-343v-343c-16.100000000000023-3.6000000000000085-30.700000000000045-5.700000000000017-43.80000000000007-6.800000000000011-12.5-1.6000000000000014-25.5-2.1000000000000014-38.49999999999994-2.1000000000000014-15.100000000000023 0-29.69999999999999 0.5-43.69999999999999 2.1000000000000014-14.100000000000023 1-29.200000000000045 3.0999999999999943-45.30000000000001 6.799999999999997v343h-343c-3.6000000000000085 16.099999999999966-6.300000000000011 30.69999999999999-7.300000000000011 43.69999999999999-1 13-1.6000000000000014 25.5-1.6000000000000014 38.5 0 15.100000000000023 0.5 29.700000000000045 1.6000000000000014 43.700000000000045 1 14.099999999999909 3.5999999999999943 29.199999999999932 7.299999999999997 45.299999999999955h343v343c16.099999999999966 3.6000000000000227 30.69999999999999 6.2999999999999545 43.69999999999999 7.2999999999999545 13 1 25.5 1.6000000000000227 38.5 1.6000000000000227 15.100000000000023 0 29.700000000000045-0.5 43.700000000000045-1.6000000000000227 14.099999999999909-1 29.199999999999932-3.599999999999909 45.299999999999955-7.2999999999999545v-343h343c3.6000000000000227-16.100000000000023 5.7000000000000455-30.700000000000045 6.7999999999999545-43.799999999999955 1.6000000000000227-12.5 2.1000000000000227-25.5 2.1000000000000227-38.50000000000006 0.10000000000002274-14.899999999999977-0.39999999999997726-29.5-2-43.599999999999966z" />
+                            </svg>
+                        </a>
                     </div>
                     <div>
                         <h3 class="text-sm font-semibold">No Group Found.</h3>
                     </div>
-                    <div
-                        class="grid grid-flow-rows border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2  overflow-x-scroll">
-                        @for ($i = 0; $i < 30; $i++)
-                            <div class="grid grid-cols-4 gap-3 items-center min-w-[350px]">
-                                <h4 class="text-sm font-semibold justify-self-start">Cinema #{{ $i + 1 }}</h4>
-                                @if ($i == 3)
-                                    <h4 class="text-sm font-semibold truncate">Schmedeswurtherwesterdeich</h4>
-                                @else
-                                    <h4 class="text-sm font-semibold truncate">City #{{ $i + 1 }}</h4>
-                                @endif
 
-                                @if ($i == 0)
-                                    <h4 class="text-sm font-semibold truncate">United Kingdom of Great Britain</h4>
-                                @else
-                                    <h4 class="text-sm font-semibold truncate">Country #{{ $i + 1 }}</h4>
-                                @endif
-                                <input type="checkbox" checked="checked"
-                                    class="checkbox justify-self-end border-white/50 border" />
+                    <div
+                        class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] block sm:hidden">
+                        @for ($i = 0; $i < 30; $i++)
+                            <div class="px-4 ">
+                                <div class="flex justify-between" x-data="{ open: false }">
+                                    <div>
+                                        <h4 class="text-base font-bold truncate">Cinema #{{ $i + 1 }}</h4>
+                                        <div class="flex gap-1">
+                                            <h4 class="text-sm font-medium truncate">City: </h4>
+                                            <h4 class="text-sm font-semibold truncate">New York</h4>
+                                        </div>
+                                        <div class="flex gap-1">
+                                            <h4 class="text-sm font-medium truncate">Country: </h4>
+                                            <h4 class="text-sm font-semibold truncate">USA</h4>
+                                        </div>
+                                    </div>
+                                    <label class="swap text-right">
+                                        <div class="swap-on" :class="{ '!opacity-0': open, '!opacity-100': !open }"
+                                            @click="open = !open">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 fill-white"
+                                                viewBox="0 0 1000 1000">
+                                                <metadata>IcoFont Icons</metadata>
+                                                <title>plus</title>
+                                                <glyph glyph-name="plus" unicode="&#xefc2;" horiz-adv-x="1000" />
+                                                <path
+                                                    d="M935.4 459.6c-1-14.100000000000023-3.1000000000000227-29.200000000000045-6.7999999999999545-45.30000000000001h-343v-343c-16.100000000000023-3.6000000000000085-30.700000000000045-5.700000000000017-43.80000000000007-6.800000000000011-12.5-1.6000000000000014-25.5-2.1000000000000014-38.49999999999994-2.1000000000000014-15.100000000000023 0-29.69999999999999 0.5-43.69999999999999 2.1000000000000014-14.100000000000023 1-29.200000000000045 3.0999999999999943-45.30000000000001 6.799999999999997v343h-343c-3.6000000000000085 16.099999999999966-6.300000000000011 30.69999999999999-7.300000000000011 43.69999999999999-1 13-1.6000000000000014 25.5-1.6000000000000014 38.5 0 15.100000000000023 0.5 29.700000000000045 1.6000000000000014 43.700000000000045 1 14.099999999999909 3.5999999999999943 29.199999999999932 7.299999999999997 45.299999999999955h343v343c16.099999999999966 3.6000000000000227 30.69999999999999 6.2999999999999545 43.69999999999999 7.2999999999999545 13 1 25.5 1.6000000000000227 38.5 1.6000000000000227 15.100000000000023 0 29.700000000000045-0.5 43.700000000000045-1.6000000000000227 14.099999999999909-1 29.199999999999932-3.599999999999909 45.299999999999955-7.2999999999999545v-343h343c3.6000000000000227-16.100000000000023 5.7000000000000455-30.700000000000045 6.7999999999999545-43.799999999999955 1.6000000000000227-12.5 2.1000000000000227-25.5 2.1000000000000227-38.50000000000006 0.10000000000002274-14.899999999999977-0.39999999999997726-29.5-2-43.599999999999966z" />
+                                            </svg>
+                                        </div>
+                                        <div class="swap-off" :class="{ '!opacity-0': !open, '!opacity-100': open }"
+                                            @click="open = !open">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 stroke-white"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="divider before:bg-white after:bg-white m-0 before:h-[1px] after:h-[1px]"></div>
                             </div>
                         @endfor
+                    </div>
+
+                    <div
+                        class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] hidden sm:block">
+
+                        <div class="flex flex-nowrap gap-2 justify-between">
+
+                            <div class="flex flex-col gap-2">
+                                @for ($i = 0; $i < 30; $i++)
+                                    @if ($i == 1)
+                                        <h4
+                                            class="text-sm font-semibold truncate lg:max-w-80 md:max-w-40 max-w-56 flex-1 h-6">
+                                            The
+                                            Grand
+                                            Imperial
+                                            Majestic Cinematic Experience & Entertainment Palace of Timeless Films and
+                                            Epic
+                                            Adventures in Ultra High Definition Surround Sound with Luxury Reclining
+                                            Seats
+                                            and Gourmet Concessions.
+                                        </h4>
+                                    @else
+                                        <h4
+                                            class="text-sm font-semibold truncate lg:max-w-80 md:max-w-40 max-w-56 flex-1 h-6">
+                                            Cinema
+                                            #{{ $i + 1 }}
+                                        </h4>
+                                    @endif
+                                @endfor
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                @for ($i = 0; $i < 30; $i++)
+                                    @if ($i == 3)
+                                        <h4 class="text-sm font-semibold truncate lg:max-w-48 max-w-56 flex-1 h-6">
+                                            Schmedeswurtherwesterdeich
+                                        </h4>
+                                    @else
+                                        <h4 class="text-sm font-semibold truncate lg:max-w-48 max-w-56 flex-1 h-6">City
+                                            #{{ $i + 1 }}
+                                        </h4>
+                                    @endif
+                                @endfor
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                @for ($i = 0; $i < 30; $i++)
+                                    @if ($i == 0)
+                                        <h4 class="text-sm font-semibold truncate xl:max-w-64 max-w-40 lg:max-w-28 h-6">
+                                            United
+                                            Kingdom
+                                            of
+                                            Great
+                                            Britain
+                                        </h4>
+                                    @else
+                                        <h4 class="text-sm font-semibold truncate xl:max-w-64 max-w-40 lg:max-w-28 h-6">
+                                            Country
+                                            #{{ $i + 1 }}
+                                        </h4>
+                                    @endif
+                                @endfor
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                @for ($i = 0; $i < 30; $i++)
+                                    <input type="checkbox" checked="checked"
+                                        class="checkbox justify-self-end border-white/50 border ml-auto h-6" />
+                                @endfor
+                            </div>
+
+                        </div>
                     </div>
 
                     <div class="flex flex-wrap sm:hidden gap-[5px]">
@@ -81,8 +185,8 @@
                                 <button
                                     class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
                                     wire:click="cancelCinema()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M6 18L18 6M6 6l12 12" />
                                     </svg>

@@ -1,5 +1,5 @@
 <div>
-    <div class="">
+    {{-- <div class="">
         <div class="grid rounded-3xl max-w-[350px] shadow-xl bg-white flex-col cursor-pointer">
             <img src="{{ asset('black-panther-poster.jpg') }}" width="350" height="200"
                 class="rounded-t-3xl justify-center grid h-80 object-cover" />
@@ -22,8 +22,8 @@
                 </button>
             </div>
         </div>
-    </div>
-    {{-- <div>
+    </div> --}}
+    <div>
         <div class="card w-full bg-base-100 shadow-xl cursor-pointer" @click="modelOpen =!modelOpen">
             <figure><img src="{{ asset('black-panther-poster.jpg') }}" alt="Shoes" />
             </figure>
@@ -32,5 +32,5 @@
                 <p class="text-sm">Wakanda Forever!</p>
             </div>
         </div>
-    </div> --}}
+    </div>
 </div>
