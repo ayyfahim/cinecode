@@ -36,7 +36,9 @@ class CinemaResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->required()
-                                    ->maxLength(255)
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('unique_hash')
+                                    ->maxLength(255),
                             ]),
                         Forms\Components\Section::make('Location')
                             ->schema([
@@ -101,7 +103,7 @@ class CinemaResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('city.name')
+                Tables\Columns\TextColumn::make('city_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('country.name')
                     ->searchable(),
@@ -124,8 +126,7 @@ class CinemaResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('city')
-                    ->relationship('city', 'name')
+                Tables\Filters\SelectFilter::make('city_name')
                     ->searchable()
                     ->preload(),
                 Tables\Filters\SelectFilter::make('country')

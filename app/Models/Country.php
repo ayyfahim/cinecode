@@ -9,9 +9,4 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Country extends Model
 {
     use HasFactory;
-
-    public function states(): HasMany
-    {
-        return $this->hasMany(State::class);
-    }
 }

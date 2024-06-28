@@ -28,11 +28,6 @@ class Cinema extends Model
         return $this->emails()?->get()?->first()?->email ?: null;
     }
 
-    public function city(): BelongsTo
-    {
-        return $this->belongsTo(State::class);
-    }
-
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('city_name');
             $table->unsignedBigInteger('country_id');
             $table->string('unique_hash')->nullable()->change();
-            $table->dateTime('downloaded_player')->change()->default(null);
+            $table->dateTime('downloaded_player')->nullable()->change();
         });
     }
 

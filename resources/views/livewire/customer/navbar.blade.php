@@ -6,7 +6,7 @@
                     <li><a href="{{ route('customer.shop') }}"
                             class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>
                     <li><a href="{{ route('customer.order.history') }}"
-                            class="{{ request()->is('customer/order/history') ? 'active' : '' }}">History</a></li>
+                            class="{{ request()->is('customer/order/history') ? 'active' : '' }}">Order History</a></li>
 
                 </ul>
             </div>
@@ -29,9 +29,9 @@
                                 <li><a href="{{ route('customer.settings') }}"
                                         class="{{ request()->is('customer/settings') ? 'active' : '' }}">Settings</a>
                                 </li>
-                                <li><a href="{{ route('customer.settings.cinema.index') }}"
+                                {{-- <li><a href="{{ route('customer.settings.cinema.index') }}"
                                         class="{{ request()->is('customer/settings/cinemas') ? 'active' : '' }}">Cinemas</a>
-                                </li>
+                                </li> --}}
                                 <li @click="modelOpen = !modelOpen">
                                     <button>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-neutral-content"
@@ -71,7 +71,8 @@
                         <li><a href="{{ route('customer.shop') }}"
                                 class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>
                         <li><a href="{{ route('customer.order.history') }}"
-                                class="{{ request()->is('customer/order/history') ? 'active' : '' }}">History</a></li>
+                                class="{{ request()->is('customer/order/history') ? 'active' : '' }}">Order History</a>
+                        </li>
                         <li><a href="{{ route('customer.settings') }}"
                                 class="{{ request()->is('customer/settings') ? 'active' : '' }}">Settings</a></li>
                         <li><a>Logout</a></li>

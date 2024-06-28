@@ -16,169 +16,335 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-8 sm:pt-8 pt-4 overflow-y-auto text-white grid md:grid-cols-4 md:gap-6"
-                style="max-height: 70vh; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
-
-                <div class="col-span-1 hidden sm:block">
-                    <figure>
-                        <img src="{{ asset('black-panther-poster.jpg') }}" class="md:w-full max-w-60" alt="Shoes" />
-                    </figure>
-                </div>
-                <div class="col-span-3 grid grid-flow-rows gap-y-5">
-                    <h2 class="text-2xl font-bold">Black Panther</h2>
-                    <div class="flex flex-wrap gap-x-3 items-center">
-                        <h3 class="text-sm font-semibold">Version</h3>
-                        <select class="select select-bordered select-xs w-full max-w-40 text-black">
-                            <option disabled selected>Small</option>
-                            <option>Small Apple</option>
-                            <option>Small Orange</option>
-                            <option>Small Tomato</option>
-                        </select>
-                    </div>
-                    <livewire:components.calendar />
-                    <div class="flex flex-wrap gap-x-3 items-center">
-                        <h3 class="text-sm font-semibold">Cinema</h3>
+            @if ($cinema_mode)
+                <div class="p-8 sm:pt-8 pt-4 overflow-y-auto text-white flex flex-wrap justify-center items-center md:gap-6 gap-3"
+                    style="max-height: 70vh; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-sm font-semibold">Name</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <input type="text" class="input input-bordered input-xs text-neutral"
-                                placeholder="Enter cinema, city or group..." />
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                                class="w-6 h-6 cursor-pointer">
-                                <path fill-rule="evenodd"
-                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                    clip-rule="evenodd" />
-                            </svg>
+                                placeholder="Enter cinema name" />
                         </div>
-                        <a href="{{ route('customer.settings.cinema.index') }}" class="text-3xl" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 1000 1000"
-                                fill="currentColor">
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-sm font-semibold">City</h3>
+                        <div class="flex flex-wrap gap-x-2 items-center">
+                            <input type="text" class="input input-bordered input-xs text-neutral"
+                                placeholder="Enter city name" />
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-sm font-semibold">Country</h3>
+                        <div class="flex flex-wrap gap-x-2 items-center">
+                            <select class="select select-xs text-neutral">
+                                <option disabled selected>Pick one</option>
+                                <option>Star Wars</option>
+                                <option>Harry Potter</option>
+                                <option>Lord of the Rings</option>
+                                <option>Planet of the Apes</option>
+                                <option>Star Trek</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="basis-full h-0"></div>
+
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-sm font-semibold self-center">Emails</h3>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                            <div class="badge gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="inline-block h-4 w-4 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                test@mail.com
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-x-2 items-center self-center">
+                            <input type="text" class="input input-bordered input-xs text-neutral"
+                                placeholder="Enter email..." />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 cursor-pointer"
+                                viewBox="0 0 1000 1000" fill="currentColor">
                                 <metadata>IcoFont Icons</metadata>
                                 <title>plus</title>
                                 <glyph glyph-name="plus" unicode="&#xefc2;" horiz-adv-x="1000" />
                                 <path
                                     d="M935.4 459.6c-1-14.100000000000023-3.1000000000000227-29.200000000000045-6.7999999999999545-45.30000000000001h-343v-343c-16.100000000000023-3.6000000000000085-30.700000000000045-5.700000000000017-43.80000000000007-6.800000000000011-12.5-1.6000000000000014-25.5-2.1000000000000014-38.49999999999994-2.1000000000000014-15.100000000000023 0-29.69999999999999 0.5-43.69999999999999 2.1000000000000014-14.100000000000023 1-29.200000000000045 3.0999999999999943-45.30000000000001 6.799999999999997v343h-343c-3.6000000000000085 16.099999999999966-6.300000000000011 30.69999999999999-7.300000000000011 43.69999999999999-1 13-1.6000000000000014 25.5-1.6000000000000014 38.5 0 15.100000000000023 0.5 29.700000000000045 1.6000000000000014 43.700000000000045 1 14.099999999999909 3.5999999999999943 29.199999999999932 7.299999999999997 45.299999999999955h343v343c16.099999999999966 3.6000000000000227 30.69999999999999 6.2999999999999545 43.69999999999999 7.2999999999999545 13 1 25.5 1.6000000000000227 38.5 1.6000000000000227 15.100000000000023 0 29.700000000000045-0.5 43.700000000000045-1.6000000000000227 14.099999999999909-1 29.199999999999932-3.599999999999909 45.299999999999955-7.2999999999999545v-343h343c3.6000000000000227-16.100000000000023 5.7000000000000455-30.700000000000045 6.7999999999999545-43.799999999999955 1.6000000000000227-12.5 2.1000000000000227-25.5 2.1000000000000227-38.50000000000006 0.10000000000002274-14.899999999999977-0.39999999999997726-29.5-2-43.599999999999966z" />
                             </svg>
-                        </a>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-semibold">No Group Found.</h3>
-                    </div>
-
-                    <div
-                        class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] block sm:hidden">
-                        @for ($i = 0; $i < 30; $i++)
-                            <div class="px-4 ">
-                                <div class="flex justify-between" x-data="{ open: false }">
-                                    <div>
-                                        <h4 class="text-base font-bold truncate">Cinema #{{ $i + 1 }}</h4>
-                                        <div class="flex gap-1">
-                                            <h4 class="text-sm font-medium truncate">City: </h4>
-                                            <h4 class="text-sm font-semibold truncate">New York</h4>
-                                        </div>
-                                        <div class="flex gap-1">
-                                            <h4 class="text-sm font-medium truncate">Country: </h4>
-                                            <h4 class="text-sm font-semibold truncate">USA</h4>
-                                        </div>
-                                    </div>
-                                    <label class="swap text-right">
-                                        <div class="swap-on" :class="{ '!opacity-0': open, '!opacity-100': !open }"
-                                            @click="open = !open">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 fill-white"
-                                                viewBox="0 0 1000 1000">
-                                                <metadata>IcoFont Icons</metadata>
-                                                <title>plus</title>
-                                                <glyph glyph-name="plus" unicode="&#xefc2;" horiz-adv-x="1000" />
-                                                <path
-                                                    d="M935.4 459.6c-1-14.100000000000023-3.1000000000000227-29.200000000000045-6.7999999999999545-45.30000000000001h-343v-343c-16.100000000000023-3.6000000000000085-30.700000000000045-5.700000000000017-43.80000000000007-6.800000000000011-12.5-1.6000000000000014-25.5-2.1000000000000014-38.49999999999994-2.1000000000000014-15.100000000000023 0-29.69999999999999 0.5-43.69999999999999 2.1000000000000014-14.100000000000023 1-29.200000000000045 3.0999999999999943-45.30000000000001 6.799999999999997v343h-343c-3.6000000000000085 16.099999999999966-6.300000000000011 30.69999999999999-7.300000000000011 43.69999999999999-1 13-1.6000000000000014 25.5-1.6000000000000014 38.5 0 15.100000000000023 0.5 29.700000000000045 1.6000000000000014 43.700000000000045 1 14.099999999999909 3.5999999999999943 29.199999999999932 7.299999999999997 45.299999999999955h343v343c16.099999999999966 3.6000000000000227 30.69999999999999 6.2999999999999545 43.69999999999999 7.2999999999999545 13 1 25.5 1.6000000000000227 38.5 1.6000000000000227 15.100000000000023 0 29.700000000000045-0.5 43.700000000000045-1.6000000000000227 14.099999999999909-1 29.199999999999932-3.599999999999909 45.299999999999955-7.2999999999999545v-343h343c3.6000000000000227-16.100000000000023 5.7000000000000455-30.700000000000045 6.7999999999999545-43.799999999999955 1.6000000000000227-12.5 2.1000000000000227-25.5 2.1000000000000227-38.50000000000006 0.10000000000002274-14.899999999999977-0.39999999999997726-29.5-2-43.599999999999966z" />
-                                            </svg>
-                                        </div>
-                                        <div class="swap-off" :class="{ '!opacity-0': !open, '!opacity-100': open }"
-                                            @click="open = !open">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 stroke-white"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="divider before:bg-white after:bg-white m-0 before:h-[1px] after:h-[1px]"></div>
-                            </div>
-                        @endfor
-                    </div>
-
-                    <div
-                        class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] hidden sm:block">
-
-                        <div class="flex flex-nowrap gap-2 justify-between">
-
-                            <div class="flex flex-col gap-2">
-                                @for ($i = 0; $i < 30; $i++)
-                                    @if ($i == 1)
-                                        <h4
-                                            class="text-sm font-semibold truncate lg:max-w-80 md:max-w-40 max-w-56 flex-1 h-6">
-                                            The
-                                            Grand
-                                            Imperial
-                                            Majestic Cinematic Experience & Entertainment Palace of Timeless Films and
-                                            Epic
-                                            Adventures in Ultra High Definition Surround Sound with Luxury Reclining
-                                            Seats
-                                            and Gourmet Concessions.
-                                        </h4>
-                                    @else
-                                        <h4
-                                            class="text-sm font-semibold truncate lg:max-w-80 md:max-w-40 max-w-56 flex-1 h-6">
-                                            Cinema
-                                            #{{ $i + 1 }}
-                                        </h4>
-                                    @endif
-                                @endfor
-                            </div>
-
-                            <div class="flex flex-col gap-2">
-                                @for ($i = 0; $i < 30; $i++)
-                                    @if ($i == 3)
-                                        <h4 class="text-sm font-semibold truncate lg:max-w-48 max-w-56 flex-1 h-6">
-                                            Schmedeswurtherwesterdeich
-                                        </h4>
-                                    @else
-                                        <h4 class="text-sm font-semibold truncate lg:max-w-48 max-w-56 flex-1 h-6">City
-                                            #{{ $i + 1 }}
-                                        </h4>
-                                    @endif
-                                @endfor
-                            </div>
-
-                            <div class="flex flex-col gap-2">
-                                @for ($i = 0; $i < 30; $i++)
-                                    @if ($i == 0)
-                                        <h4 class="text-sm font-semibold truncate xl:max-w-64 max-w-40 lg:max-w-28 h-6">
-                                            United
-                                            Kingdom
-                                            of
-                                            Great
-                                            Britain
-                                        </h4>
-                                    @else
-                                        <h4 class="text-sm font-semibold truncate xl:max-w-64 max-w-40 lg:max-w-28 h-6">
-                                            Country
-                                            #{{ $i + 1 }}
-                                        </h4>
-                                    @endif
-                                @endfor
-                            </div>
-
-                            <div class="flex flex-col gap-2">
-                                @for ($i = 0; $i < 30; $i++)
-                                    <input type="checkbox" checked="checked"
-                                        class="checkbox justify-self-end border-white/50 border ml-auto h-6" />
-                                @endfor
-                            </div>
-
                         </div>
                     </div>
+                </div>
 
-                    <div class="flex flex-wrap sm:hidden gap-[5px]">
+                <div class="px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-row">
+                    <button type="button" wire:click='toggle_cinema_mode'
+                        class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
+                        Cancel </button>
+                    <button type="button" wire:click='toggle_cinema_mode'
+                        class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
+                        Add Cinema </button>
+                </div>
+            @endif
+
+            @if (!$cinema_mode)
+                <div class="p-8 sm:pt-8 pt-4 overflow-y-auto text-white grid md:grid-cols-4 md:gap-6"
+                    style="max-height: 70vh; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
+
+                    <div class="col-span-1 hidden sm:block">
+                        <figure>
+                            <img src="{{ asset('black-panther-poster.jpg') }}" class="md:w-full max-w-60"
+                                alt="Shoes" />
+                        </figure>
+                    </div>
+                    <div class="col-span-3 grid grid-flow-rows gap-y-5">
+                        <h2 class="text-2xl font-bold">Black Panther</h2>
+                        <div class="flex flex-wrap gap-x-3 items-center">
+                            <h3 class="text-sm font-semibold">Version</h3>
+                            <select class="select select-bordered select-xs w-full max-w-40 text-black">
+                                <option disabled selected>Small</option>
+                                <option>Small Apple</option>
+                                <option>Small Orange</option>
+                                <option>Small Tomato</option>
+                            </select>
+                        </div>
+                        <livewire:components.calendar />
+                        <div class="flex flex-wrap gap-x-3 items-center">
+                            <h3 class="text-sm font-semibold">Cinema</h3>
+                            <div class="flex flex-wrap gap-x-2 items-center">
+                                <input type="text" class="input input-bordered input-xs text-neutral"
+                                    placeholder="Enter cinema, city or group..." />
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                                    class="w-6 h-6 cursor-pointer">
+                                    <path fill-rule="evenodd"
+                                        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <button class="text-3xl" wire:click='toggle_cinema_mode'>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 1000 1000"
+                                    fill="currentColor">
+                                    <metadata>IcoFont Icons</metadata>
+                                    <title>plus</title>
+                                    <glyph glyph-name="plus" unicode="&#xefc2;" horiz-adv-x="1000" />
+                                    <path
+                                        d="M935.4 459.6c-1-14.100000000000023-3.1000000000000227-29.200000000000045-6.7999999999999545-45.30000000000001h-343v-343c-16.100000000000023-3.6000000000000085-30.700000000000045-5.700000000000017-43.80000000000007-6.800000000000011-12.5-1.6000000000000014-25.5-2.1000000000000014-38.49999999999994-2.1000000000000014-15.100000000000023 0-29.69999999999999 0.5-43.69999999999999 2.1000000000000014-14.100000000000023 1-29.200000000000045 3.0999999999999943-45.30000000000001 6.799999999999997v343h-343c-3.6000000000000085 16.099999999999966-6.300000000000011 30.69999999999999-7.300000000000011 43.69999999999999-1 13-1.6000000000000014 25.5-1.6000000000000014 38.5 0 15.100000000000023 0.5 29.700000000000045 1.6000000000000014 43.700000000000045 1 14.099999999999909 3.5999999999999943 29.199999999999932 7.299999999999997 45.299999999999955h343v343c16.099999999999966 3.6000000000000227 30.69999999999999 6.2999999999999545 43.69999999999999 7.2999999999999545 13 1 25.5 1.6000000000000227 38.5 1.6000000000000227 15.100000000000023 0 29.700000000000045-0.5 43.700000000000045-1.6000000000000227 14.099999999999909-1 29.199999999999932-3.599999999999909 45.299999999999955-7.2999999999999545v-343h343c3.6000000000000227-16.100000000000023 5.7000000000000455-30.700000000000045 6.7999999999999545-43.799999999999955 1.6000000000000227-12.5 2.1000000000000227-25.5 2.1000000000000227-38.50000000000006 0.10000000000002274-14.899999999999977-0.39999999999997726-29.5-2-43.599999999999966z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold">No Group Found.</h3>
+                        </div>
+
+                        <div
+                            class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] block sm:hidden">
+                            @for ($i = 0; $i < 30; $i++)
+                                <div class="px-4 ">
+                                    <div class="flex justify-between items-center" x-data="{ open: false }">
+                                        <div>
+                                            <h4 class="text-base font-bold truncate">Cinema #{{ $i + 1 }}</h4>
+                                            <div class="flex gap-1">
+                                                <h4 class="text-sm font-medium truncate">City: </h4>
+                                                <h4 class="text-sm font-semibold truncate">New York</h4>
+                                            </div>
+                                            <div class="flex gap-1">
+                                                <h4 class="text-sm font-medium truncate">Country: </h4>
+                                                <h4 class="text-sm font-semibold truncate">USA</h4>
+                                            </div>
+                                        </div>
+                                        <input type="checkbox" checked="checked"
+                                            class="checkbox justify-self-end border-white/50 border h-6" />
+                                    </div>
+                                    <div
+                                        class="divider before:bg-white after:bg-white m-0 before:h-[1px] after:h-[1px]">
+                                    </div>
+                                </div>
+                            @endfor
+                        </div>
+
+                        <div
+                            class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] hidden sm:block">
+
+                            <div class="flex flex-nowrap gap-2 justify-between">
+
+                                <div class="flex flex-col gap-2">
+                                    @for ($i = 0; $i < 30; $i++)
+                                        @if ($i == 1)
+                                            <h4
+                                                class="text-sm font-semibold truncate lg:max-w-80 md:max-w-40 max-w-56 flex-1 h-6">
+                                                The
+                                                Grand
+                                                Imperial
+                                                Majestic Cinematic Experience & Entertainment Palace of Timeless Films
+                                                and
+                                                Epic
+                                                Adventures in Ultra High Definition Surround Sound with Luxury Reclining
+                                                Seats
+                                                and Gourmet Concessions.
+                                            </h4>
+                                        @else
+                                            <h4
+                                                class="text-sm font-semibold truncate lg:max-w-80 md:max-w-40 max-w-56 flex-1 h-6">
+                                                Cinema
+                                                #{{ $i + 1 }}
+                                            </h4>
+                                        @endif
+                                    @endfor
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    @for ($i = 0; $i < 30; $i++)
+                                        @if ($i == 3)
+                                            <h4 class="text-sm font-semibold truncate lg:max-w-48 max-w-56 flex-1 h-6">
+                                                Schmedeswurtherwesterdeich
+                                            </h4>
+                                        @else
+                                            <h4 class="text-sm font-semibold truncate lg:max-w-48 max-w-56 flex-1 h-6">
+                                                City
+                                                #{{ $i + 1 }}
+                                            </h4>
+                                        @endif
+                                    @endfor
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    @for ($i = 0; $i < 30; $i++)
+                                        @if ($i == 0)
+                                            <h4
+                                                class="text-sm font-semibold truncate xl:max-w-64 max-w-40 lg:max-w-28 h-6">
+                                                United
+                                                Kingdom
+                                                of
+                                                Great
+                                                Britain
+                                            </h4>
+                                        @else
+                                            <h4
+                                                class="text-sm font-semibold truncate xl:max-w-64 max-w-40 lg:max-w-28 h-6">
+                                                Country
+                                                #{{ $i + 1 }}
+                                            </h4>
+                                        @endif
+                                    @endfor
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    @for ($i = 0; $i < 30; $i++)
+                                        <input type="checkbox" checked="checked"
+                                            class="checkbox justify-self-end border-white/50 border ml-auto h-6" />
+                                    @endfor
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap sm:hidden gap-[5px]">
+                            @for ($i = 0; $i < 30; $i++)
+                                <div class="flex items-center gap-[3px]">
+                                    <h4 class="text-sm font-semibold text-white">Cinema #{{ $i + 1 }}</h4>
+                                    <button
+                                        class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
+                                        wire:click="cancelCinema()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-col">
+                    <div class="sm:flex sm:flex-wrap hidden gap-[5px]">
                         @for ($i = 0; $i < 30; $i++)
                             <div class="flex items-center gap-[3px]">
                                 <h4 class="text-sm font-semibold text-white">Cinema #{{ $i + 1 }}</h4>
@@ -194,28 +360,11 @@
                             </div>
                         @endfor
                     </div>
+                    <button @click="modelOpen = false" type="button"
+                        class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
+                        Confirm Order </button>
                 </div>
-            </div>
-            <div class="px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-col">
-                <div class="sm:flex sm:flex-wrap hidden gap-[5px]">
-                    @for ($i = 0; $i < 30; $i++)
-                        <div class="flex items-center gap-[3px]">
-                            <h4 class="text-sm font-semibold text-white">Cinema #{{ $i + 1 }}</h4>
-                            <button class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
-                                wire:click="cancelCinema()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                    @endfor
-                </div>
-                <button @click="modelOpen = false" type="button"
-                    class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
-                    Confirm Order </button>
-            </div>
+            @endif
         </div>
     </div>
 </div>
