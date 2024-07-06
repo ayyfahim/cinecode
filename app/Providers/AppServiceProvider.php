@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +36,15 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
         );
+
+        $locale_codes = array_map(function ($locale) {
+            return $locale['code'];
+        }, config('translation-manager.available_locales'));
+
+        LanguageSwitch::configureUsing(function (LanguageSwitch $switch) use ($locale_codes) {
+            $switch
+                ->locales($locale_codes)->visible(outsidePanels: true);
+        });
 
         Gate::define('use-translation-manager', function (?User $user) {
             return $user !== null;
