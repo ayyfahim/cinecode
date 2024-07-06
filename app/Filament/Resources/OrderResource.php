@@ -19,8 +19,6 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
-    protected static ?string $navigationLabel = 'Order Management';
-
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
@@ -144,5 +142,20 @@ class OrderResource extends Resource
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.manageResources');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.order_mng');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.order');
     }
 }

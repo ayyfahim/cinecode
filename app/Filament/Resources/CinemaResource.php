@@ -22,8 +22,6 @@ class CinemaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-tv';
 
-    protected static ?string $navigationLabel = 'Cinema Management';
-
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
@@ -158,5 +156,20 @@ class CinemaResource extends Resource
             'create' => Pages\CreateCinema::route('/create'),
             'edit' => Pages\EditCinema::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.manageResources');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.cinema_mng');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.cinema');
     }
 }

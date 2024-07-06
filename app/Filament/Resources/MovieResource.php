@@ -19,8 +19,6 @@ class MovieResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-film';
 
-    protected static ?string $navigationLabel = 'Movie Management';
-
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -135,5 +133,20 @@ class MovieResource extends Resource
             'create' => Pages\CreateMovie::route('/create'),
             'edit' => Pages\EditMovie::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.manageResources');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.movie_mng');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.movie');
     }
 }

@@ -2,7 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Filament\Facades\Filament;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+
+
+use Illuminate\Support\Facades\App;
+use Filament\Forms;
+use Filament\Tables;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +27,48 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Filament::serving(
+            function () {
+                Filament::registerNavigationGroups([
+                    'Management',
+                    'Settings',
+                ]);
+            }
+        );
+
+        Gate::define('use-translation-manager', function (?User $user) {
+            return $user !== null;
+        });
+
+        $this->autoTranslateLabels();
+    }
+
+    private function autoTranslateLabels()
+    {
+        $this->translateLabels([
+            Forms\Components\TextInput::class,
+            Forms\Components\Select::class,
+            Forms\Components\Section::class,
+            Forms\Components\Toggle::class,
+            Forms\Components\Group::class,
+            Forms\Components\Repeater::class,
+            Forms\Components\DateTimePicker::class,
+            Forms\Components\FileUpload::class,
+
+            Tables\Columns\TextColumn::class,
+            Tables\Columns\IconColumn::class,
+
+            Tables\Filters\SelectFilter::class,
+            Tables\Filters\TernaryFilter::class,
+        ]);
+    }
+
+    private function translateLabels(array $components = [])
+    {
+        foreach ($components as $component) {
+            $component::configureUsing(function ($c): void {
+                $c->translateLabel();
+            });
+        }
     }
 }

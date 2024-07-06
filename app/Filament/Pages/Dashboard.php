@@ -20,12 +20,17 @@ class Dashboard extends BaseDashboard
                 Section::make()
                     ->schema([
                         DatePicker::make('startDate')
-                            ->maxDate(fn (Get $get) => $get('endDate') ?: now()),
+                            ->maxDate(fn (Get $get) => $get('endDate') ?: now())->label(__('dashboard.start_date')),
                         DatePicker::make('endDate')
                             ->minDate(fn (Get $get) => $get('startDate') ?: now())
-                            ->maxDate(now()),
+                            ->maxDate(now())->label(__('dashboard.end_date')),
                     ])
                     ->columns(2),
             ]);
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.dashboard');
     }
 }

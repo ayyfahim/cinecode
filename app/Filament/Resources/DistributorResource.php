@@ -19,14 +19,6 @@ class DistributorResource extends Resource
 {
     protected static ?string $model = Distributor::class;
 
-    // protected static ?string $modelLabel = 'customer';
-
-    // protected static ?string $title = 'Customer Management';
-
-    protected static ?string $navigationLabel = 'Distributor Management';
-
-    // protected static ?string $heading = 'Customer Management';
-
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static ?int $navigationSort = 1;
@@ -115,5 +107,20 @@ class DistributorResource extends Resource
             'create' => Pages\CreateDistributor::route('/create'),
             'edit' => Pages\EditDistributor::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.manageResources');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navigation.dist_mng');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('resource.dist');
     }
 }
