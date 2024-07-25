@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrderResource extends Resource
@@ -21,6 +22,8 @@ class OrderResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -28,13 +31,23 @@ class OrderResource extends Resource
                 Forms\Components\Select::make('distributor_id')
                     ->relationship('distributor', 'id')
                     ->required(),
-                Forms\Components\Select::make('cinema_id')
-                    ->relationship('cinema', 'name')
+                Forms\Components\Select::make('cinemas')
+                    ->label('Cinemas')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('cinemas', 'name')
+                    ->required(),
+                Forms\Components\Select::make('version_id')
+                    ->relationship('version', 'version_name')
                     ->required(),
                 Forms\Components\Select::make('movie_id')
                     ->relationship('movie', 'name')
                     ->required(),
                 Forms\Components\Toggle::make('downloaded')
+                    ->required(),
+                Forms\Components\DateTimePicker::make('validity_period_from')
+                    ->required(),
+                Forms\Components\DateTimePicker::make('validity_period_to')
                     ->required(),
             ]);
     }
@@ -46,16 +59,17 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('distributor.distributor_name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('cinema.name')
+                Tables\Columns\TextColumn::make('cinemas.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('cinema.city_name')
+                Tables\Columns\TextColumn::make('cinemas.city_name')
+                    ->label('Cinema City')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('movie.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('movie.versions.version_name')
+                Tables\Columns\TextColumn::make('version.version_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('downloaded')
@@ -67,11 +81,9 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('validity_period_from')
                     ->dateTime()
                     ->label('Validity Period From')
-                    ->default(now())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('validity_period_to')
                     ->dateTime()
-                    ->default(now())
                     ->label('Validity Period To')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -85,7 +97,7 @@ class OrderResource extends Resource
                     ->searchable()
                     ->preload(),
                 Tables\Filters\SelectFilter::make('cinema')
-                    ->relationship('cinema', 'name')
+                    ->relationship('cinemas', 'name')
                     ->searchable()
                     ->preload(),
                 Tables\Filters\SelectFilter::make('movie')

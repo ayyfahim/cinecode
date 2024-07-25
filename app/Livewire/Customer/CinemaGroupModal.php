@@ -29,7 +29,7 @@ class CinemaGroupModal extends Component
         $this->cinemas = collect([]);
         $this->selectedCinemaGroup = new CinemaGroup();
         $this->selectedCinemas = collect([]);
-        $this->cinemaGroups = CinemaGroup::with('cinemas')->get();
+        $this->cinemaGroups = CinemaGroup::where('distributor_id', auth('customer')->user()->distributor_id)->with('cinemas')->get();
     }
 
     public function exception($e)
@@ -133,7 +133,8 @@ class CinemaGroupModal extends Component
         }
 
         $cinemaGroup = CinemaGroup::create([
-            'name' => $this->group_name
+            'name' => $this->group_name,
+            'distributor_id' => auth('customer')->user()->distributor_id
         ]);
 
         foreach ($this->selectedCinemas as $cinema) {
@@ -145,7 +146,8 @@ class CinemaGroupModal extends Component
 
         $this->isLoading = false;
         $this->emptyProps();
-        $this->cinemaGroups = CinemaGroup::with('cinemas')->get();
+        $this->cinemaGroups =
+            CinemaGroup::where('distributor_id', auth('customer')->user()->distributor_id)->with('cinemas')->get();
         $this->dispatch('refreshComponent');
     }
 
@@ -161,26 +163,23 @@ class CinemaGroupModal extends Component
         if (!empty($this->search_cinema)) {
             $this->isLoading = true;
             $s_query = $this->search_cinema;
-            $this->cinemas = Cinema::with([
-                'city' => function ($r) {
-                    $r->select('name');
-                },
-                'country' => function ($r) {
-                    $r->select('name');
-                }
-            ])
+            $this->cinemas = Cinema::whereRaw('lower(name) like "%' . strtolower($s_query) . '%"')
+                ->orWhereRaw('lower(city_name) like "%' . strtolower($s_query) . '%"')
+                ->orWhereHas('country', function ($query) use ($s_query) {
+                    $query->whereRaw('lower(name) like "%' . strtolower($s_query) . '%"');
+                })
+                ->with([
+                    'country' => function ($r) {
+                        $r->select('name');
+                    }
+                ])
                 ->select('name', 'id')
-                ->when($s_query, function ($query) use ($s_query) {
-                    $query->whereRaw('lower(name) like "%' . strtolower($s_query) . '%"')
-                        ->orWhereHas('city', function ($query) use ($s_query) {
-                            $query->whereRaw('lower(name) like "%' . strtolower($s_query) . '%"');
-                        })
-                        ->orWhereHas('country', function ($query) use ($s_query) {
-                            $query->whereRaw('lower(name) like "%' . strtolower($s_query) . '%"');
-                        });
-                })->get();
+                ->get();
             $this->isLoading = false;
+        } else {
+            $this->cinemas = collect([]);
         }
+
         return view('livewire.customer.cinema-group-modal', [
             'cinemas' => $this->cinemas,
             'selectedCinemas' => $this->selectedCinemas,

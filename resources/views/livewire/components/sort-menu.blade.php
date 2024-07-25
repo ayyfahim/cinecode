@@ -1,8 +1,11 @@
 <div>
+    @php
+        $sort_index = array_search($sort, array_column($sort_array, 'value'));
+    @endphp
     <div class="dropdown" x-data="{ openSort: false }">
         <div tabindex="0" role="button" class="btn sm:text-sm text-xs" @click.away="openSort = false"
             @click="openSort = !openSort">
-            Sort: Release date
+            Sort: {{ $sort_array[$sort_index]['name'] }}
             <svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block"
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">
                 <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
@@ -14,21 +17,14 @@
             x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
             x-transition:leave-start="transform opacity-100 scale-100"
             x-transition:leave-end="transform opacity-0 scale-95">
-            <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
-                    aria-label="Default" value="default" /></li>
-            <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
-                    aria-label="Retro" value="retro" /></li>
-            <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
-                    aria-label="Cyberpunk" value="cyberpunk" /></li>
-            <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
-                    aria-label="Valentine" value="valentine" /></li>
-            <li><input type="radio" name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
-                    aria-label="Aqua" value="aqua" /></li>
+            @foreach ($sort_array as $item)
+                <li>
+                    <input type="radio" name="theme-dropdown"
+                        class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-highlight-1 checked:!text-inherit checked:!border-cine-highlight-1"
+                        aria-label="{{ $item['name'] }}" value="{{ $item['value'] }}" wire:model="sort"
+                        wire:click="updateSort('{{ $item['value'] }}')" />
+                </li>
+            @endforeach
         </ul>
     </div>
     {{-- <div @click.away="openSort = false" class="relative justify-self-end" x-data="{ openSort: false, sortType: 'Release Date' }">

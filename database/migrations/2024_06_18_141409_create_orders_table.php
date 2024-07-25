@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('distributor_id')->constrained();
-            $table->foreignId('cinema_id')->constrained();
             $table->foreignId('movie_id')->constrained();
             $table->boolean('downloaded')->default(false);
             $table->timestamps();

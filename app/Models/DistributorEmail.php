@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Observers\DistributorEmailObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class DistributorEmail extends Model
+#[ObservedBy([DistributorEmailObserver::class])]
+class DistributorEmail extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $guarded = [];
 

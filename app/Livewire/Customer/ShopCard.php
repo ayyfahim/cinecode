@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class ShopCard extends Component
 {
-    public $product_id;
+    public $movie;
 
     public function render()
     {

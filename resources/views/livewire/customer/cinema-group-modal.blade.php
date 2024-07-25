@@ -2,13 +2,13 @@
     <div x-show="modelOpen" class="fixed z-[60] inset-0 flex items-center justify-center">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         <div x-show="modelOpen"
-            class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-md w-full m-4 max-h-screen"
+            class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-md w-full m-4 max-h-screen h-96 flex flex-col justify-between"
             x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
             x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" x-cloak>
-            <div class="max-w-screen-md p-8 overflow-y-auto text-white"
-                style="max-height: 70vh; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
+            <div class="max-w-screen-md p-8 overflow-y-auto text-white h-full"
+                style="border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
 
                 <div class="flex flex-col items-center justify-center gap-y-4">
                     <h2 class="text-2xl font-bold">{{ $editMode ? 'Edit Cinema Group' : 'Add Cinema Group' }}</h2>
@@ -53,7 +53,7 @@
                         <div class="sm:flex sm:flex-wrap hidden items-center gap-[5px]">
                             @foreach ($selectedCinemas as $cinema)
                                 <h4 class="text-sm font-semibold text-white">
-                                    {{ $cinema['name'] }}{{ !$loop->last ? ',' : '' }}</h4>
+                                    {{ $cinema['name'] }} ({{ $cinema['city_name'] }}){{ !$loop->last ? ',' : '' }}</h4>
                                 <button class="btn btn-circle btn-outline w-[10px] min-h-[10px] max-h-[10px]"
                                     wire:click="cancelCinema({{ $cinema->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2" fill="none"

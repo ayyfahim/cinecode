@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\DistributorEmail;
 use App\Models\User;
+use BezhanSalleh\FilamentLanguageSwitch\Enums\Placement;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Gate;
@@ -12,6 +14,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
 use Filament\Forms;
 use Filament\Tables;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +31,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        ResetPassword::createUrlUsing(function ($user, string $token) {
+            return match (true) {
+                $user instanceof DistributorEmail => route('customer.password.reset') . '?token=' . $token . '&email=' . urlencode($user->email),
+                    // other user types
+                default => throw new \Exception("Invalid user type"),
+            };
+        });
+
         Filament::serving(
             function () {
                 Filament::registerNavigationGroups([
@@ -43,7 +54,12 @@ class AppServiceProvider extends ServiceProvider
 
         LanguageSwitch::configureUsing(function (LanguageSwitch $switch) use ($locale_codes) {
             $switch
-                ->locales($locale_codes)->visible(outsidePanels: true);
+                ->locales($locale_codes)
+                ->visible(outsidePanels: true);
+            // ->outsidePanelRoutes([
+            //     'customer.shop',
+            // ]);
+            // ->outsidePanelPlacement(Placement::BottomRight);
         });
 
         Gate::define('use-translation-manager', function (?User $user) {

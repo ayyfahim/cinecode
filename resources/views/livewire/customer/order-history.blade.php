@@ -5,9 +5,10 @@
                 <h1>Order History</h1>
                 <div class="flex flex-wrap sm:flex-row flex-col justify-between">
                     <p class="!mt-0">15 Orders</p>
-                    <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex flex-wrap items-center gap-4" x-data="{ filterByDownloaded: $wire.entangle('filterByDownloaded').live, filterByMovie: $wire.entangle('filterByMovie').live, filterOrderDateFrom: $wire.entangle('filterOrderDateFrom').live, filterOrderDateTo: $wire.entangle('filterOrderDateTo').live }">
                         <label class="input input-bordered flex items-center gap-2 h-10 sm:w-72 w-52">
-                            <input type="text" class="grow" placeholder="Search" />
+                            <input type="text" class="grow" placeholder="Search"
+                                wire:model.live.debounce.250ms='search_query' />
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                                 class="w-4 h-4 opacity-70">
                                 <path fill-rule="evenodd"
@@ -15,7 +16,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </label>
-                        <livewire:components.order-history-filter-menu>
+                        <livewire:components.order-history-filter-menu :movies='$movies' />
                     </div>
                 </div>
             </div>
@@ -39,66 +40,75 @@
                             </thead>
                             <tbody>
 
-                                @for ($i = 0; $i < 15; $i++)
+                                @if (!$orders->count())
+                                    <tr>
+                                        <td colspan="6">No items found.</td>
+
+                                    </tr>
+                                @endif
+
+                                @foreach ($orders ?? collect([]) as $order)
                                     <tr>
                                         <td class="min-w-60">
                                             <div class="flex items-center gap-3">
                                                 <div class="avatar">
                                                     <div class="mask mask-squircle w-12 h-12">
-                                                        <img src="{{ asset('black-panther-poster.jpg') }}"
+                                                        <img src="{{ Storage::disk('public')->exists($order->movie->poster_image) ? Storage::disk('public')->url($order->movie->poster_image) : $order->movie->poster_image }}"
                                                             alt="Black Panther" />
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div class="font-bold">Black Panther</div>
-                                                    @php
-                                                        $rand = rand(1, 15);
-                                                    @endphp
+                                                    <div class="font-bold">{{ $order->movie->name }}</div>
                                                     <span
-                                                        class="badge badge-{{ $rand % 2 ? 'primary' : 'error' }} badge-sm">{{ $rand % 2 ? 'Downloaded' : 'Not Downloaded' }}</span>
+                                                        class="badge badge-{{ $order->downloaded ? 'primary' : 'error' }} badge-sm">{{ $order->downloaded ? 'Downloaded' : 'Not Downloaded' }}</span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="min-w-32">
-                                            @php
-                                                $random_number_array = range(0, rand(0, 3));
-                                                shuffle($random_number_array);
-                                                $random_number_array = array_slice($random_number_array, 0, 10);
-                                            @endphp
-                                            @foreach ($random_number_array as $key => $item)
-                                                <div
-                                                    class="font-medium text-sm text-slate-500 font-mono dark:text-slate-400">
-                                                    Version {{ $key + 1 }}</div>
-                                            @endforeach
+                                            <div
+                                                class="font-medium text-sm text-slate-500 font-mono dark:text-slate-400">
+                                                {{ $order->version->version_name }}
+                                            </div>
                                         </td>
                                         <td class="min-w-60">
-                                            <div class="text-sm">Astro Film Lounge</div>
+                                            <div class="text-sm">
+                                                @foreach ($order->cinemas as $cinema)
+                                                    {{ $cinema->name }} <br />
+                                                @endforeach
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="text-sm">New York</div>
+                                            <div class="text-sm">
+                                                @foreach ($order->cinemas as $cinema)
+                                                    {{ $cinema->city_name }} <br />
+                                                @endforeach
+                                            </div>
                                         </td>
                                         <td>
-                                            {{ now()->format('d/m/Y') }}
+                                            {{ $order->created_at->format('d/m/Y') }}
                                         </td>
                                         <td class="min-w-60">
                                             <div>
                                                 <span class="text-sm font-medium">Start
-                                                    Date: </span>{{ now()->format('d/m/Y') }}
+                                                    Date: </span>{{ $order->validity_period_from->format('d/m/Y') }}
                                             </div>
                                             <div>
                                                 <span class="text-sm font-medium">End
-                                                    Date: </span>{{ now()->addDays(5)->format('d/m/Y') }}
+                                                    Date:
+                                                </span>{{ $order->validity_period_to->format('d/m/Y') }}
                                             </div>
 
                                         </td>
 
                                     </tr>
-                                @endfor
+                                @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Movie</th>
+                                    <th>Versions</th>
                                     <th>Cinema</th>
+                                    <th>City</th>
                                     <th>Order Date</th>
                                     <th>Validity Period</th>
                                 </tr>
@@ -107,11 +117,7 @@
                         </table>
                     </div>
                     <div class="flex justify-center mt-4 sm:mb-0 mb-5">
-                        <div class="join">
-                            <button class="join-item btn">«</button>
-                            <button class="join-item btn">Page 3</button>
-                            <button class="join-item btn">»</button>
-                        </div>
+                        {{ $orders->links('pagination-links-one') }}
                     </div>
                 </div>
             </div>

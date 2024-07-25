@@ -221,6 +221,14 @@ export default () => ({
             this.dateToYmdHis = dateToString + " " + timeToString;
         }
         this.endToShow = "";
+
+        this.$wire.dispatch("shop-date-changed", {
+            from: this.dateFrom.toISOString(),
+            to: this.dateTo.toISOString(),
+        });
+
+        console.log("df", this.dateFrom.toISOString());
+        console.log("dt", this.dateTo.toISOString());
     },
 
     formatDateTime(dateTime, meridiem) {

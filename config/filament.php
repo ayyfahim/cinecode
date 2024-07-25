@@ -87,5 +87,6 @@ return [
     'livewire_loading_delay' => 'default',
 
     'portal_url' => env('PORTAL_APP_URL', 'portal.techcruder.com'),
+    'cinema_portal_url' => env('CINEMA_PORTAL_APP_URL', 'cinema.techcruder.com'),
 
 ];

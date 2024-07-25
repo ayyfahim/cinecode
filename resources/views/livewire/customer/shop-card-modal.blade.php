@@ -1,14 +1,14 @@
 <div>
-    <div x-show="modelOpen" class="fixed z-[60] inset-0 flex items-center justify-center">
+    <div x-show="modalOpen" class="fixed z-[60] inset-0 flex items-center justify-center">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-        <div x-show="modelOpen"
+        <div x-show="modalOpen"
             class="relative bg-cine-neutral/90 rounded-lg overflow-hidden shadow-xl max-w-screen-xl w-full m-4 max-h-screen"
             x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
             x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" x-cloak>
             <div class="px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-row">
-                <button class="justify-self-end" @click="modelOpen = false">
+                <button class="justify-self-end" wire:click="$dispatch('shop-select-movie')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white stroke-white" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -23,26 +23,23 @@
                         <h3 class="text-sm font-semibold">Name</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <input type="text" class="input input-bordered input-xs text-neutral"
-                                placeholder="Enter cinema name" />
+                                placeholder="Enter cinema name" wire:model='cinemaName' />
                         </div>
                     </div>
                     <div class="flex flex-col gap-3">
                         <h3 class="text-sm font-semibold">City</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <input type="text" class="input input-bordered input-xs text-neutral"
-                                placeholder="Enter city name" />
+                                placeholder="Enter city name" wire:model='cityName' />
                         </div>
                     </div>
                     <div class="flex flex-col gap-3">
                         <h3 class="text-sm font-semibold">Country</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
-                            <select class="select select-xs text-neutral">
-                                <option disabled selected>Pick one</option>
-                                <option>Star Wars</option>
-                                <option>Harry Potter</option>
-                                <option>Lord of the Rings</option>
-                                <option>Planet of the Apes</option>
-                                <option>Star Trek</option>
+                            <select class="select select-xs text-neutral" wire:model='country'>
+                                @foreach ($countries as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -52,108 +49,23 @@
                     <div class="flex flex-col gap-3">
                         <h3 class="text-sm font-semibold self-center">Emails</h3>
                         <div class="flex flex-wrap gap-2 justify-center">
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
-                            <div class="badge gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    class="inline-block h-4 w-4 stroke-current">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                test@mail.com
-                            </div>
+                            @foreach ($emails as $key => $item)
+                                <div class="badge gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        class="inline-block h-4 w-4 stroke-current"
+                                        wire:click='remove_email({{ $key }})'>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                    {{ $item }}
+                                </div>
+                            @endforeach
                         </div>
                         <div class="flex flex-wrap gap-x-2 items-center self-center">
                             <input type="text" class="input input-bordered input-xs text-neutral"
-                                placeholder="Enter email..." />
+                                placeholder="Enter email..." wire:model='email' />
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 cursor-pointer"
-                                viewBox="0 0 1000 1000" fill="currentColor">
+                                viewBox="0 0 1000 1000" fill="currentColor" wire:click='add_emails'>
                                 <metadata>IcoFont Icons</metadata>
                                 <title>plus</title>
                                 <glyph glyph-name="plus" unicode="&#xefc2;" horiz-adv-x="1000" />
@@ -168,8 +80,9 @@
                     <button type="button" wire:click='toggle_cinema_mode'
                         class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
                         Cancel </button>
-                    <button type="button" wire:click='toggle_cinema_mode'
-                        class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
+                    <button type="button"
+                        class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40"
+                        wire:click='add_cinema'>
                         Add Cinema </button>
                 </div>
             @endif
@@ -180,19 +93,19 @@
 
                     <div class="col-span-1 hidden sm:block">
                         <figure>
-                            <img src="{{ asset('black-panther-poster.jpg') }}" class="md:w-full max-w-60"
-                                alt="Shoes" />
+                            <img src="{{ Storage::disk('public')->exists($movie['poster_image']) ? Storage::disk('public')->url($movie['poster_image']) : $movie['poster_image'] }}"
+                                class="md:w-full max-w-60" alt="{{ $movie['name'] }}" />
                         </figure>
                     </div>
                     <div class="col-span-3 grid grid-flow-rows gap-y-5">
-                        <h2 class="text-2xl font-bold">Black Panther</h2>
+                        <h2 class="text-2xl font-bold">{{ $movie['name'] }}</h2>
                         <div class="flex flex-wrap gap-x-3 items-center">
                             <h3 class="text-sm font-semibold">Version</h3>
-                            <select class="select select-bordered select-xs w-full max-w-40 text-black">
-                                <option disabled selected>Small</option>
-                                <option>Small Apple</option>
-                                <option>Small Orange</option>
-                                <option>Small Tomato</option>
+                            <select class="select select-bordered select-xs w-full max-w-40 text-black"
+                                wire:model='selected_version'>
+                                @foreach ($movie['versions'] as $item)
+                                    <option value="{{ $item['id'] }}">{{ $item['version_name'] }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <livewire:components.calendar />
@@ -200,7 +113,8 @@
                             <h3 class="text-sm font-semibold">Cinema</h3>
                             <div class="flex flex-wrap gap-x-2 items-center">
                                 <input type="text" class="input input-bordered input-xs text-neutral"
-                                    placeholder="Enter cinema, city or group..." />
+                                    placeholder="Enter cinema, city or group..."
+                                    wire:model.live.debounce.250ms="search_query" />
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                                     class="w-6 h-6 cursor-pointer">
                                     <path fill-rule="evenodd"
@@ -220,118 +134,155 @@
                             </button>
                         </div>
                         <div>
-                            <h3 class="text-sm font-semibold">No Group Found.</h3>
+                            @if (!empty($search_query))
+                                <h3 class="text-sm font-semibold">
+                                    @if ($cinemaGroups->count() > 0)
+                                        {{ $cinemaGroups->count() }} Groups Found.
+                                    @else
+                                        No Groups Found.
+                                    @endif
+                                    @if ($cinemas->count() > 0)
+                                        {{ $cinemas->count() }} Cinemas Found.
+                                    @else
+                                        No Cinemas Found.
+                                    @endif
+                                </h3>
+                            @endif
                         </div>
 
+                        {{-- Mobile Menu --}}
                         <div
                             class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] block sm:hidden">
-                            @for ($i = 0; $i < 30; $i++)
+                            @foreach ($cinemaGroups as $item)
                                 <div class="px-4 ">
                                     <div class="flex justify-between items-center" x-data="{ open: false }">
                                         <div>
-                                            <h4 class="text-base font-bold truncate">Cinema #{{ $i + 1 }}</h4>
+                                            <h4 class="text-base font-bold truncate">{{ $item->name }}</h4>
                                             <div class="flex gap-1">
-                                                <h4 class="text-sm font-medium truncate">City: </h4>
-                                                <h4 class="text-sm font-semibold truncate">New York</h4>
-                                            </div>
-                                            <div class="flex gap-1">
-                                                <h4 class="text-sm font-medium truncate">Country: </h4>
-                                                <h4 class="text-sm font-semibold truncate">USA</h4>
+                                                <h4 class="text-sm font-medium truncate">
+                                                    {{ $item->cinemas()->count() }} cinemas</h4>
                                             </div>
                                         </div>
-                                        <input type="checkbox" checked="checked"
-                                            class="checkbox justify-self-end border-white/50 border h-6" />
+                                        <input type="checkbox" value="{{ $item->id }}"
+                                            class="checkbox justify-self-end border-white/50 border h-6"
+                                            wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'groups')"
+                                            wire:model.live="selectedCinemaGroups" />
                                     </div>
                                     <div
                                         class="divider before:bg-white after:bg-white m-0 before:h-[1px] after:h-[1px]">
                                     </div>
                                 </div>
-                            @endfor
+                            @endforeach
+                            @foreach ($cinemas as $item)
+                                <div class="px-4 ">
+                                    <div class="flex justify-between items-center" x-data="{ open: false }">
+                                        <div>
+                                            <h4 class="text-base font-bold truncate">{{ $item->name }}</h4>
+                                            <div class="flex gap-1">
+                                                <h4 class="text-sm font-medium truncate">City: </h4>
+                                                <h4 class="text-sm font-semibold truncate">{{ $item->city_name }}</h4>
+                                            </div>
+                                            <div class="flex gap-1">
+                                                <h4 class="text-sm font-medium truncate">Country: </h4>
+                                                <h4 class="text-sm font-semibold truncate">{{ $item->country->name }}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <input type="checkbox" value="{{ $item->id }}"
+                                            class="checkbox justify-self-end border-white/50 border h-6"
+                                            wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'cinema')"
+                                            wire:model.live="selectedCinemas" />
+                                    </div>
+                                    <div
+                                        class="divider before:bg-white after:bg-white m-0 before:h-[1px] after:h-[1px]">
+                                    </div>
+                                </div>
+                            @endforeach
+
                         </div>
 
+                        {{-- Desktop Menu --}}
                         <div
                             class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] hidden sm:block">
 
-                            <div class="flex flex-nowrap gap-2 justify-between">
+                            @if (empty($search_query))
+                                <h3 class="text-sm font-semibold">No items. Please start searching.</h3>
+                            @endif
 
-                                <div class="flex flex-col gap-2">
-                                    @for ($i = 0; $i < 30; $i++)
-                                        @if ($i == 1)
+                            @if ($cinemaGroups->count() > 0)
+                                <div class="mb-2">
+                                    <h3 class="text-sm font-semibold underline mb-3">Groups:</h3>
+
+                                    <div class="flex flex-nowrap gap-2 justify-between">
+                                        @foreach ($cinemaGroups as $item)
                                             <h4
                                                 class="text-sm font-semibold truncate lg:max-w-80 md:max-w-40 max-w-56 flex-1 h-6">
-                                                The
-                                                Grand
-                                                Imperial
-                                                Majestic Cinematic Experience & Entertainment Palace of Timeless Films
-                                                and
-                                                Epic
-                                                Adventures in Ultra High Definition Surround Sound with Luxury Reclining
-                                                Seats
-                                                and Gourmet Concessions.
+                                                {{ $item->name }}
                                             </h4>
-                                        @else
+                                            <input type="checkbox"
+                                                class="checkbox justify-self-end border-white/50 border ml-auto h-6"
+                                                value="{{ $item->id }}"
+                                                wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'group')"
+                                                wire:model.live="selectedCinemaGroups" />
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            @if ($cinemas->count() > 0)
+                                <h3 class="text-sm font-semibold underline mb-3">Cinemas:</h3>
+                                <div class="flex flex-nowrap gap-2 justify-between">
+                                    <div class="flex flex-col gap-2">
+                                        @foreach ($cinemas as $item)
                                             <h4
                                                 class="text-sm font-semibold truncate lg:max-w-80 md:max-w-40 max-w-56 flex-1 h-6">
-                                                Cinema
-                                                #{{ $i + 1 }}
+                                                {{ $item->name }}
                                             </h4>
-                                        @endif
-                                    @endfor
-                                </div>
+                                        @endforeach
+                                    </div>
 
-                                <div class="flex flex-col gap-2">
-                                    @for ($i = 0; $i < 30; $i++)
-                                        @if ($i == 3)
+                                    <div class="flex flex-col gap-2">
+                                        @foreach ($cinemas as $item)
                                             <h4 class="text-sm font-semibold truncate lg:max-w-48 max-w-56 flex-1 h-6">
-                                                Schmedeswurtherwesterdeich
+                                                {{ $item->city_name }}
                                             </h4>
-                                        @else
-                                            <h4 class="text-sm font-semibold truncate lg:max-w-48 max-w-56 flex-1 h-6">
-                                                City
-                                                #{{ $i + 1 }}
-                                            </h4>
-                                        @endif
-                                    @endfor
-                                </div>
+                                        @endforeach
+                                    </div>
 
-                                <div class="flex flex-col gap-2">
-                                    @for ($i = 0; $i < 30; $i++)
-                                        @if ($i == 0)
+                                    <div class="flex flex-col gap-2">
+                                        @foreach ($cinemas as $item)
                                             <h4
                                                 class="text-sm font-semibold truncate xl:max-w-64 max-w-40 lg:max-w-28 h-6">
-                                                United
-                                                Kingdom
-                                                of
-                                                Great
-                                                Britain
+                                                {{ $item->country->name }}
                                             </h4>
-                                        @else
-                                            <h4
-                                                class="text-sm font-semibold truncate xl:max-w-64 max-w-40 lg:max-w-28 h-6">
-                                                Country
-                                                #{{ $i + 1 }}
-                                            </h4>
-                                        @endif
-                                    @endfor
-                                </div>
+                                        @endforeach
+                                    </div>
 
-                                <div class="flex flex-col gap-2">
-                                    @for ($i = 0; $i < 30; $i++)
-                                        <input type="checkbox" checked="checked"
-                                            class="checkbox justify-self-end border-white/50 border ml-auto h-6" />
-                                    @endfor
-                                </div>
+                                    <div class="flex flex-col gap-2">
+                                        @foreach ($cinemas as $item)
+                                            <input type="checkbox"
+                                                class="checkbox justify-self-end border-white/50 border ml-auto h-6"
+                                                value="{{ $item->id }}"
+                                                wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'cinema')"
+                                                wire:model.live="selectedCinemas" />
+                                        @endforeach
+                                    </div>
 
-                            </div>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="flex flex-wrap sm:hidden gap-[5px]">
-                            @for ($i = 0; $i < 30; $i++)
+                            @foreach ($selectedNames ?? [] as $item)
                                 <div class="flex items-center gap-[3px]">
-                                    <h4 class="text-sm font-semibold text-white">Cinema #{{ $i + 1 }}</h4>
+                                    <h4 class="text-sm font-semibold text-white">{{ $item['name'] }}@if (array_key_exists('city_name', $item))
+                                            ({{ $item['city_name'] }})
+                                        @endif
+                                    </h4>
                                     <button
                                         class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
-                                        wire:click="cancelCinema()">
+                                        wire:click="removeSelectedName({{ $item['id'] }}, '{{ $item['type'] }}')">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -339,30 +290,39 @@
                                         </svg>
                                     </button>
                                 </div>
-                            @endfor
+                            @endforeach
                         </div>
                     </div>
                 </div>
+
                 <div class="px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-col">
                     <div class="sm:flex sm:flex-wrap hidden gap-[5px]">
-                        @for ($i = 0; $i < 30; $i++)
+                        @foreach ($selectedNames ?? [] as $item)
                             <div class="flex items-center gap-[3px]">
-                                <h4 class="text-sm font-semibold text-white">Cinema #{{ $i + 1 }}</h4>
+                                <h4 class="text-sm font-semibold text-white">{{ $item['name'] }}@if (array_key_exists('city_name', $item))
+                                        ({{ $item['city_name'] }})
+                                    @endif
+                                </h4>
                                 <button
                                     class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
-                                    wire:click="cancelCinema()">
+                                    wire:click="removeSelectedName({{ $item['id'] }}, '{{ $item['type'] }}')">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
+
                             </div>
-                        @endfor
+                        @endforeach
                     </div>
-                    <button @click="modelOpen = false" type="button"
-                        class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
-                        Confirm Order </button>
+
+                    <form wire:submit="makeOrder"
+                        class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
+                        <button type="submit"
+                            class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
+                            Confirm Order </button>
+                    </form>
                 </div>
             @endif
         </div>

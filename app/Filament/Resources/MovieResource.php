@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MovieResource\Pages;
 use App\Filament\Resources\MovieResource\RelationManagers;
 use App\Models\Movie;
+use App\Rules\McckFileType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class MovieResource extends Resource
 {

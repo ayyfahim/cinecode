@@ -16,7 +16,7 @@
             x-transition:enter-start="transform opacity-0 scale-95"
             x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
             x-transition:leave-start="transform opacity-100 scale-100"
-            x-transition:leave-end="transform opacity-0 scale-95">
+            x-transition:leave-end="transform opacity-0 scale-95" @click.outside="openFilter = false">
             <div class="grid gap-y-4 p-6">
                 <div class="flex items-center justify-between">
                     <h4 class="text-base font-semibold leading-6 text-gray-950">
@@ -38,7 +38,8 @@
                             </svg>
 
                             <span
-                                class="font-semibold group-hover/link:underline group-focus-visible/link:underline text-sm text-red-600">
+                                class="font-semibold group-hover/link:underline group-focus-visible/link:underline text-sm text-red-600"
+                                wire:click='$parent.resetFilter()'>
                                 Reset
                             </span>
                         </button>
@@ -71,10 +72,11 @@
                                             </div>
                                             <div class="grid gap-y-2">
                                                 <div class="form-control">
-                                                    <select class="select select-bordered w-full max-w-xs">
-                                                        <option disabled selected>Show All</option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
+                                                    <select class="select select-bordered w-full max-w-xs"
+                                                        x-model="filterByDownloaded">
+                                                        <option value="show-all">Show All</option>
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -99,10 +101,13 @@
                                             </div>
                                             <div class="grid gap-y-2">
                                                 <div class="form-control">
-                                                    <select class="select select-bordered w-full max-w-xs">
-                                                        <option disabled selected>Show All</option>
-                                                        <option>Yes</option>
-                                                        <option>No</option>
+                                                    <select class="select select-bordered w-full max-w-xs"
+                                                        x-model="filterByMovie">
+                                                        <option value="show-all">Show All</option>
+                                                        @foreach ($movies as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -127,7 +132,8 @@
                                             </div>
                                             <div class="grid gap-y-2">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    <input type="date" class="grow" />
+                                                    <input type="date" class="grow"
+                                                        x-model="filterOrderDateFrom" />
                                                 </label>
                                             </div>
                                         </div>
@@ -151,7 +157,8 @@
                                             </div>
                                             <div class="grid gap-y-2">
                                                 <label class="input input-bordered flex items-center gap-2">
-                                                    <input type="date" class="grow" />
+                                                    <input type="date" class="grow"
+                                                        x-model="filterOrderDateTo" />
                                                 </label>
                                             </div>
                                         </div>
