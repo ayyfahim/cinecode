@@ -219,13 +219,13 @@
                             style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 1em 5em 3.5em;"
                             align="center" bgcolor="#15161b">
                             <p class="p-small color-gray-6"
-                                style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
+                                style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;  text-align: center;'>
                                 cinecode Germany
                                 <br style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
                                 Christian Müller
                             </p>
                             <p class="p-small color-gray-6"
-                                style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
+                                style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;  text-align: center;'>
                                 Georg-Beutler-Str. 3, 89518 Heidenheim
                                 <br style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
                                 Umsatzsteuer-Identifikationsnummer: DE291687384

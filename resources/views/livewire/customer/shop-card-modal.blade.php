@@ -206,7 +206,7 @@
                             class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] hidden sm:block">
 
                             @if (empty($search_query))
-                                <h3 class="text-sm font-semibold">No items. Please start searching.</h3>
+                                <h3 class="text-sm font-semibold">No cinemas and groups. Please start searching.</h3>
                             @endif
 
                             @if ($cinemaGroups->count() > 0)

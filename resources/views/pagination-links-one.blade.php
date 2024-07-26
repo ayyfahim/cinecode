@@ -26,8 +26,13 @@
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
                         <button class="join-item btn btn-active" aria-current="page">{{ $page }}</button>
-                    @else
+                    @elseif (
+                        $page == 1 ||
+                            $page == $paginator->lastPage() ||
+                            ($page >= $paginator->currentPage() - 1 && $page <= $paginator->currentPage() + 1))
                         <a href="{{ $url }}" class="join-item btn">{{ $page }}</a>
+                    @elseif ($page == $paginator->currentPage() - 2 || $page == $paginator->currentPage() + 2)
+                        <button class="join-item btn btn-disabled">...</button>
                     @endif
                 @endforeach
             @endif

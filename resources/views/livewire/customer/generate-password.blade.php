@@ -20,10 +20,10 @@
                     <input type="email" placeholder="Email Address" class="input input-bordered w-full mt-4 mb-2"
                         wire:model='email' />
 
-                    <input type="password" placeholder="Password" class="input input-bordered w-full mt-4 mb-2"
+                    <input type="text" placeholder="Password" class="input input-bordered w-full mt-4 mb-2"
                         wire:model='password' />
 
-                    <input type="password" placeholder="Confirm Password" class="input input-bordered w-full mt-4 mb-2"
+                    <input type="text" placeholder="Confirm Password" class="input input-bordered w-full mt-4 mb-2"
                         wire:model='password_confirmation' />
 
                     <a href="{{ route('customer.login') }}" class="font-medium text-primary text-sm">Back to Login</a>

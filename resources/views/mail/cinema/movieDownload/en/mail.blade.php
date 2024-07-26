@@ -131,8 +131,8 @@
                                         <a href="{{ $data['download_link'] }}" class="btn btn-primary"
                                             style="color: #ffffff; display: inline-block; border-radius: 5px; background-color: #27d25b; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-decoration: none; padding: 10px 15px;">Video-Download</a>
                                         <p class="btnInfo color-gray-6"
-                                            style='color: #7b8a9c; font-family: "Aptos", "Helvetica", sans-serif; font-size: 10px; word-break: break-word; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
-                                            {{ $data['cinema_login_link'] }}</p>
+                                            style='color: #7b8a9c; font-family: "Aptos", "Helvetica", sans-serif; font-size: 10px; word-break: break-word; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-align: center;'>
+                                            {{ $data['download_link'] }}</p>
                                     </td>
                                 </tr>
                             </table>
@@ -276,7 +276,7 @@
                             style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 1em 5em 3.5em;"
                             align="center" bgcolor="#15161b">
                             <p class="p-small color-gray-6"
-                                style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
+                                style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-align: center;'>
                                 cinecode Germany
                                 <br style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
                                 Christian Müller
@@ -284,7 +284,8 @@
                             <p class="p-small color-gray-6"
                                 style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
                                 Georg-Beutler-Str. 3, 89518 Heidenheim
-                                <br style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+                                <br
+                                    style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-align: center;">
                                 Umsatzsteuer-Identifikationsnummer: DE291687384
                             </p>
                         </td>

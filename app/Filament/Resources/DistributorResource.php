@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DistributorResource\Pages;
 use App\Filament\Resources\DistributorResource\RelationManagers;
+use App\Models\Country;
 use App\Models\Distributor;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -56,7 +57,20 @@ class DistributorResource extends Resource
                             )
                             ->minItems(1)
                             ->addActionLabel('Add Email')
-                    ])
+                    ]),
+
+                Forms\Components\Section::make('Location')
+                    ->schema([
+                        Forms\Components\Select::make('country_id')
+                            ->required()
+                            ->live()
+                            ->label('Country')
+                            ->options(Country::whereIn('name', ['Germany', 'Austria', 'Switzerland', 'Luxembourg'])
+                                ->orderByRaw("FIELD(name, 'Germany', 'Austria', 'Switzerland', 'Luxembourg')")
+                                ->pluck('name', 'id')
+                                ->union(Country::whereNotIn('name', ['Germany', 'Austria', 'Switzerland', 'Luxembourg'])->pluck('name', 'id'))),
+
+                    ]),
 
             ]);
     }
@@ -71,6 +85,8 @@ class DistributorResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('credits')
                     ->numeric()->placeholder('No credits given.'),
+                Tables\Columns\TextColumn::make('country.name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

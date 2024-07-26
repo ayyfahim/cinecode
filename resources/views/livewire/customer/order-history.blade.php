@@ -4,7 +4,7 @@
             <div class="prose prose-sm md:prose-base max-w-full flex-grow pt-10">
                 <h1>Order History</h1>
                 <div class="flex flex-wrap sm:flex-row flex-col justify-between">
-                    <p class="!mt-0">15 Orders</p>
+                    <p class="!mt-0">{{ $orders->total() }} Orders</p>
                     <div class="flex flex-wrap items-center gap-4" x-data="{ filterByDownloaded: $wire.entangle('filterByDownloaded').live, filterByMovie: $wire.entangle('filterByMovie').live, filterOrderDateFrom: $wire.entangle('filterOrderDateFrom').live, filterOrderDateTo: $wire.entangle('filterOrderDateTo').live }">
                         <label class="input input-bordered flex items-center gap-2 h-10 sm:w-72 w-52">
                             <input type="text" class="grow" placeholder="Search"
@@ -85,17 +85,17 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {{ $order->created_at->format('d/m/Y') }}
+                                            {{ $order->created_at->format('d.m.Y') }}
                                         </td>
                                         <td class="min-w-60">
                                             <div>
                                                 <span class="text-sm font-medium">Start
-                                                    Date: </span>{{ $order->validity_period_from->format('d/m/Y') }}
+                                                    Date: </span>{{ $order->validity_period_from->format('d.m.Y') }}
                                             </div>
                                             <div>
                                                 <span class="text-sm font-medium">End
                                                     Date:
-                                                </span>{{ $order->validity_period_to->format('d/m/Y') }}
+                                                </span>{{ $order->validity_period_to->format('d.m.Y') }}
                                             </div>
 
                                         </td>

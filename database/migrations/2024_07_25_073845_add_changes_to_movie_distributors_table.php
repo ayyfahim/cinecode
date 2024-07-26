@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('distributor_emails', function (Blueprint $table) {
+        Schema::table('movie_distributors', function (Blueprint $table) {
             $table->dropForeign(['distributor_id']);
+            $table->dropForeign(['movie_id']);
 
             // Re-create the foreign key constraint with the desired behavior
             $table->foreign('distributor_id')->references('id')->on('distributors')->onDelete('set null');
+
+
+            // Re-create the foreign key constraint with the desired behavior
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('set null');
         });
     }
 
@@ -24,7 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('distributor_emails', function (Blueprint $table) {
+        Schema::table('movie_distributors', function (Blueprint $table) {
             //
         });
     }

@@ -57,6 +57,7 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('distributor.distributor_name')
+                    ->label('Distributor')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('cinemas.name')
@@ -92,8 +93,9 @@ class OrderResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('distributor')
-                    ->relationship('distributor', 'distributor_name')
+                Tables\Filters\SelectFilter::make('distributor_name')
+                    ->relationship('distributor.distributor', 'distributor_name')
+                    ->label('Distributor')
                     ->searchable()
                     ->preload(),
                 Tables\Filters\SelectFilter::make('cinema')

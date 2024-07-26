@@ -25,7 +25,7 @@ class CinemaController extends Controller
         }
 
         // $file = Storage::disk('public')->get($exist->order->version->mcck_file);
-        $file_url = Storage::disk('public')->path($exist->order->version->mcck_file);
+        // $file_url = Storage::disk('public')->path($exist->order->version->mcck_file);
 
         if (!$exist->downloaded_movies) {
             $exist->downloaded_movies = true;
@@ -34,6 +34,7 @@ class CinemaController extends Controller
 
         // dd($exist, !$exist->downloaded_movies);
 
-        return response()->download($file_url);
+        // return response()->download($file_url);
+        return response()->redirectTo($exist->order->version->video_link);
     }
 }

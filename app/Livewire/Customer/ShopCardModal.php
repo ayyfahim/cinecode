@@ -236,9 +236,27 @@ class ShopCardModal extends BaseComponent
         $data['movie_title'] = $order->movie->name;
         $data['cinema_name'] = $order->cinemas->pluck('name')->toArray();
         $data['version'] = $order->version->version_name;
-        $data['validity_from'] = $order->validity_period_from->format('d/m/Y');
-        $data['validity_to'] = $order->validity_period_to->format('d/m/Y');
-        Mail::to($order->distributor->email)->locale(App::getLocale())->send(new DistributorOrderConfirmation($data));
+        $data['validity_from'] = $order->validity_period_from->format('d.m.Y');
+        $data['validity_to'] = $order->validity_period_to->format('d.m.Y');
+        $mailLocale = App::getLocale();
+        switch ($order->distributor->country->name) {
+            case 'Germany':
+                $mailLocale = 'de';
+                break;
+            case 'Austria':
+                $mailLocale = 'de';
+                break;
+            case 'Switzerland':
+                $mailLocale = 'de';
+                break;
+            case 'Luxembourg':
+                $mailLocale = 'de';
+                break;
+
+            default:
+                break;
+        }
+        Mail::to($order->distributor->email)->locale($mailLocale)->send(new DistributorOrderConfirmation($data));
     }
 
     public function mount()

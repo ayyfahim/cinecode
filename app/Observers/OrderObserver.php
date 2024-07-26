@@ -20,8 +20,8 @@ class OrderObserver
         //     $data['movie_title'] = $order->movie->name;
         //     $data['cinema_name'] = $order->cinemas->pluck('name')->toArray();
         //     $data['version'] = $order->version->version_name;
-        //     $data['validity_from'] = $order->validity_period_from->format('d/m/Y');
-        //     $data['validity_to'] = $order->validity_period_to->format('d/m/Y');
+        //     $data['validity_from'] = $order->validity_period_from->format('d.m.Y');
+        //     $data['validity_to'] = $order->validity_period_to->format('d.m.Y');
         //     Mail::to($order->distributor->email)->locale(App::getLocale())->send(new DistributorOrderConfirmation($data));
         // } catch (\Throwable $th) {
         //     dd($th);

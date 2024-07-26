@@ -21,4 +21,9 @@ class DistributorEmail extends Authenticatable
     {
         return $this->belongsTo(Distributor::class);
     }
+
+    public function getDistributorNameAttribute()
+    {
+        return $this->distributor?->distributor_name ?: null;
+    }
 }
