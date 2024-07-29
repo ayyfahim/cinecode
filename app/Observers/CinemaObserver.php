@@ -12,45 +12,42 @@ class CinemaObserver
     public function created(Cinema $cinema): void
     {
         if (empty($cinema->unique_hash)) {
-            // Generate a random key and savedHash
-            $key = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"), 0, 20);
-            $savedHash = hash("sha256", $key);
-
-            // Set arbitrary validity start and end dates
-            $creationDate = $cinema->created_at->format('Y-m-d');
-
-            // Generate a hash number
-            $numFiles = Cinema::count();
-            $hashNumber = sprintf("%05d", $numFiles + 1);
-
-            // Calculate the hashObject
-            $hashObject = hash("sha256", $creationDate . $hashNumber . $savedHash);
-
-            // Create the keyString
-            $keyString = "$key:$savedHash:$creationDate:$hashNumber:$hashObject";
-
-            // Insert random characters every second position
-            $newKeyString = '';
-            for ($i = 0; $i < strlen($keyString); $i++) {
-                $newKeyString .= $keyString[$i];
-                if ($i % 2 == 1 && $i != strlen($keyString) - 1) {
-                    $newKeyString .= substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-:="), 0, 1);
-                }
-            }
-
-            // Calculate a shorter unique hash and format it
-            $shortHash = substr(preg_replace('/[^a-zA-Z0-9]/', '', base64_encode(hash('sha256', $newKeyString, true))), 0, 16);
-            $formattedHash = substr($shortHash, 0, 4) . '-' . substr($shortHash, 4, 4) . '-' . substr($shortHash, 8, 4) . '-' . substr($shortHash, 12, 4);
-
             // Save the unique hash to the cinema
-            $cinema->update([
-                'unique_hash' => strtolower($formattedHash)
-            ]);
+            $cinema->update($this->generateChecksum($cinema));
         }
     }
 
+    function generateChecksum($cinema)
+    {
+        // Fetch the Laravel app key (pepper)
+        $pepper = config('app.key');
 
+        // Generate a random key (salt)
+        $salt = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"), 0, 20);
 
+        // Generate a savedHash using the salt
+        $salt = hash("sha256", $salt);
+
+        // Use the creation date and cinema ID as sensitive data
+        $creationDate = $cinema->created_at->format('Y-m-d');
+        $cinemaId = $cinema->id;
+
+        // Generate a hashObject using the sensitive data, salt, and pepper
+        $hashObject = hash("sha256", $creationDate . $cinemaId . $salt . $pepper);
+
+        // Create the keyString
+        $keyString = "$salt:$creationDate:$cinemaId:$hashObject";
+
+        // Calculate a shorter unique hash and format it
+        $shortHash = substr(preg_replace('/[^a-zA-Z0-9]/', '', base64_encode(hash('sha256', $keyString, true))), 0, 16);
+        $formattedHash = substr($shortHash, 0, 4) . '-' . substr($shortHash, 4, 4) . '-' . substr($shortHash, 8, 4) . '-' . substr($shortHash, 12, 4);
+
+        // Return all components for verification
+        return [
+            'unique_hash_salt' => $salt,
+            'unique_hash' => $formattedHash,
+        ];
+    }
 
     /**
      * Handle the Cinema "updated" event.

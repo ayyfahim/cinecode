@@ -36,6 +36,11 @@ class Order extends Model
         return $this->belongsToMany(Cinema::class, 'order_cinemas', 'order_id', 'cinema_id');
     }
 
+    public function order_cinemas(): HasMany
+    {
+        return $this->hasMany(OrderCinema::class);
+    }
+
     // public function cinemas(): HasManyThrough
     // {
     //     return $this->hasManyThrough(Cinema::class, OrderCinema::class, 'order_id', 'id', 'id', 'cinema_id');

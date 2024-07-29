@@ -10,6 +10,10 @@ class CinemaController extends Controller
 {
     public function movieDownload(Request $request)
     {
+        if (!auth('cinema')->check()) {
+            return abort(404);
+        }
+
         if (!$request->has('token') || !$request->has('order')) {
             return abort(404);
         }
@@ -17,7 +21,7 @@ class CinemaController extends Controller
         $exist = OrderCinema::where([
             'download_token' => $request->token,
             'order_id' => $request->order,
-            // 'cinema_id' => auth('customer')->user()->distributor_id,
+            'cinema_id' => auth('cinema')->id(),
         ])->first();
 
         if (!$exist) {
@@ -36,5 +40,17 @@ class CinemaController extends Controller
 
         // return response()->download($file_url);
         return response()->redirectTo($exist->order->version->video_link);
+    }
+
+
+    public function playerDownload(Request $request)
+    {
+        if (!auth('cinema')->check()) {
+            return abort(404);
+        }
+        auth('cinema')->user()->update([
+            'downloaded_player' => now()
+        ]);
+        return response()->redirectTo('https://cinema.cinecode.de/player-lite/download.php?download_code=b8235de2a7f82c85f34927162ce19a03');
     }
 }

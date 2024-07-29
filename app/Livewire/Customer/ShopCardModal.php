@@ -222,6 +222,9 @@ class ShopCardModal extends BaseComponent
 
         $this->reset();
 
+        $this->dateFrom = '';
+        $this->dateTo = '';
+
         $this->selectedNames = collect([]);
         $this->countries = Country::whereIn('name', ['Germany', 'Austria', 'Switzerland', 'Luxembourg'])
             ->orderByRaw("FIELD(name, 'Germany', 'Austria', 'Switzerland', 'Luxembourg')")
@@ -239,7 +242,7 @@ class ShopCardModal extends BaseComponent
         $data['validity_from'] = $order->validity_period_from->format('d.m.Y');
         $data['validity_to'] = $order->validity_period_to->format('d.m.Y');
         $mailLocale = App::getLocale();
-        switch ($order->distributor->country->name) {
+        switch ($order->distributor->distributor->country->name) {
             case 'Germany':
                 $mailLocale = 'de';
                 break;

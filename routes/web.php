@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\CinemaController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Middleware\CinemaAuth;
+use App\Http\Middleware\CinemaGuest;
 use App\Http\Middleware\CustomerAuthCheck;
 use App\Http\Middleware\CustomerGuest;
+use App\Livewire\Cinema\Login as CinemaLogin;
 use App\Livewire\Customer\Cinema\Create as CustomerCinemaCrete;
 use App\Livewire\Customer\Cinema\Index as CustomerCinemaIndex;
 use App\Livewire\Customer\ForgotPassword as CustomerForgotPassword;
@@ -18,9 +21,9 @@ use BezhanSalleh\FilamentLanguageSwitch\Http\Middleware\SwitchLanguageLocale;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/test', TestNav::class);
 
@@ -48,4 +51,13 @@ Route::prefix('customer')
 
 Route::prefix('cinema')->middleware([SwitchLanguageLocale::class])->as('cinema.')->group(function () {
     Route::get('movie/download', [CinemaController::class, 'movieDownload'])->name('movie.download');
+    Route::get('player/download', [CinemaController::class, 'playerDownload'])->name('player.download');
+});
+
+Route::domain(config('filament.cinema_portal_url'))->group(function () {
+    // config()->set('auth.defaults.guard', 'cinema');
+    Route::as('cinema.')
+        ->group(function () {
+            Route::get('/', CinemaLogin::class)->name('login')->middleware([CinemaGuest::class]);
+        });
 });

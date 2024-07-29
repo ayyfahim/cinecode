@@ -137,7 +137,7 @@
                                 </tr>
                             </table>
                             <p
-                                style='font-family: "Aptos", "Helvetica", sans-serif; font-size: 13px; color: #161616; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
+                                style='font-family: "Aptos", "Helvetica", sans-serif; font-size: 13px; color: #161616; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-align: center;'>
                                 cinecode player download in the Cinema-Portal: <a
                                     href="{{ $data['cinema_login_link'] }}"
                                     style="color: #27d25b; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-decoration: none;">
@@ -282,7 +282,7 @@
                                 Christian Müller
                             </p>
                             <p class="p-small color-gray-6"
-                                style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
+                                style='color: #ebf1ec; font-family: "Aptos", "Helvetica", sans-serif; font-size: 12px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-align: center;'>
                                 Georg-Beutler-Str. 3, 89518 Heidenheim
                                 <br
                                     style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-align: center;">

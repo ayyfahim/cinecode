@@ -138,7 +138,7 @@
                                 </tr>
                             </table>
                             <p
-                                style='font-family: "Aptos", "Helvetica", sans-serif; font-size: 13px; color: #161616; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
+                                style='font-family: "Aptos", "Helvetica", sans-serif; font-size: 13px; color: #161616; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-align: center;'>
                                 cinecode Player-Download im Cinema-Portal: <a href="{{ $data['cinema_login_link'] }}"
                                     style="color: #27d25b; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-decoration: none;">{{ $data['cinema_login_link'] }}</a>
                             </p>

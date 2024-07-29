@@ -23,11 +23,15 @@ class OrderCinemaObserver
         $data['distributor'] = $order?->distributor?->distributor?->distributor_name;
         $data['validity_from'] = $order?->validity_period_from?->format('d.m.Y');
         $data['validity_to'] = $order?->validity_period_to?->format('d.m.Y');
-        $data['download_link'] = route('cinema.movie.download') . "?token={$orderCinema?->download_token}&order={$orderCinema?->order->id}";
-        $data['cinema_login_link'] = config('filament.cinema_portal_url') . '?c=' . $orderCinema?->cinema?->unique_hash;
+
+        $download_link = "https://" . config('filament.cinema_portal_url') . '/cinema/movie/download' . "?token={$orderCinema?->download_token}&order={$orderCinema?->order->id}";
+        $data['download_link'] = $download_link;
+
+        $cinema_login_link = "https://" . config('filament.cinema_portal_url') . "?c={$orderCinema?->cinema?->unique_hash}";
+        $data['cinema_login_link'] = $cinema_login_link;
 
         $mailLocale = App::getLocale();
-        switch ($order->distributor->country->name) {
+        switch ($order->distributor->distributor->country->name) {
             case 'Germany':
                 $mailLocale = 'de';
                 break;
@@ -45,7 +49,9 @@ class OrderCinemaObserver
                 break;
         }
 
-        Mail::to($order?->distributor?->email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
+        foreach ($orderCinema?->cinema->emails as $email) {
+            Mail::to($email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
+        }
     }
 
     /**
@@ -65,7 +71,7 @@ class OrderCinemaObserver
             $data['validity_to'] = $order?->validity_period_to?->format('d.m.Y');
 
             $mailLocale = App::getLocale();
-            switch ($order->distributor->country->name) {
+            switch ($order->distributor->distributor->country->name) {
                 case 'Germany':
                     $mailLocale = 'de';
                     break;

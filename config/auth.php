@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'customers',
         ],
+        'cinema' => [
+            'driver' => 'session',
+            'provider' => 'cinemas',
+        ],
     ],
 
     /*
@@ -71,6 +75,10 @@ return [
         'customers' => [
             'driver' => 'eloquent',
             'model' => env('CUSTOMER_AUTH_MODEL', App\Models\DistributorEmail::class),
+        ],
+        'cinemas' => [
+            'driver' => 'eloquent',
+            'model' => env('CINEMA_AUTH_MODEL', App\Models\Cinema::class),
         ],
 
         // 'users' => [
