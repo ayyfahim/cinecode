@@ -6,6 +6,7 @@ use App\Http\Middleware\CinemaAuth;
 use App\Http\Middleware\CinemaGuest;
 use App\Http\Middleware\CustomerAuthCheck;
 use App\Http\Middleware\CustomerGuest;
+use App\Http\Middleware\SetLanguageBasedOnCountry;
 use App\Livewire\Cinema\Login as CinemaLogin;
 use App\Livewire\Customer\Cinema\Create as CustomerCinemaCrete;
 use App\Livewire\Customer\Cinema\Index as CustomerCinemaIndex;
@@ -31,7 +32,7 @@ Route::get('setup', function () {
     Artisan::call('migrate:fresh');
 });
 
-Route::prefix('customer')->middleware([CustomerAuthCheck::class, SwitchLanguageLocale::class])->as('customer.')->group(function () {
+Route::prefix('customer')->middleware([CustomerAuthCheck::class, SwitchLanguageLocale::class, SetLanguageBasedOnCountry::class])->as('customer.')->group(function () {
     Route::get('shop', CustomerShop::class)->name('shop');
     Route::get('order/history', CustomerOrderHistory::class)->name('order.history');
     Route::get('settings', CustomerSettings::class)->name('settings');

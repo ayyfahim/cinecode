@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\OrderCinema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +28,10 @@ class CinemaController extends Controller
         if (!$exist) {
             return abort(404);
         }
+
+        Order::find($request->order)->update([
+            'downloaded' => 1
+        ]);
 
         // $file = Storage::disk('public')->get($exist->order->version->mcck_file);
         // $file_url = Storage::disk('public')->path($exist->order->version->mcck_file);

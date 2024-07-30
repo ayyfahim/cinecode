@@ -6,6 +6,7 @@ use App\Filament\Cinema\Pages\Dashboard;
 use App\Http\Middleware\CinemaAuth;
 use App\Http\Middleware\CinemaCheckLoginUrl;
 use App\Http\Middleware\CinemaGuest;
+use App\Http\Middleware\SetLanguageBasedOnCountry;
 use App\Livewire\Cinema\Login;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -58,10 +59,11 @@ class CinemaPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                CinemaCheckLoginUrl::class
+                CinemaCheckLoginUrl::class,
             ])
             ->authMiddleware([
                 CinemaAuth::class,
+                SetLanguageBasedOnCountry::class
             ])
             ->brandName('Cinema Portal')
             ->domain(config('filament.cinema_portal_url'));

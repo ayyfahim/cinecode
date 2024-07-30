@@ -16,11 +16,11 @@ return new class extends Migration
             $table->dropForeign(['movie_id']);
 
             // Re-create the foreign key constraint with the desired behavior
-            $table->foreign('distributor_id')->references('id')->on('distributors')->onDelete('set null');
+            $table->foreign('distributor_id')->references('id')->on('distributors')->noActionOnDelete();
 
 
             // Re-create the foreign key constraint with the desired behavior
-            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('set null');
+            $table->foreign('movie_id')->references('id')->on('movies')->noActionOnDelete();
         });
     }
 

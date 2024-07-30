@@ -105,7 +105,7 @@ class CinemaResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('country.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('distributor.name')
+                Tables\Columns\TextColumn::make('distributor.distributor_name')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('visible_to_all')
                     ->boolean(),

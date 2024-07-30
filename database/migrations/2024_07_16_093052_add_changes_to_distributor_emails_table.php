@@ -15,7 +15,7 @@ return new class extends Migration
             $table->dropForeign(['distributor_id']);
 
             // Re-create the foreign key constraint with the desired behavior
-            $table->foreign('distributor_id')->references('id')->on('distributors')->onDelete('set null');
+            $table->foreign('distributor_id')->references('id')->on('distributors')->noActionOnDelete();
         });
     }
 

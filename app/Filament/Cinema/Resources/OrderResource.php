@@ -37,21 +37,21 @@ class OrderResource extends Resource
                     ->label('Distributor')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('cinemas.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('cinemas.city_name')
-                    ->label('Cinema City')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('cinemas.name')
+                //     ->numeric()
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('cinemas.city_name')
+                //     ->label('Cinema City')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('movie.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('version.version_name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('downloaded')
-                    ->boolean(),
+                // Tables\Columns\IconColumn::make('downloaded')
+                //     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->label('Order Date')
@@ -75,15 +75,15 @@ class OrderResource extends Resource
                     ->label('Distributor')
                     ->searchable()
                     ->preload(),
-                Tables\Filters\SelectFilter::make('cinema')
-                    ->relationship('cinemas', 'name')
-                    ->searchable()
-                    ->preload(),
+                // Tables\Filters\SelectFilter::make('cinema')
+                //     ->relationship('cinemas', 'name')
+                //     ->searchable()
+                //     ->preload(),
                 Tables\Filters\SelectFilter::make('movie')
                     ->relationship('movie', 'name')
                     ->searchable()
                     ->preload(),
-                Tables\Filters\TernaryFilter::make('downloaded'),
+                // Tables\Filters\TernaryFilter::make('downloaded'),
                 Tables\Filters\Filter::make('created_at')
                     ->form([
                         Forms\Components\DatePicker::make('created_from'),

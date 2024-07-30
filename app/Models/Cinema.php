@@ -25,7 +25,7 @@ class Cinema extends Authenticatable implements UserInterface
         ];
     }
 
-    public function distributors(): BelongsTo
+    public function distributor(): BelongsTo
     {
         return $this->belongsTo(Distributor::class);
     }

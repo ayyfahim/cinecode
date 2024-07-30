@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cinema_emails', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->foreignId('cinema_id')->constrained();
+            $table->foreignId('cinema_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

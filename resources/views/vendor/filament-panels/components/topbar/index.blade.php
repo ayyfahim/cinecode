@@ -155,19 +155,25 @@
             x-persist="topbar.end"
             class="ms-auto flex items-center gap-x-4"
         >
-                <div
-                    @class([
-                        'flex items-center justify-center w-9 h-9 language-switch-trigger text-primary-600 bg-primary-500/10 rounded-lg',
-                    ])
-                    x-tooltip="{
-                        content: 'Download Player',
-                        placement: 'bottom'
-                    }"
-                >
-                    <a href="{{ route('cinema.player.download') }}">
-                        <span class="font-semibold text-md">D</span>
-                    </a>
-                </div>
+                @php
+                    $ifCinemaPortal = request()->getHost() == config('filament.cinema_portal_url');
+                @endphp
+                @if ($ifCinemaPortal)
+                    <div
+                        @class([
+                            'flex items-center justify-center w-9 h-9 language-switch-trigger text-primary-600 bg-primary-500/10 rounded-lg',
+                        ])
+                        x-tooltip="{
+                            content: 'Download Player',
+                            placement: 'bottom'
+                        }"
+                    >
+                        <a href="{{ route('cinema.player.download') }}">
+                            <span class="font-semibold text-md">D</span>
+                        </a>
+                    </div>
+                @endif
+                
             {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::GLOBAL_SEARCH_BEFORE) }}
 
             @if (filament()->isGlobalSearchEnabled())
