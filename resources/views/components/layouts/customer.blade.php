@@ -22,12 +22,6 @@
     <livewire:customer.footer />
     @livewireScriptConfig
     <x-toaster-hub />
-
-    @if ($errors)
-        @foreach ($errors->all() as $error)
-            <div>{{ $error }}</div>
-        @endforeach
-    @endif
 </body>
 
 </html>

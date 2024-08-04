@@ -173,7 +173,7 @@ class CinemaGroupModal extends Component
                         $r->select('name');
                     }
                 ])
-                ->select('name', 'id')
+                ->select('name', 'id', 'city_name')
                 ->get();
             $this->isLoading = false;
         } else {

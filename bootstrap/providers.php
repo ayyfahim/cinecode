@@ -3,5 +3,5 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\Filament\AdminPanelProvider::class,
-    App\Providers\Filament\CinemaPanelProvider::class,
+    // App\Providers\Filament\CinemaPanelProvider::class,
 ];

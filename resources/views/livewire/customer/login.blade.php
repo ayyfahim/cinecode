@@ -19,7 +19,7 @@
                 <form wire:submit="login">
                     <input type="email" placeholder="Email Address" class="input input-bordered w-full mt-4 mb-2"
                         wire:model='email' />
-                    <input type="text" placeholder="Password" class="input input-bordered w-full mb-2"
+                    <input type="password" placeholder="Password" class="input input-bordered w-full mb-2"
                         wire:model='password' />
 
                     <a href="{{ route('customer.password.request') }}" class="font-medium text-primary text-sm">Forgot

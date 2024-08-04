@@ -40,8 +40,9 @@
                                         <li>
                                             <input type="radio"
                                                 class="theme-controller btn btn-sm btn-block btn-ghost justify-start checked:!bg-cine-neutral checked:!text-neutral-content checked:!border-cine-neutral"
-                                                aria-label="{{ $cinema->name }}" value="{{ $cinema->id }}"
-                                                name="selectedCinema" wire:click="selectCinema({{ $cinema->id }})" />
+                                                aria-label="{{ $cinema->name }} {{ $cinema->city_name }}"
+                                                value="{{ $cinema->id }}" name="selectedCinema"
+                                                wire:click="selectCinema({{ $cinema->id }})" />
                                         </li>
                                     @endforeach
                                 </ul>
@@ -53,7 +54,7 @@
                         <div class="sm:flex sm:flex-wrap hidden items-center gap-[5px]">
                             @foreach ($selectedCinemas as $cinema)
                                 <h4 class="text-sm font-semibold text-white">
-                                    {{ $cinema['name'] }} ({{ $cinema['city_name'] }}){{ !$loop->last ? ',' : '' }}</h4>
+                                    {{ $cinema['name'] }} {{ $cinema['city_name'] }}{{ !$loop->last ? ',' : '' }}</h4>
                                 <button class="btn btn-circle btn-outline w-[10px] min-h-[10px] max-h-[10px]"
                                     wire:click="cancelCinema({{ $cinema->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2" fill="none"

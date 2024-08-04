@@ -37,6 +37,7 @@
                         <h3 class="text-sm font-semibold">Country</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <select class="select select-xs text-neutral" wire:model='country'>
+                                <option selected>Please select a country.</option>
                                 @foreach ($countries as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -153,6 +154,9 @@
                         {{-- Mobile Menu --}}
                         <div
                             class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] block sm:hidden">
+                            @if (empty($search_query))
+                                <h3 class="text-sm font-semibold">No cinemas and groups. Please start searching.</h3>
+                            @endif
                             @foreach ($cinemaGroups as $item)
                                 <div class="px-4 ">
                                     <div class="flex justify-between items-center" x-data="{ open: false }">
@@ -165,7 +169,7 @@
                                         </div>
                                         <input type="checkbox" value="{{ $item->id }}"
                                             class="checkbox justify-self-end border-white/50 border h-6"
-                                            wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'groups')"
+                                            wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'group')"
                                             wire:model.live="selectedCinemaGroups" />
                                     </div>
                                     <div
@@ -277,7 +281,10 @@
                             @foreach ($selectedNames ?? [] as $item)
                                 <div class="flex items-center gap-[3px]">
                                     <h4 class="text-sm font-semibold text-white">{{ $item['name'] }}@if (array_key_exists('city_name', $item))
-                                            ({{ $item['city_name'] }})
+                                            {{ $item['city_name'] }}
+                                        @endif
+                                        @if (array_key_exists('cinema_names', $item))
+                                            ({{ $item['cinema_names'] }})
                                         @endif
                                     </h4>
                                     <button
@@ -300,7 +307,10 @@
                         @foreach ($selectedNames ?? [] as $item)
                             <div class="flex items-center gap-[3px]">
                                 <h4 class="text-sm font-semibold text-white">{{ $item['name'] }}@if (array_key_exists('city_name', $item))
-                                        ({{ $item['city_name'] }})
+                                        {{ $item['city_name'] }}
+                                    @endif
+                                    @if (array_key_exists('cinema_names', $item))
+                                        ({{ $item['cinema_names'] }})
                                     @endif
                                 </h4>
                                 <button

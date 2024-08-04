@@ -2,45 +2,37 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Cinema;
 use Closure;
-use Filament\Facades\Filament;
-use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class CinemaAuth extends Middleware
+class CinemaAuth
 {
-
     /**
-     * @param  array<string>  $guards
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    protected function authenticate($request, array $guards)
+    public function handle(Request $request, Closure $next): Response
     {
-        $guard = Filament::auth();
-
-        if (!$guard->check()) {
-            $this->unauthenticated($request, $guards);
-
-            return;
+        if (!$request->has('c')) {
+            return abort(401, 'No hash detected.');
         }
 
-        $this->auth->shouldUse(Filament::getAuthGuard());
+        if (!$request->session()->has('unique_hash') || $request->session()->get('unique_hash') !== $request->c) {
 
-        /** @var Model $user */
-        $user = $guard->user();
+            $cinema = Cinema::select('name', 'unique_hash', 'city_name')->where('unique_hash', $request->c)->count();
 
-        $panel = Filament::getCurrentPanel();
+            if ($cinema == 0) {
+                return abort(401, 'Unable to detect hash.');
+            }
 
-        abort_if(
-            $user instanceof FilamentUser ?
-                (!$user->canAccessPanel($panel)) : (config('app.env') !== 'local'),
-            403,
-        );
-    }
+            $request->session()->put('unique_hash', $request->c);
+            // $request->session()->put('cinema', $cinema);
+        }
 
-    protected function redirectTo($request): ?string
-    {
-        return route('cinema.login');
+        return $next($request);
     }
 }

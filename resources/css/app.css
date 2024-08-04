@@ -13,6 +13,10 @@
     .fls-dropdown-width {
         max-width: fit-content !important;
     }
+
+    .l-mode-only {
+        color-scheme: light !important;
+    }
 }
 
 @layer components {

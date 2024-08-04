@@ -232,10 +232,10 @@ export default () => ({
     },
 
     formatDateTime(dateTime, meridiem) {
-        const dayName = this.DAYS[dateTime.getDay()];
-        const month = this.MONTH_NAMES[dateTime.getMonth()];
-        const date = dateTime.getDate();
+        const day = dateTime.getDate().toString().padStart(2, "0");
+        const month = (dateTime.getMonth() + 1).toString().padStart(2, "0"); // Add 1 because months are zero-indexed
         const year = dateTime.getFullYear();
+
         let hour = dateTime.getHours();
         let hourString;
         if (this.timeMode == 12) {
@@ -252,8 +252,9 @@ export default () => ({
         }
         const minute = dateTime.getMinutes().toString().padStart(2, "0");
         //const second  = dateTime.getSeconds().toString().padStart(2, '0');
-        // return dayName + " " + month + " " + date + " " + year;
-        return date + "." + dateTime.getMonth() + "." + year;
+
+        // Return the formatted date string as DD.MM.YYYY
+        return `${day}.${month}.${year}`;
     },
 
     getTimeString(end) {

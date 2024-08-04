@@ -132,7 +132,7 @@
                                         <a href="{{ $data['download_link'] }}" class="btn btn-primary"
                                             style="color: #ffffff; display: inline-block; border-radius: 5px; background-color: #27d25b; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-decoration: none; padding: 10px 15px;">Video-Download</a>
                                         <p class="btnInfo color-gray-6"
-                                            style='color: #7b8a9c; font-family: "Aptos", "Helvetica", sans-serif; font-size: 10px; word-break: break-word; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
+                                            style='color: #7b8a9c; font-family: "Aptos", "Helvetica", sans-serif; font-size: 10px; word-break: break-word; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-align: center;'>
                                             {{ $data['cinema_login_link'] }}</p>
                                     </td>
                                 </tr>

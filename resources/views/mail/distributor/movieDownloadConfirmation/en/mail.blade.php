@@ -138,7 +138,8 @@
                                                     <th style="font-size: 13px; width: 100px; color: #7b8a9c; font-weight: normal; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"
                                                         align="left" valign="top">Cinema</th>
                                                     <td style="font-size: 13px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important;"
-                                                        valign="top">{{ $data['cinema'] }}</td>
+                                                        valign="top">{{ $data['cinema'] }} {{ $data['cinema_city'] }}
+                                                    </td>
                                                 </tr>
                                                 <tr
                                                     style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">

@@ -84,7 +84,12 @@ class ShopCardModal extends BaseComponent
             ['email' => $this->email, 'emails' => $this->emails],
 
             // Validation rules to apply...
-            ['email' => 'required|string|email', 'emails' => 'array', 'emails.*' => 'distinct|email']
+            ['email' => 'required|string|email', 'emails' => 'array', 'emails.*' => 'distinct|email'],
+
+            [
+                'required' => 'The :attribute field is required.',
+                'email' => 'The :attribute must be an valid email.',
+            ]
         )->validate();
 
         array_push($this->emails, $this->email);
@@ -109,8 +114,12 @@ class ShopCardModal extends BaseComponent
             ['name' => $this->cinemaName, 'city_name' => $this->cityName, 'country_id' => $this->country, 'emails' => $this->emails],
 
             // Validation rules to apply...
-            ['emails' => 'array|min:1', 'emails.*' => 'distinct|email', 'name' => 'required|string', 'city_name' => 'required|string', 'country_id' => 'required'],
-            [],
+            ['emails' => 'array|min:2', 'emails.*' => 'distinct|email', 'name' => 'required|string', 'city_name' => 'required|string', 'country_id' => 'required'],
+            [
+                'required' => 'The :attribute field is required.',
+                'min' => 'Min :min :attribute is required.',
+                'email' => 'The :attribute must be an valid email.',
+            ],
             ['country_id' => 'country']
         )->validate();
 
@@ -168,16 +177,16 @@ class ShopCardModal extends BaseComponent
                     $string = sha1(rand());
                     $token = substr($string, 0, 10);
 
-                    if (!OrderCinema::where([
+                    // if (!OrderCinema::where([
+                    //     'cinema_id' => $cinema_id,
+                    //     'order_id' => $order->id,
+                    // ])->first()) {
+                    OrderCinema::create([
                         'cinema_id' => $cinema_id,
                         'order_id' => $order->id,
-                    ])->first()) {
-                        OrderCinema::create([
-                            'cinema_id' => $cinema_id,
-                            'order_id' => $order->id,
-                            'download_token' => $token
-                        ]);
-                    }
+                        'download_token' => $token
+                    ]);
+                    // }
                 }
             }
 
@@ -188,16 +197,16 @@ class ShopCardModal extends BaseComponent
                         $string = sha1(rand());
                         $token = substr($string, 0, 10);
 
-                        if (!OrderCinema::where([
+                        // if (!OrderCinema::where([
+                        //     'cinema_id' => $cinema->id,
+                        //     'order_id' => $order->id,
+                        // ])->first()) {
+                        OrderCinema::create([
                             'cinema_id' => $cinema->id,
                             'order_id' => $order->id,
-                        ])->first()) {
-                            OrderCinema::create([
-                                'cinema_id' => $cinema->id,
-                                'order_id' => $order->id,
-                                'download_token' => $token
-                            ]);
-                        }
+                            'download_token' => $token
+                        ]);
+                        // }
                     }
                 }
             }
@@ -237,11 +246,15 @@ class ShopCardModal extends BaseComponent
         $order = $order->load('movie', 'cinemas', 'version');
         $data = [];
         $data['movie_title'] = $order->movie->name;
-        $data['cinema_name'] = $order->cinemas->pluck('name')->toArray();
+
         $data['version'] = $order->version->version_name;
         $data['validity_from'] = $order->validity_period_from->format('d.m.Y');
         $data['validity_to'] = $order->validity_period_to->format('d.m.Y');
         $mailLocale = App::getLocale();
+        $data['cinema_name'] = [];
+        foreach ($order->cinemas as $cinema) {
+            array_push($data['cinema_name'], $cinema->name . " " . $cinema->city_name);
+        }
         switch ($order->distributor->distributor->country->name) {
             case 'Germany':
                 $mailLocale = 'de';
@@ -310,6 +323,12 @@ class ShopCardModal extends BaseComponent
             $arr['city_name'] = $city_name;
         }
 
+        if ($type == 'group') {
+            $cinema_names = $this->cinemaGroups->where('id', $id)->first()->cinemas->pluck('name')->toArray();
+
+            $arr['cinema_names'] = implode(", ", $cinema_names);
+        }
+
         // Check if the item already exists in the selectedNames collection
         $exists = $this->selectedNames?->contains(function ($value) use ($id, $type) {
             return $value['id'] === $id && $value['type'] === $type;
@@ -371,6 +390,7 @@ class ShopCardModal extends BaseComponent
 
 
             $this->cinemaGroups = CinemaGroup::where('distributor_id', auth('customer')->user()->distributor_id)
+                ->with('cinemas')
                 ->select('name', 'id')
                 ->when($s_query, function ($query) use ($s_query) {
                     $query->whereRaw('lower(name) like "%' . strtolower($s_query) . '%"');

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\CinemaUniqueAuth;
 use App\Models\DistributorEmail;
 use App\Models\User;
 use BezhanSalleh\FilamentLanguageSwitch\Enums\Placement;
@@ -23,7 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind('cinemaUniqueAuth', function () {
+            return new CinemaUniqueAuth();
+        });
     }
 
     /**
