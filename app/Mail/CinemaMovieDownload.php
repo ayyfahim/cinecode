@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -19,8 +20,7 @@ class CinemaMovieDownload extends Mailable implements HasLocalePreference
      */
     public function __construct(
         public $data,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the message envelope.
@@ -54,6 +54,9 @@ class CinemaMovieDownload extends Mailable implements HasLocalePreference
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromStorageDisk('public', $this->data['mcck_file'])->as(basename($this->data['mcck_file'])) // Ensure correct file name
+                ->withMime('application/x-mcck'), // Custom MIME type for .mcck files
+        ];
     }
 }

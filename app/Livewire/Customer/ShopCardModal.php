@@ -114,7 +114,7 @@ class ShopCardModal extends BaseComponent
             ['name' => $this->cinemaName, 'city_name' => $this->cityName, 'country_id' => $this->country, 'emails' => $this->emails],
 
             // Validation rules to apply...
-            ['emails' => 'array|min:2', 'emails.*' => 'distinct|email', 'name' => 'required|string', 'city_name' => 'required|string', 'country_id' => 'required'],
+            ['emails' => 'array', 'emails.*' => 'distinct|email', 'name' => 'required|string', 'city_name' => 'required|string', 'country_id' => 'required'],
             [
                 'required' => 'The :attribute field is required.',
                 'min' => 'Min :min :attribute is required.',
@@ -177,36 +177,37 @@ class ShopCardModal extends BaseComponent
                     $string = sha1(rand());
                     $token = substr($string, 0, 10);
 
-                    // if (!OrderCinema::where([
-                    //     'cinema_id' => $cinema_id,
-                    //     'order_id' => $order->id,
-                    // ])->first()) {
+
                     OrderCinema::create([
                         'cinema_id' => $cinema_id,
                         'order_id' => $order->id,
                         'download_token' => $token
                     ]);
-                    // }
                 }
             }
 
             if (count($this->selectedCinemaGroups)) {
                 $cinema_groups = CinemaGroup::whereIn('id', $this->selectedCinemaGroups)->with('cinemas')->get();
                 foreach ($cinema_groups as $group) {
+                    $order = Order::create([
+                        'distributor_id' => auth('customer')->id(),
+                        'movie_id' => $this->movie['id'],
+                        'downloaded' => 0,
+                        'version_id' => $this->selected_version,
+                        'validity_period_from' => Carbon::parse($this->dateFrom, config('app.timezone'))->addDay(1),
+                        'validity_period_to' => Carbon::parse($this->dateTo, config('app.timezone'))->addDay(1),
+                    ]);
+
                     foreach ($group->cinemas as $cinema) {
                         $string = sha1(rand());
                         $token = substr($string, 0, 10);
 
-                        // if (!OrderCinema::where([
-                        //     'cinema_id' => $cinema->id,
-                        //     'order_id' => $order->id,
-                        // ])->first()) {
+
                         OrderCinema::create([
                             'cinema_id' => $cinema->id,
                             'order_id' => $order->id,
                             'download_token' => $token
                         ]);
-                        // }
                     }
                 }
             }

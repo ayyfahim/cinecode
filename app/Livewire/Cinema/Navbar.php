@@ -8,6 +8,7 @@ use BezhanSalleh\FilamentLanguageSwitch\Events\LocaleChanged;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -31,6 +32,11 @@ class Navbar extends Component
     {
         Auth::guard('customer')->logout(); // logging out user
         return redirect()->route('customer.login'); // redirection to login screen
+    }
+
+    public function downloadPlayer()
+    {
+        return response()->download(public_path(config('app.player_name')));
     }
 
     public function render()

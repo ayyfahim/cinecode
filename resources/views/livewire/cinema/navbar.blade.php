@@ -3,6 +3,10 @@
         <div class="container mx-auto navbar">
             <div class="navbar-start">
                 <ul class="menu menu-horizontal px-1">
+                    <li><a href="{{ route('cinema.email.index') . '?c=' . request()->c }}"
+                            class="{{ request()->is('emails') ? 'active' : '' }}">Emails</a></li>
+                    <li><a href="{{ route('cinema.order.index') . '?c=' . request()->c }}"
+                            class="{{ request()->is('orders') ? 'active' : '' }}">Orders</a></li>
                     {{-- @if (Auth('customer')->check())
                         <li><a href="{{ route('customer.shop') }}"
                                 class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>
@@ -49,6 +53,9 @@
                         </ul>
                     </div>
                 </div>
+
+                <x-button wire:click='downloadPlayer()' icon="o-arrow-down-on-square" class="btn-square btn-ghost"
+                    tooltip-bottom="Download Player" />
             </div>
         </div>
     </div>
@@ -66,6 +73,10 @@
                     </div>
                     <ul tabindex="0"
                         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><a href="{{ route('cinema.email.index') . '?c=' . request()->c }}"
+                                class="{{ request()->is('emails') ? 'active' : '' }}">Emails</a></li>
+                        <li><a href="{{ route('cinema.order.index') . '?c=' . request()->c }}"
+                                class="{{ request()->is('orders') ? 'active' : '' }}">Orders</a></li>
                         {{-- @if (Auth('customer')->check())
                             <li><a href="{{ route('customer.shop') }}"
                                     class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>

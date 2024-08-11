@@ -140,4 +140,6 @@ return [
         // 'Example' => App\Facades\Example::class,
         'CinemaUniqueAuth' => App\Helpers\CinemaUniqueAuthFacade::class,
     ])->toArray(),
+
+    'player_name' => env('PLAYER_NAME', 'player.exe'),
 ];

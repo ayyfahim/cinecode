@@ -9,11 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class CinemaController extends Controller
 {
+    public function home(Request $request)
+    {
+        $url = route('cinema.email.index') . "?c={$request->c}";
+        return redirect()->to($url);
+    }
     public function movieDownload(Request $request)
     {
-        if (!auth('cinema')->check()) {
-            return abort(404);
-        }
+        // if (!auth('cinema')->check()) {
+        //     return abort(404);
+        // }
 
         if (!$request->has('token') || !$request->has('order')) {
             return abort(404);
@@ -22,7 +27,7 @@ class CinemaController extends Controller
         $exist = OrderCinema::where([
             'download_token' => $request->token,
             'order_id' => $request->order,
-            'cinema_id' => auth('cinema')->id(),
+            'cinema_id' => \CinemaUniqueAuth::user()->id,
         ])->first();
 
         if (!$exist) {

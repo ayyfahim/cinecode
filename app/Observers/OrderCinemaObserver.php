@@ -7,6 +7,7 @@ use App\Mail\DistributorMovieDownloadConfirmation;
 use App\Models\OrderCinema;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class OrderCinemaObserver
 {
@@ -24,8 +25,11 @@ class OrderCinemaObserver
         $data['validity_from'] = $order?->validity_period_from?->format('d.m.Y');
         $data['validity_to'] = $order?->validity_period_to?->format('d.m.Y');
 
-        $download_link = "https://" . config('filament.cinema_portal_url') . '/cinema/movie/download' . "?token={$orderCinema?->download_token}&order={$orderCinema?->order->id}";
+        $download_link = "https://" . config('filament.cinema_portal_url') . '/movie/download' . "?token={$orderCinema?->download_token}&order={$orderCinema?->order->id}&c={$orderCinema?->cinema?->unique_hash}";
         $data['download_link'] = $download_link;
+
+        $mcck_file = $order?->version?->mcck_file;
+        $data['mcck_file'] = $mcck_file;
 
         $cinema_login_link = "https://" . config('filament.cinema_portal_url') . "?c={$orderCinema?->cinema?->unique_hash}";
         $data['cinema_login_link'] = $cinema_login_link;
@@ -52,6 +56,7 @@ class OrderCinemaObserver
         foreach ($orderCinema?->cinema->emails as $email) {
             Mail::to($email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
         }
+        // Mail::to($orderCinema?->cinema->emails->first()->email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
     }
 
     /**

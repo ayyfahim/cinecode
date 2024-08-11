@@ -170,7 +170,8 @@
                                         <input type="checkbox" value="{{ $item->id }}"
                                             class="checkbox justify-self-end border-white/50 border h-6"
                                             wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'group')"
-                                            wire:model.live="selectedCinemaGroups" />
+                                            wire:model.live="selectedCinemaGroups"
+                                            wire:key="group-{{ $item->id }}" />
                                     </div>
                                     <div
                                         class="divider before:bg-white after:bg-white m-0 before:h-[1px] after:h-[1px]">
@@ -195,7 +196,8 @@
                                         <input type="checkbox" value="{{ $item->id }}"
                                             class="checkbox justify-self-end border-white/50 border h-6"
                                             wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'cinema')"
-                                            wire:model.live="selectedCinemas" />
+                                            wire:model.live="selectedCinemas"
+                                            wire:key="cinema-{{ $item->id }}" />
                                     </div>
                                     <div
                                         class="divider before:bg-white after:bg-white m-0 before:h-[1px] after:h-[1px]">
@@ -227,7 +229,8 @@
                                                 class="checkbox justify-self-end border-white/50 border ml-auto h-6"
                                                 value="{{ $item->id }}"
                                                 wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'group')"
-                                                wire:model.live="selectedCinemaGroups" />
+                                                wire:model.live="selectedCinemaGroups"
+                                                wire:key="group-{{ $item->id }}" />
                                         @endforeach
                                     </div>
                                 </div>
@@ -269,7 +272,8 @@
                                                 class="checkbox justify-self-end border-white/50 border ml-auto h-6"
                                                 value="{{ $item->id }}"
                                                 wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'cinema')"
-                                                wire:model.live="selectedCinemas" />
+                                                wire:model.live="selectedCinemas"
+                                                wire:key="cinema-{{ $item->id }}" />
                                         @endforeach
                                     </div>
 

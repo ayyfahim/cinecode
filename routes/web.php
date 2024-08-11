@@ -9,6 +9,7 @@ use App\Http\Middleware\CustomerGuest;
 use App\Http\Middleware\SetLanguageBasedOnCountry;
 use App\Livewire\Cinema\Email\Index as CinemaEmailIndex;
 use App\Livewire\Cinema\Login as CinemaLogin;
+use App\Livewire\Cinema\OrderHistory as CinemaOrderHistory;
 use App\Livewire\Customer\Cinema\Create as CustomerCinemaCrete;
 use App\Livewire\Customer\Cinema\Index as CustomerCinemaIndex;
 use App\Livewire\Customer\ForgotPassword as CustomerForgotPassword;
@@ -33,37 +34,46 @@ Route::get('setup', function () {
     Artisan::call('migrate:fresh');
 });
 
-Route::prefix('customer')->middleware([CustomerAuthCheck::class, SwitchLanguageLocale::class, SetLanguageBasedOnCountry::class])->as('customer.')->group(function () {
-    Route::get('shop', CustomerShop::class)->name('shop');
-    Route::get('order/history', CustomerOrderHistory::class)->name('order.history');
-    Route::get('settings', CustomerSettings::class)->name('settings');
-    Route::get('settings/cinemas', CustomerCinemaIndex::class)->name('settings.cinema.index');
-    Route::get('settings/cinemas/create', CustomerCinemaCrete::class)->name('settings.cinema.create');
-});
+Route::domain(config('filament.customer_portal_url'))->group(
+    function () {
+        Route::prefix('customer')->middleware([CustomerAuthCheck::class, SwitchLanguageLocale::class, SetLanguageBasedOnCountry::class])->as('customer.')->group(function () {
 
-Route::prefix('customer')
-    ->as('customer.')
-    ->middleware([CustomerGuest::class, SwitchLanguageLocale::class])
-    ->group(function () {
-        Route::get('login', CustomerLogin::class)->name('login');
-        Route::get('forgot-password', CustomerForgotPassword::class)->name('password.request');
-        Route::get('reset-password', CustomerResetPassword::class)->name('password.reset');
-        Route::get('generate-password', CustomerGeneratePassword::class)->name('password.generate');
-    });
+            Route::get('shop', CustomerShop::class)->name('shop');
+            Route::get('order/history', CustomerOrderHistory::class)->name('order.history');
+            Route::get('settings', CustomerSettings::class)->name('settings');
+            Route::get('settings/cinemas', CustomerCinemaIndex::class)->name('settings.cinema.index');
+            Route::get('settings/cinemas/create', CustomerCinemaCrete::class)->name('settings.cinema.create');
+        });
 
-// Route::prefix('cinema')->middleware([SwitchLanguageLocale::class])->as('cinema.')->group(function () {
-//     Route::get('movie/download', [CinemaController::class, 'movieDownload'])->name('movie.download');
-//     Route::get('player/download', [CinemaController::class, 'playerDownload'])->name('player.download');
-// });
+        Route::prefix('customer')
+            ->as('customer.')
+            ->middleware([CustomerGuest::class, SwitchLanguageLocale::class])
+            ->group(function () {
+
+                Route::get('login', CustomerLogin::class)->name('login');
+                Route::get('forgot-password', CustomerForgotPassword::class)->name('password.request');
+                Route::get('reset-password', CustomerResetPassword::class)->name('password.reset');
+                Route::get('generate-password', CustomerGeneratePassword::class)->name('password.generate');
+            });
+    }
+);
+
+
 
 Route::domain(config('filament.cinema_portal_url'))->group(function () {
-    config()->set('livewire.layout', 'components.layouts.cinema');
     Route::as('cinema.')
         ->middleware([CinemaAuth::class])
         ->group(function () {
-            // Route::get('/', [CinemaController::class, 'index'])->name('index');
-            Route::get('/', CinemaEmailIndex::class)->name('email.index');
+            Route::get('/', [CinemaController::class, 'home'])->name('home');
+            Route::get('orders', CinemaOrderHistory::class)->name('order.index');
+            Route::get('emails', CinemaEmailIndex::class)->name('email.index');
             Route::get('movie/download', [CinemaController::class, 'movieDownload'])->name('movie.download');
             Route::get('player/download', [CinemaController::class, 'playerDownload'])->name('player.download');
         });
 });
+
+Route::domain(config('filament.customer_portal_url'))->group(
+    function () {
+        Route::get('/', [CustomerController::class, 'home'])->name('home');
+    }
+);
