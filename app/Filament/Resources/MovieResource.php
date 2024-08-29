@@ -66,6 +66,7 @@ class MovieResource extends Resource
                                             ->maxLength(255)
                                             ->live(onBlur: true),
                                         Forms\Components\FileUpload::make('mcck_file')
+                                            ->storeFileNamesIn('mcck_file_name')
                                             ->required(),
                                     ])
                             ])

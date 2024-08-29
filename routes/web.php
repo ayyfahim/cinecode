@@ -10,6 +10,8 @@ use App\Http\Middleware\SetLanguageBasedOnCountry;
 use App\Livewire\Cinema\Email\Index as CinemaEmailIndex;
 use App\Livewire\Cinema\Login as CinemaLogin;
 use App\Livewire\Cinema\OrderHistory as CinemaOrderHistory;
+use App\Livewire\Cinema\PlayerDownload as CinemaPlayer;
+use App\Livewire\Cinema\PlayerDownloadPage as CinemaPlayerDownloadPage;
 use App\Livewire\Customer\Cinema\Create as CustomerCinemaCrete;
 use App\Livewire\Customer\Cinema\Index as CustomerCinemaIndex;
 use App\Livewire\Customer\ForgotPassword as CustomerForgotPassword;
@@ -62,18 +64,20 @@ Route::domain(config('filament.customer_portal_url'))->group(
 
 Route::domain(config('filament.cinema_portal_url'))->group(function () {
     Route::as('cinema.')
-        ->middleware([CinemaAuth::class])
+        ->middleware([CinemaAuth::class, SwitchLanguageLocale::class, SetLanguageBasedOnCountry::class])
         ->group(function () {
             Route::get('/', [CinemaController::class, 'home'])->name('home');
             Route::get('orders', CinemaOrderHistory::class)->name('order.index');
             Route::get('emails', CinemaEmailIndex::class)->name('email.index');
             Route::get('movie/download', [CinemaController::class, 'movieDownload'])->name('movie.download');
-            Route::get('player/download', [CinemaController::class, 'playerDownload'])->name('player.download');
+            Route::get('player', CinemaPlayer::class)->name('player');
+            Route::get('player/download', CinemaPlayerDownloadPage::class)->name('player.download');
         });
 });
 
-Route::domain(config('filament.customer_portal_url'))->group(
-    function () {
-        Route::get('/', [CustomerController::class, 'home'])->name('home');
-    }
-);
+Route::domain(config('filament.customer_portal_url'))->middleware([SwitchLanguageLocale::class, SetLanguageBasedOnCountry::class])
+    ->group(
+        function () {
+            Route::get('/', [CustomerController::class, 'home'])->name('home');
+        }
+    );

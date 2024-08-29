@@ -141,5 +141,7 @@ return [
         'CinemaUniqueAuth' => App\Helpers\CinemaUniqueAuthFacade::class,
     ])->toArray(),
 
-    'player_name' => env('PLAYER_NAME', 'player.exe'),
+    'win_player_name' => env('WIN_PLAYER_NAME', 'player.exe'),
+    'mac_sil_player_name' => env('MACS_PLAYER_NAME', 'player.exe'),
+    'mac_intel_player_name' => env('MACI_PLAYER_NAME', 'player.exe'),
 ];

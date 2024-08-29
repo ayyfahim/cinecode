@@ -4,6 +4,7 @@ namespace App\Livewire\Cinema;
 
 use App\Livewire\BaseComponent;
 use App\Models\Order;
+use App\Models\OrderCinema;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -11,7 +12,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('components.layouts.cinema')]
-#[Title('Orders | Cinecode Cinema Portal')]
+#[Title('Order History | Cinecode Cinema Portal')]
 class OrderHistory extends BaseComponent
 {
     use WithPagination;
@@ -27,8 +28,20 @@ class OrderHistory extends BaseComponent
         $this->reset('filterByDownloaded', 'filterByMovie', 'filterOrderDateFrom', 'filterOrderDateTo');
     }
 
-    public function download($url)
+    public function download($url, $id)
     {
+        Order::find($id)->update([
+            'downloaded' => 1
+        ]);
+
+        $exist = OrderCinema::where([
+            'order_id' => $id,
+            'cinema_id' => \CinemaUniqueAuth::user()->id,
+        ])->first();
+
+        $exist->downloaded_movies = true;
+        $exist->save();
+
         return redirect($url);
     }
 
@@ -36,7 +49,7 @@ class OrderHistory extends BaseComponent
     {
         $order = Order::find($id);
         // $file = Storage::disk('public')->get($order->version->mcck_file);
-        $file_url = Storage::disk('public')->path($order->version->mcck_file);
+        $file_url = Storage::disk('public')->path($order->cck_file);
         return response()->download($file_url);
     }
 
@@ -72,7 +85,7 @@ class OrderHistory extends BaseComponent
         }
 
         $headers = [
-            ['key' => 'distributor.distributor_name', 'label' => 'Distributor'],
+            ['key' => 'distributor.distributor.distributor_name', 'label' => 'Distributor'],
             ['key' => 'movie.name', 'label' => 'Movie'],
             ['key' => 'version.version_name', 'label' => 'Version'],
             ['key' => 'created_at', 'label' => 'Order Date'],

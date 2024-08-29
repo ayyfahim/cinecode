@@ -6,7 +6,7 @@
                     <li><a href="{{ route('cinema.email.index') . '?c=' . request()->c }}"
                             class="{{ request()->is('emails') ? 'active' : '' }}">Emails</a></li>
                     <li><a href="{{ route('cinema.order.index') . '?c=' . request()->c }}"
-                            class="{{ request()->is('orders') ? 'active' : '' }}">Orders</a></li>
+                            class="{{ request()->is('orders') ? 'active' : '' }}">Order History</a></li>
                     {{-- @if (Auth('customer')->check())
                         <li><a href="{{ route('customer.shop') }}"
                                 class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>
@@ -54,8 +54,8 @@
                     </div>
                 </div>
 
-                <x-button wire:click='downloadPlayer()' icon="o-arrow-down-on-square" class="btn-square btn-ghost"
-                    tooltip-bottom="Download Player" />
+                <x-button link="{{ route('cinema.player') . '?c=' . request()->c }}" icon="o-arrow-down-on-square"
+                    class="btn-square btn-ghost" tooltip-bottom="Download Player" />
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
                         <li><a href="{{ route('cinema.email.index') . '?c=' . request()->c }}"
                                 class="{{ request()->is('emails') ? 'active' : '' }}">Emails</a></li>
                         <li><a href="{{ route('cinema.order.index') . '?c=' . request()->c }}"
-                                class="{{ request()->is('orders') ? 'active' : '' }}">Orders</a></li>
+                                class="{{ request()->is('orders') ? 'active' : '' }}">Order History</a></li>
                         {{-- @if (Auth('customer')->check())
                             <li><a href="{{ route('customer.shop') }}"
                                     class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>

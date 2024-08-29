@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\UserInterface;
+use App\Mail\CinemaPortalAccess;
 use App\Observers\CinemaObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 
 #[ObservedBy([CinemaObserver::class])]
 class Cinema extends Authenticatable implements UserInterface
@@ -17,6 +20,8 @@ class Cinema extends Authenticatable implements UserInterface
     use HasFactory;
 
     protected $guarded = [];
+
+    protected $appends = ['country_name'];
 
     protected function casts(): array
     {
@@ -45,8 +50,47 @@ class Cinema extends Authenticatable implements UserInterface
         return $this->belongsTo(Country::class);
     }
 
+    public function getCountryNameAttribute($value)
+    {
+        if ($this->country?->name) {
+            return $this->country?->name;
+        }
+
+        return null;
+    }
+
     public function isAdmin()
     {
         return false;
+    }
+
+    public function sendPortalAccessMail()
+    {
+        $mailLocale = App::getLocale();
+        switch ($this->country->name) {
+            case 'Germany':
+                $mailLocale = 'de';
+                break;
+            case 'Austria':
+                $mailLocale = 'de';
+                break;
+            case 'Switzerland':
+                $mailLocale = 'de';
+                break;
+            case 'Luxembourg':
+                $mailLocale = 'de';
+                break;
+
+            default:
+                break;
+        }
+
+        $data = [];
+        $cinema_login_link = "https://" . config('filament.cinema_portal_url') . "?c={$this?->unique_hash}";
+        $data['cinema_login_link'] = $cinema_login_link;
+
+        foreach ($this->emails as $value) {
+            Mail::to($value->email)->locale($mailLocale)->queue(new CinemaPortalAccess($data));
+        }
     }
 }

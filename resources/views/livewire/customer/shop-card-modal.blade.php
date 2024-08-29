@@ -228,7 +228,7 @@
                                             <input type="checkbox"
                                                 class="checkbox justify-self-end border-white/50 border ml-auto h-6"
                                                 value="{{ $item->id }}"
-                                                wire:click="updateSelectedNames({{ $item->id }}, '{{ $item->name }}', '{{ $item?->city_name }}', 'group')"
+                                                wire:click="updateSelectedNamesForGroups({{ $item->id }})"
                                                 wire:model.live="selectedCinemaGroups"
                                                 wire:key="group-{{ $item->id }}" />
                                         @endforeach
@@ -291,15 +291,28 @@
                                             ({{ $item['cinema_names'] }})
                                         @endif
                                     </h4>
-                                    <button
-                                        class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
-                                        wire:click="removeSelectedName({{ $item['id'] }}, '{{ $item['type'] }}')">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
+                                    @if (array_key_exists('group_id', $item))
+                                        <button
+                                            class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
+                                            wire:click="removeSelectedNameForGroup({{ $item['id'] }}, {{ $item['group_id'] }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    @else
+                                        <button
+                                            class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
+                                            wire:click="removeSelectedName({{ $item['id'] }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    @endif
+
                                 </div>
                             @endforeach
                         </div>
@@ -317,15 +330,27 @@
                                         ({{ $item['cinema_names'] }})
                                     @endif
                                 </h4>
-                                <button
-                                    class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
-                                    wire:click="removeSelectedName({{ $item['id'] }}, '{{ $item['type'] }}')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
-                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
+                                @if (array_key_exists('group_id', $item))
+                                    <button
+                                        class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
+                                        wire:click="removeSelectedNameForGroup({{ $item['id'] }}, {{ $item['group_id'] }})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                @else
+                                    <button
+                                        class="btn btn-circle btn-outline border-white w-[10px] min-h-[10px] max-h-[10px]"
+                                        wire:click="removeSelectedName({{ $item['id'] }}, '{{ $item['type'] }}')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-2 h-2 stroke-white"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                @endif
 
                             </div>
                         @endforeach

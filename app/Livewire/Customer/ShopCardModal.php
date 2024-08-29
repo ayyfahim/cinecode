@@ -163,54 +163,71 @@ class ShopCardModal extends BaseComponent
         $this->isLoading = true;
 
         try {
-            $order = Order::create([
+            $order_data = [
                 'distributor_id' => auth('customer')->id(),
                 'movie_id' => $this->movie['id'],
                 'downloaded' => 0,
                 'version_id' => $this->selected_version,
                 'validity_period_from' => Carbon::parse($this->dateFrom, config('app.timezone'))->addDay(1),
                 'validity_period_to' => Carbon::parse($this->dateTo, config('app.timezone'))->addDay(1),
-            ]);
+            ];
 
-            if (count($this->selectedCinemas)) {
-                foreach ($this->selectedCinemas as $cinema_id) {
+
+            // if (count($this->selectedCinemas)) {
+            //     foreach ($this->selectedCinemas as $cinema_id) {
+            //         $string = sha1(rand());
+            //         $token = substr($string, 0, 10);
+
+
+            //         OrderCinema::create([
+            //             'cinema_id' => $cinema_id,
+            //             'order_id' => $order->id,
+            //             'download_token' => $token
+            //         ]);
+            //     }
+            // }
+            if (count($this->selectedNames)) {
+                foreach ($this->selectedNames as $value) {
                     $string = sha1(rand());
                     $token = substr($string, 0, 10);
 
+                    $order = Order::create($order_data);
 
                     OrderCinema::create([
-                        'cinema_id' => $cinema_id,
+                        'cinema_id' => $value['id'],
                         'order_id' => $order->id,
                         'download_token' => $token
                     ]);
+
+                    $this->sendOrderConfirmationMail($order->fresh());
                 }
             }
 
-            if (count($this->selectedCinemaGroups)) {
-                $cinema_groups = CinemaGroup::whereIn('id', $this->selectedCinemaGroups)->with('cinemas')->get();
-                foreach ($cinema_groups as $group) {
-                    $order = Order::create([
-                        'distributor_id' => auth('customer')->id(),
-                        'movie_id' => $this->movie['id'],
-                        'downloaded' => 0,
-                        'version_id' => $this->selected_version,
-                        'validity_period_from' => Carbon::parse($this->dateFrom, config('app.timezone'))->addDay(1),
-                        'validity_period_to' => Carbon::parse($this->dateTo, config('app.timezone'))->addDay(1),
-                    ]);
+            // if (count($this->selectedCinemaGroups)) {
+            //     $cinema_groups = CinemaGroup::whereIn('id', $this->selectedCinemaGroups)->with('cinemas')->get();
+            //     foreach ($cinema_groups as $group) {
+            //         $order = Order::create([
+            //             'distributor_id' => auth('customer')->id(),
+            //             'movie_id' => $this->movie['id'],
+            //             'downloaded' => 0,
+            //             'version_id' => $this->selected_version,
+            //             'validity_period_from' => Carbon::parse($this->dateFrom, config('app.timezone'))->addDay(1),
+            //             'validity_period_to' => Carbon::parse($this->dateTo, config('app.timezone'))->addDay(1),
+            //         ]);
 
-                    foreach ($group->cinemas as $cinema) {
-                        $string = sha1(rand());
-                        $token = substr($string, 0, 10);
+            //         foreach ($group->cinemas as $cinema) {
+            //             $string = sha1(rand());
+            //             $token = substr($string, 0, 10);
 
 
-                        OrderCinema::create([
-                            'cinema_id' => $cinema->id,
-                            'order_id' => $order->id,
-                            'download_token' => $token
-                        ]);
-                    }
-                }
-            }
+            //             OrderCinema::create([
+            //                 'cinema_id' => $cinema->id,
+            //                 'order_id' => $order->id,
+            //                 'download_token' => $token
+            //             ]);
+            //         }
+            //     }
+            // }
         } catch (\Throwable $th) {
             dd($th);
             $this->isLoading = false;
@@ -222,7 +239,7 @@ class ShopCardModal extends BaseComponent
             return;
         }
 
-        $this->sendOrderConfirmationMail($order);
+
 
         $this->isLoading = false;
 
@@ -273,7 +290,7 @@ class ShopCardModal extends BaseComponent
             default:
                 break;
         }
-        Mail::to($order->distributor->email)->locale($mailLocale)->send(new DistributorOrderConfirmation($data));
+        Mail::to($order->distributor->email)->locale($mailLocale)->queue(new DistributorOrderConfirmation($data));
     }
 
     public function mount()
@@ -312,7 +329,36 @@ class ShopCardModal extends BaseComponent
         $this->dateTo = $to;
     }
 
-    public function updateSelectedNames($id, $name, $city_name = null, $type)
+    public function updateSelectedNamesForGroups($id)
+    {
+        // Check if the item already exists in the selectedNames collection
+        $exists = $this->selectedNames?->contains(function ($value) use ($id) {
+            if (array_key_exists('group_id', $value)) {
+                return $value['group_id'] === $id;
+            }
+        });
+
+        if ($exists) {
+            $this->selectedNames = $this->selectedNames?->reject(function ($value) use ($id) {
+                if (array_key_exists('group_id', $value)) {
+                    return $value['group_id'] === $id;
+                }
+            })->values();
+        } else {
+            foreach ($this->cinemaGroups->where('id', $id)->first()->cinemas as $key => $value) {
+                $arr = [
+                    'group_id' => $id,
+                    'id' => $value->id,
+                    'name' => $value->name,
+                    'city_name' => $value->city_name
+                ];
+
+                $this->selectedNames?->push($arr);
+            }
+        }
+    }
+
+    public function updateSelectedNames($id, $name, $city_name = null, $type = 'cinema')
     {
         $arr = [
             'type' => $type,
@@ -332,13 +378,17 @@ class ShopCardModal extends BaseComponent
 
         // Check if the item already exists in the selectedNames collection
         $exists = $this->selectedNames?->contains(function ($value) use ($id, $type) {
-            return $value['id'] === $id && $value['type'] === $type;
+            if (array_key_exists('type', $value)) {
+                return $value['id'] === $id && $value['type'] === $type;
+            }
         });
 
         if ($exists) {
             // Remove the item from the collection if it exists
             $this->selectedNames = $this->selectedNames?->reject(function ($value) use ($id, $type) {
-                return $value['id'] === $id && $value['type'] === $type;
+                if (array_key_exists('type', $value)) {
+                    return $value['id'] === $id && $value['type'] === $type;
+                }
             })->values();
         } else {
             // Add the item to the collection if it does not exist
@@ -346,10 +396,12 @@ class ShopCardModal extends BaseComponent
         }
     }
 
-    public function removeSelectedName($id, $type)
+    public function removeSelectedName($id, $type = 'cinema')
     {
         $this->selectedNames = $this->selectedNames?->reject(function ($value) use ($id, $type) {
-            return $value['id'] === $id && $value['type'] === $type;
+            if (array_key_exists('type', $value)) {
+                return $value['id'] === $id && $value['type'] === $type;
+            }
         })->values();
 
         if ($type == 'cinema') {
@@ -360,6 +412,21 @@ class ShopCardModal extends BaseComponent
         } else if ($type == 'group') {
             $this->selectedCinemaGroups = Arr::where($this->selectedCinemaGroups, function ($value) use ($id) {
                 return $value !== (string) $id;
+            });
+        }
+    }
+
+    public function removeSelectedNameForGroup($id, $group_id)
+    {
+        $this->selectedNames = $this->selectedNames?->reject(function ($value) use ($id, $group_id) {
+            if (array_key_exists('group_id', $value)) {
+                return $value['id'] === $id && $value['group_id'] === $group_id;
+            }
+        })->values();
+
+        if ($this->selectedNames?->where('group_id', $group_id)?->count() == 0) {
+            $this->selectedCinemaGroups = Arr::where($this->selectedCinemaGroups, function ($value) use ($group_id) {
+                return $value !== (string) $group_id;
             });
         }
     }

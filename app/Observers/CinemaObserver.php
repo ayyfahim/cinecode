@@ -42,10 +42,16 @@ class CinemaObserver
         $shortHash = substr(preg_replace('/[^a-zA-Z0-9]/', '', base64_encode(hash('sha256', $keyString, true))), 0, 16);
         $formattedHash = substr($shortHash, 0, 4) . '-' . substr($shortHash, 4, 4) . '-' . substr($shortHash, 8, 4) . '-' . substr($shortHash, 12, 4);
 
+        // Generate a checksum from the formattedHash
+        $checksum = hash("crc32b", $formattedHash);
+
+        // Append the checksum to the formattedHash
+        $finalHash = $formattedHash . '-' . substr($checksum, 0, 4);
+
         // Return all components for verification
         return [
             'unique_hash_salt' => $salt,
-            'unique_hash' => $formattedHash,
+            'unique_hash' => $finalHash,
         ];
     }
 

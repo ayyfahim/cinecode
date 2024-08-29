@@ -36,7 +36,9 @@ class Navbar extends Component
 
     public function downloadPlayer()
     {
-        return response()->download(public_path(config('app.player_name')));
+        // ini_set('memory_limit', '8192M');
+        // return response()->download(public_path(config('app.player_name')));
+        return redirect()->to(asset(config('app.player_name')));
     }
 
     public function render()

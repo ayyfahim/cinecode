@@ -23,6 +23,14 @@ class SetLanguageBasedOnCountry
         try {
             $country_name = $request->user()?->country?->name ?? auth('customer')->user()?->distributor?->country?->name;
 
+            if (!$country_name) {
+                try {
+                    $country_name = \CinemaUniqueAuth::user()->country_name;
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+            }
+
             $request->session()->put('country_name', $country_name);
 
             switch ($country_name) {

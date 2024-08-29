@@ -20,7 +20,7 @@ class DistributorEmailObserver
 
         $url = config('app.url') . "/customer/generate-password?token=$token&email=$distributorEmail->email";
 
-        Mail::to($distributorEmail->email)->send(new DistributorGeneratePassword($url));
+        Mail::to($distributorEmail->email)->queue(new DistributorGeneratePassword($url));
 
         $distributorEmail->update([
             'password_generate_token' => $token

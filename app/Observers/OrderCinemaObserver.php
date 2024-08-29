@@ -16,7 +16,7 @@ class OrderCinemaObserver
      */
     public function created(OrderCinema $orderCinema): void
     {
-        $orderCinema = $orderCinema->load('cinema', 'order', 'order.movie', 'order.version', 'order.distributor', 'order.distributor.distributor');
+        $orderCinema = $orderCinema->load('cinema', 'cinema.country', 'order', 'order.movie', 'order.version', 'order.distributor', 'order.distributor.distributor');
         $data = [];
         $order = $orderCinema->order;
         $data['movie_title'] = $order?->movie?->name;
@@ -28,14 +28,14 @@ class OrderCinemaObserver
         $download_link = "https://" . config('filament.cinema_portal_url') . '/movie/download' . "?token={$orderCinema?->download_token}&order={$orderCinema?->order->id}&c={$orderCinema?->cinema?->unique_hash}";
         $data['download_link'] = $download_link;
 
-        $mcck_file = $order?->version?->mcck_file;
+        $mcck_file = $order?->cck_file;
         $data['mcck_file'] = $mcck_file;
 
         $cinema_login_link = "https://" . config('filament.cinema_portal_url') . "?c={$orderCinema?->cinema?->unique_hash}";
         $data['cinema_login_link'] = $cinema_login_link;
 
         $mailLocale = App::getLocale();
-        switch ($order->distributor->distributor->country->name) {
+        switch ($orderCinema?->cinema?->country->name) {
             case 'Germany':
                 $mailLocale = 'de';
                 break;
@@ -54,7 +54,10 @@ class OrderCinemaObserver
         }
 
         foreach ($orderCinema?->cinema->emails as $email) {
-            Mail::to($email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
+            Mail::to($email)->locale($mailLocale)->queue(new CinemaMovieDownload($data));
+            // if (env('MAIL_HOST', false) == 'smtp.mailtrap.io') {
+            //     sleep(1); //use usleep(500000) for half a second or less
+            // }
         }
         // Mail::to($orderCinema?->cinema->emails->first()->email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
     }
@@ -95,7 +98,7 @@ class OrderCinemaObserver
                     break;
             }
 
-            Mail::to($order?->distributor?->email)->locale($mailLocale)->send(new DistributorMovieDownloadConfirmation($data));
+            Mail::to($order?->distributor?->email)->locale($mailLocale)->queue(new DistributorMovieDownloadConfirmation($data));
         }
     }
 

@@ -14,6 +14,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CinemaResource extends Resource
@@ -134,6 +136,14 @@ class CinemaResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+
+                Tables\Actions\Action::make('sendPortalAccessMail')
+                    ->accessSelectedRecords()
+                    ->label('Send Mail')
+                    ->icon('heroicon-o-paper-airplane')
+                    ->action(function (Model $record, Collection $selectedRecords) {
+                        $record->sendPortalAccessMail();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

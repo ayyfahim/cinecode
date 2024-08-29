@@ -64,7 +64,8 @@
                         route('cinema.movie.download') .
                         "?token={$orderCinema?->download_token}&order={$order->id}&c={$c}";
                 @endphp
-                <x-button icon="o-play" wire:click="download('{{ $url }}')" spinner class="btn-sm" />
+                <x-button icon="o-play" wire:click="download('{{ $url }}', '{{ $order->id }}')" spinner
+                    class="btn-sm" />
                 <x-button icon="o-arrow-down-on-square" wire:click="downloadMcck('{{ $order->id }}')" spinner
                     class="btn-sm" />
             @endscope

@@ -31,7 +31,7 @@ class OrderHistory extends Component
         $this->isLoading = true;
         $s_query = !empty($this->search_query) ? $this->search_query : false;
         $all_orders = Order::with('cinemas', 'movie', 'version')
-            ->where('distributor_id', auth('customer')->user()->distributor_id)
+            ->where('distributor_id', auth('customer')->id())
             ->when($s_query, function ($query) use ($s_query) {
                 $query->where(function ($query) use ($s_query) {
                     $query->whereHas('movie', function ($query) use ($s_query) {

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('distributor_id')->constrained('distributor_emails');
-            $table->foreignId('movie_id')->constrained();
-            $table->boolean('downloaded')->default(false);
-            $table->timestamps();
+        Schema::table('cinemas', function (Blueprint $table) {
+            $table->string('player_dt')->nullable();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::table('cinemas', function (Blueprint $table) {
+            //
+        });
     }
 };
