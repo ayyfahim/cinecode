@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Mail\CinemaMovieDownload;
 use App\Mail\DistributorMovieDownloadConfirmation;
+use App\Models\DistributorEmail;
 use App\Models\OrderCinema;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
@@ -98,7 +99,9 @@ class OrderCinemaObserver
                     break;
             }
 
-            Mail::to($order?->distributor?->email)->locale($mailLocale)->queue(new DistributorMovieDownloadConfirmation($data));
+            foreach ($distributor_emails = DistributorEmail::where('distributor_id', $order?->distributor?->distributor_id)->get() as $value) {
+                Mail::to($value?->email)->locale($mailLocale)->queue(new DistributorMovieDownloadConfirmation($data));
+            }
         }
     }
 

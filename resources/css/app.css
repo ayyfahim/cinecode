@@ -23,4 +23,16 @@
     .btn-cine-highlight-1 {
         @apply bg-cine-highlight-1;
     }
+
+    .datePicker {
+        @apply !absolute sm:!fixed;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        .datePicker {
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+        }
+    }
 }

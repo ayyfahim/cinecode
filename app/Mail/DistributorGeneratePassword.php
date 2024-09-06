@@ -4,12 +4,13 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DistributorGeneratePassword extends Mailable
+class DistributorGeneratePassword extends Mailable implements HasLocalePreference
 {
     use Queueable, SerializesModels;
 
@@ -17,9 +18,8 @@ class DistributorGeneratePassword extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public $url,
-    ) {
-    }
+        public $data,
+    ) {}
 
     /**
      * Get the message envelope.
@@ -31,16 +31,19 @@ class DistributorGeneratePassword extends Mailable
         );
     }
 
+    public function preferredLocale(): string
+    {
+        return $this->locale;
+    }
+
+
     /**
      * Get the message content definition.
      */
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.distributor.generatePassword',
-            with: [
-                'url' => $this->url,
-            ],
+            markdown: "mail.distributor.generatePassword.{$this->locale}.mail"
         );
     }
 

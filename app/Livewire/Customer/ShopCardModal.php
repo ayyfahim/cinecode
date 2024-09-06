@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\DistributorOrderConfirmation;
+use App\Models\DistributorEmail;
 
 class ShopCardModal extends BaseComponent
 {
@@ -290,7 +291,9 @@ class ShopCardModal extends BaseComponent
             default:
                 break;
         }
-        Mail::to($order->distributor->email)->locale($mailLocale)->queue(new DistributorOrderConfirmation($data));
+        foreach ($distributor_emails = DistributorEmail::where('distributor_id', $order?->distributor?->distributor_id)->get() as $value) {
+            Mail::to($value?->email)->locale($mailLocale)->queue(new DistributorOrderConfirmation($data));
+        }
     }
 
     public function mount()

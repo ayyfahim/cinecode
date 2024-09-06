@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\DistributorOrderConfirmation;
+use Exception;
 
 class OrderObserver
 {
@@ -41,7 +42,7 @@ class OrderObserver
         $keyFileContent = File::get($path);
         $validityStart = $order->validity_period_from;
         $validityEnd = $order->validity_period_to;
-        $oneTimeKey = "True";
+        $oneTimeKey = "False";
 
         // Perform key file validation
         $keyFileParts = explode(":", $keyFileContent);
@@ -55,7 +56,7 @@ class OrderObserver
             // Compare the calculated hash with the saved hash
             if ($hashObject === $savedHash) {
                 // Generate new key file
-                $outputFolder = storage_path('app/public'); // Assuming 'keys' is a directory in storage/app
+                $outputFolder = storage_path('app/public');
 
                 // Get the current number of files in the output folder
                 $numFiles = count(glob($outputFolder . "/*.cck"));
@@ -96,24 +97,21 @@ class OrderObserver
                 $randomPrefix = Str::random(65) . Str::random(65) . Str::random(65) . Str::random(65) .
                     Str::random(65) . Str::random(65) . Str::random(65) . Str::random(65) .
                     Str::random(65) . Str::random(65) . Str::random(65) . Str::random(65) .
-                    Str::random(65) . Str::random(65);
+                    Str::random(65) . Str::random(65) . Str::random(65);
                 $newKeyString = $randomPrefix . Str::random(49) . $newKeyString;
 
                 // Create the new file
-                // Storage::put("keys/{$fileName}", $newKeyString);
-
                 Storage::disk('public')->put($fileName, $newKeyString);
 
                 $order->update([
                     'cck_file' => $fileName
                 ]);
-
-                // Return file as a download
-                // return response()->download(storage_path("app/keys/{$fileName}"))->deleteFileAfterSend();
             } else {
+                throw new Exception("Key file is not valid.");
                 // return redirect()->back()->with('error', 'Key file is not valid.');
             }
         } else {
+            throw new Exception("Invalid key file format.");
             // return redirect()->back()->with('error', 'Invalid key file format.');
         }
     }

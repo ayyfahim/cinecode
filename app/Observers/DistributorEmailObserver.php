@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Mail\DistributorGeneratePassword;
 use App\Models\DistributorEmail;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 
 class DistributorEmailObserver
@@ -20,7 +21,29 @@ class DistributorEmailObserver
 
         $url = config('app.url') . "/customer/generate-password?token=$token&email=$distributorEmail->email";
 
-        Mail::to($distributorEmail->email)->queue(new DistributorGeneratePassword($url));
+        $mailLocale = App::getLocale();
+        switch ($distributorEmail?->distributor?->country->name) {
+            case 'Germany':
+                $mailLocale = 'de';
+                break;
+            case 'Austria':
+                $mailLocale = 'de';
+                break;
+            case 'Switzerland':
+                $mailLocale = 'de';
+                break;
+            case 'Luxembourg':
+                $mailLocale = 'de';
+                break;
+
+            default:
+                break;
+        }
+
+        $data = [];
+        $data['url'] = $url;
+
+        Mail::to($distributorEmail->email)->locale($mailLocale)->queue(new DistributorGeneratePassword($data));
 
         $distributorEmail->update([
             'password_generate_token' => $token

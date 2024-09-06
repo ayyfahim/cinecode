@@ -33,7 +33,7 @@
                                     :class="{ 'font-semibold': endToShow == 'to' }" />
                             </div>
                         </div>
-                        <div class="absolute bg-white mt-2 rounded-lg shadow p-4 sm:w-80 w-full text-neutral"
+                        <div class="datePicker absolute bg-white mt-2 rounded-lg shadow p-4 sm:w-80 w-full text-neutral"
                             x-show="showDatepicker" x-transition>
                             <div class="flex flex-col items-center">
 
