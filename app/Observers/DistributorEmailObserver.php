@@ -43,11 +43,12 @@ class DistributorEmailObserver
         $data = [];
         $data['url'] = $url;
 
-        Mail::to($distributorEmail->email)->locale($mailLocale)->queue(new DistributorGeneratePassword($data));
+        Mail::to($distributorEmail->email)->locale($mailLocale)->send(new DistributorGeneratePassword($data));
 
         $distributorEmail->update([
             'password_generate_token' => $token
         ]);
+        sleep(1);
     }
 
     /**

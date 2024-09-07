@@ -84,7 +84,7 @@ class Shop extends Component
                     break;
             }
         }
-        $m = $m->paginate(30);
+        $m = $m->latest()->paginate(30);
         $this->isLoading = false;
         // }
 

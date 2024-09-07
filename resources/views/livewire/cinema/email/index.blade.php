@@ -51,11 +51,18 @@
 
         </x-table>
 
-        <x-modal wire:model="emailCreateModal" class="backdrop-blur">
-            <x-input label="Email" placeholder="Enter your email." wire:model="email" />
+        <x-modal wire:model="emailCreateModal" class="backdrop-blur" box-class="bg-cine-neutral/90">
+            <label class="pt-0 label label-text font-semibold text-white">
+                <span>
+                    Email
+                </span>
+            </label>
+            <x-input placeholder="Enter your email." wire:model="email" />
             <x-slot:actions>
-                <x-button label="Save" wire:click='createEmail' />
+                <x-button label="Save" wire:click='createEmail'
+                    class="bg-black text-white border-transparent hover:bg-black hover:text-white hover:border-transparent" />
                 <x-button label="Cancel"
+                    class="bg-black text-white border-transparent hover:bg-black hover:text-white hover:border-transparent"
                     @click="$wire.emailCreateModal = false, $wire.email = '', $wire.selectedEmail = null" />
             </x-slot:actions>
         </x-modal>

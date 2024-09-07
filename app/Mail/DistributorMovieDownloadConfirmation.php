@@ -19,8 +19,7 @@ class DistributorMovieDownloadConfirmation extends Mailable implements HasLocale
      */
     public function __construct(
         public $data,
-    ) {
-    }
+    ) {}
 
     public function preferredLocale(): string
     {
@@ -33,7 +32,7 @@ class DistributorMovieDownloadConfirmation extends Mailable implements HasLocale
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Distributor Movie Download Confirmation',
+            subject: 'cinecode Player Screening - Download confirmation',
         );
     }
 

@@ -11,6 +11,13 @@ class Distributor extends Model
 {
     use HasFactory;
 
+    protected function casts(): array
+    {
+        return [
+            'allow_credit' => 'boolean'
+        ];
+    }
+
     protected $guarded = [];
 
     public function emails(): HasMany

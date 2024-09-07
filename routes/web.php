@@ -70,7 +70,7 @@ Route::domain(config('filament.cinema_portal_url'))->group(function () {
             Route::get('orders', CinemaOrderHistory::class)->name('order.index');
             Route::get('emails', CinemaEmailIndex::class)->name('email.index');
             Route::get('movie/download', [CinemaController::class, 'movieDownload'])->name('movie.download');
-            Route::get('player', CinemaPlayer::class)->name('player');
+            // Route::get('player', CinemaPlayer::class)->name('player');
             Route::get('player/download', CinemaPlayerDownloadPage::class)->name('player.download');
         });
 });
@@ -81,3 +81,7 @@ Route::domain(config('filament.customer_portal_url'))->middleware([SwitchLanguag
             Route::get('/', [CustomerController::class, 'home'])->name('home');
         }
     );
+
+Route::get('storage-link', function () {
+    Artisan::call('storage:link');
+});

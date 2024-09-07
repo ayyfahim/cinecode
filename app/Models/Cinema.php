@@ -90,7 +90,8 @@ class Cinema extends Authenticatable implements UserInterface
         $data['cinema_login_link'] = $cinema_login_link;
 
         foreach ($this->emails as $value) {
-            Mail::to($value->email)->locale($mailLocale)->queue(new CinemaPortalAccess($data));
+            Mail::to($value->email)->locale($mailLocale)->send(new CinemaPortalAccess($data));
+            sleep(1);
         }
     }
 }

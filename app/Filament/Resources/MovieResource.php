@@ -95,6 +95,8 @@ class MovieResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('distributors.distributor_name')
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('cinema_visibility')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('release_date')

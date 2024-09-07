@@ -7,7 +7,7 @@
                             class="{{ request()->is('emails') ? 'active' : '' }}">Emails</a></li>
                     <li><a href="{{ route('cinema.order.index') . '?c=' . request()->c }}"
                             class="{{ request()->is('orders') ? 'active' : '' }}">Order History</a></li>
-                    <li><a href="{{ route('cinema.player') . '?c=' . request()->c }}"
+                    <li><a href="{{ route('cinema.player.download') . '?c=' . request()->c }}"
                             class="{{ request()->is('player') ? 'active' : '' }}">Player Download</a></li>
                     <li><a href="https://www.cinecode.de/cinecodeplayerlite/help">Player Help</a></li>
                     {{-- @if (Auth('customer')->check())

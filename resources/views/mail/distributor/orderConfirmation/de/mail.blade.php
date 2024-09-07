@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>cinecode Player Screening - Downloadbestätigung</title>
+    <title>cinecode Player Screening - Bestellbestätigung</title>
     <link rel="important stylesheet" href="chrome://messagebody/skin/messageBody.css">
 </head>
 
@@ -98,10 +98,10 @@
                             align="left" bgcolor="#ffffff">
                             <h1
                                 style='font-family: "Aptos", "Helvetica", sans-serif; color: #27d25b; margin-top: 0; font-weight: 700; font-size: 20px; line-height: 1.1; margin-bottom: 2em; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
-                                cinecode Player Screening - Downloadbestätigung</h1>
+                                cinecode Player Screening - Bestellbestätigung</h1>
                             <p
                                 style='font-family: "Aptos", "Helvetica", sans-serif; color: #161616; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;'>
-                                Der Film wurde erfolgreich vom Kino heruntergeladen.</p>
+                                Ihre cinecode Bestellung ist bei uns eingegangen und wird nun bearbeitet!</p>
 
                             <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
                                 style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto;"

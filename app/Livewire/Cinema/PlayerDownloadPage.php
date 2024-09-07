@@ -13,8 +13,8 @@ use Livewire\Component;
 #[Title('Player Download | Cinecode Cinema Portal')]
 class PlayerDownloadPage extends BaseComponent
 {
-    #[Url]
-    public $token;
+    // #[Url]
+    // public $token;
 
     public $downloadModal = false;
     public $selectedPlatform;
@@ -22,14 +22,14 @@ class PlayerDownloadPage extends BaseComponent
     #[Validate('accepted')]
     public $eula = false;
 
-    public function mount()
-    {
-        $user = \CinemaUniqueAuth::user();
+    // public function mount()
+    // {
+    //     $user = \CinemaUniqueAuth::user();
 
-        if (empty($user?->player_dt) || $user?->player_dt !== $this->token) {
-            return abort(401, 'Wrong token given.');
-        }
-    }
+    //     if (empty($user?->player_dt) || $user?->player_dt !== $this->token) {
+    //         return abort(401, 'Wrong token given.');
+    //     }
+    // }
 
     public function downloadPlayer($platform)
     {

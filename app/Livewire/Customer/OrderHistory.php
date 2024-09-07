@@ -62,7 +62,7 @@ class OrderHistory extends Component
             $all_orders = $all_orders->where('movie_id', (int) $this->filterByMovie);
         }
 
-        $all_orders = $all_orders->paginate(15);
+        $all_orders = $all_orders->latest()->paginate(15);
 
         $this->movies = $all_orders->pluck('movie')->unique('id');
 

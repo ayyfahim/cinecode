@@ -115,7 +115,7 @@ class ShopCardModal extends BaseComponent
             ['name' => $this->cinemaName, 'city_name' => $this->cityName, 'country_id' => $this->country, 'emails' => $this->emails],
 
             // Validation rules to apply...
-            ['emails' => 'array', 'emails.*' => 'distinct|email', 'name' => 'required|string', 'city_name' => 'required|string', 'country_id' => 'required'],
+            ['emails' => 'array|min:1', 'emails.*' => 'distinct|email', 'name' => 'required|string', 'city_name' => 'required|string', 'country_id' => 'required'],
             [
                 'required' => 'The :attribute field is required.',
                 'min' => 'Min :min :attribute is required.',
@@ -158,6 +158,14 @@ class ShopCardModal extends BaseComponent
 
         if (!count($this->selectedCinemas) && !count($this->selectedCinemaGroups)) {
             $this->error('Please provide at least one cinema or groups...');
+            return;
+        }
+
+        $user_credits = auth('customer')->user()->credits;
+
+
+        if (auth('customer')->user()->allow_credit && $user_credits <= 0) {
+            $this->error('The order cannot be processed.');
             return;
         }
 
@@ -240,7 +248,11 @@ class ShopCardModal extends BaseComponent
             return;
         }
 
-
+        if ($user_credits !== null || $user_credits <= 0) {
+            auth('customer')->user()->update([
+                'credits' => $user_credits - 1
+            ]);
+        }
 
         $this->isLoading = false;
 
@@ -292,7 +304,8 @@ class ShopCardModal extends BaseComponent
                 break;
         }
         foreach ($distributor_emails = DistributorEmail::where('distributor_id', $order?->distributor?->distributor_id)->get() as $value) {
-            Mail::to($value?->email)->locale($mailLocale)->queue(new DistributorOrderConfirmation($data));
+            Mail::to($value?->email)->locale($mailLocale)->send(new DistributorOrderConfirmation($data));
+            sleep(1);
         }
     }
 

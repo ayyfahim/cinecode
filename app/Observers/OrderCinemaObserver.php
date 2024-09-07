@@ -55,7 +55,8 @@ class OrderCinemaObserver
         }
 
         foreach ($orderCinema?->cinema->emails as $email) {
-            Mail::to($email)->locale($mailLocale)->queue(new CinemaMovieDownload($data));
+            Mail::to($email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
+            sleep(1);
             // if (env('MAIL_HOST', false) == 'smtp.mailtrap.io') {
             //     sleep(1); //use usleep(500000) for half a second or less
             // }
@@ -100,7 +101,8 @@ class OrderCinemaObserver
             }
 
             foreach ($distributor_emails = DistributorEmail::where('distributor_id', $order?->distributor?->distributor_id)->get() as $value) {
-                Mail::to($value?->email)->locale($mailLocale)->queue(new DistributorMovieDownloadConfirmation($data));
+                Mail::to($value?->email)->locale($mailLocale)->send(new DistributorMovieDownloadConfirmation($data));
+                sleep(1);
             }
         }
     }

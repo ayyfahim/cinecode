@@ -26,7 +26,7 @@ class CinemaPortalAccess extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Cinema Portal Access',
+            subject: 'cinecode Cinema-Portal - Access',
         );
     }
 

@@ -28,7 +28,7 @@ class CinemaMovieDownload extends Mailable implements HasLocalePreference
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Cinema Movie Download',
+            subject: 'cinecode Player Screening - Download',
         );
     }
 

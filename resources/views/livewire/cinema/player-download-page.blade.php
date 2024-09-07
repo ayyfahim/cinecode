@@ -4,8 +4,8 @@
     }">
         <div class="card lg:max-w-lg w-full bg-base-100 shadow-xl" id="step-1">
             <div class="card-body">
-                <h2 class="card-title">Download Player</h2>
-                <p>Please select a platfrom.</p>
+                <h2 class="card-title">Download cinecode Player Lite</h2>
+                <p class="mb-11">Please select a Platform.</p>
 
                 <div class="flex flex-row gap-2 justify-center">
                     <div class="card bg-transparent text-neutral-content w-28 border border-neutral-content cursor-pointer"
@@ -178,7 +178,7 @@
             </div>
             <x-slot:actions>
                 <x-button label="Cancel" @click="$wire.downloadModal = false" />
-                <x-button label="Confirm" class="btn-primary" x-bind:disabled="!eulaAccepted"
+                <x-button label="Confirm" class="btn-cine-highlight-1" x-bind:disabled="!eulaAccepted"
                     wire:click='confirmDownloadPlayer()' />
             </x-slot:actions>
         </x-modal>

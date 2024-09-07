@@ -27,7 +27,7 @@ class DistributorGeneratePassword extends Mailable implements HasLocalePreferenc
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Generate Password - Cinecode',
+            subject: 'cinecode Distributor-Portal - Generate Password',
         );
     }
 

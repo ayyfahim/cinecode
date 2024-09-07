@@ -19,8 +19,7 @@ class DistributorOrderConfirmation extends Mailable implements HasLocalePreferen
      */
     public function __construct(
         public $data,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the message envelope.
@@ -28,7 +27,7 @@ class DistributorOrderConfirmation extends Mailable implements HasLocalePreferen
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Distributor Order Confirmation',
+            subject: 'cinecode Player Screening - Order confirmation',
         );
     }
 
