@@ -161,10 +161,10 @@ class ShopCardModal extends BaseComponent
             return;
         }
 
-        $user_credits = auth('customer')->user()->credits;
+        $user_credits = auth('customer')->user()->distributor->credits;
 
 
-        if (auth('customer')->user()->allow_credit && $user_credits <= 0) {
+        if (auth('customer')->user()->distributor->allow_credit && $user_credits <= 0) {
             $this->error('The order cannot be processed.');
             return;
         }
@@ -181,20 +181,6 @@ class ShopCardModal extends BaseComponent
                 'validity_period_to' => Carbon::parse($this->dateTo, config('app.timezone'))->addDay(1),
             ];
 
-
-            // if (count($this->selectedCinemas)) {
-            //     foreach ($this->selectedCinemas as $cinema_id) {
-            //         $string = sha1(rand());
-            //         $token = substr($string, 0, 10);
-
-
-            //         OrderCinema::create([
-            //             'cinema_id' => $cinema_id,
-            //             'order_id' => $order->id,
-            //             'download_token' => $token
-            //         ]);
-            //     }
-            // }
             if (count($this->selectedNames)) {
                 foreach ($this->selectedNames as $value) {
                     $string = sha1(rand());
@@ -211,34 +197,8 @@ class ShopCardModal extends BaseComponent
                     $this->sendOrderConfirmationMail($order->fresh());
                 }
             }
-
-            // if (count($this->selectedCinemaGroups)) {
-            //     $cinema_groups = CinemaGroup::whereIn('id', $this->selectedCinemaGroups)->with('cinemas')->get();
-            //     foreach ($cinema_groups as $group) {
-            //         $order = Order::create([
-            //             'distributor_id' => auth('customer')->id(),
-            //             'movie_id' => $this->movie['id'],
-            //             'downloaded' => 0,
-            //             'version_id' => $this->selected_version,
-            //             'validity_period_from' => Carbon::parse($this->dateFrom, config('app.timezone'))->addDay(1),
-            //             'validity_period_to' => Carbon::parse($this->dateTo, config('app.timezone'))->addDay(1),
-            //         ]);
-
-            //         foreach ($group->cinemas as $cinema) {
-            //             $string = sha1(rand());
-            //             $token = substr($string, 0, 10);
-
-
-            //             OrderCinema::create([
-            //                 'cinema_id' => $cinema->id,
-            //                 'order_id' => $order->id,
-            //                 'download_token' => $token
-            //             ]);
-            //         }
-            //     }
-            // }
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             $this->isLoading = false;
 
             $this->error($th->getMessage());
@@ -248,8 +208,8 @@ class ShopCardModal extends BaseComponent
             return;
         }
 
-        if ($user_credits !== null || $user_credits <= 0) {
-            auth('customer')->user()->update([
+        if ($user_credits !== null) {
+            auth('customer')->user()->distributor()->update([
                 'credits' => $user_credits - 1
             ]);
         }

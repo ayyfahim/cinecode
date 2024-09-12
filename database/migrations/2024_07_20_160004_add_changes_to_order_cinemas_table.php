@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('order_cinemas', function (Blueprint $table) {
             $table->boolean('downloaded_movies')->default(false);
-            $table->string('download_token');
+            $table->string('download_token')->nullable();
         });
     }
 

@@ -40,6 +40,9 @@ class OrderResource extends Resource
                     ->multiple()
                     ->preload()
                     ->relationship('cinemas', 'name')
+                    ->pivotData([
+                        'download_token' => substr(sha1(rand()), 0, 10),
+                    ])
                     ->required(),
                 Forms\Components\Select::make('version_id')
                     ->relationship('version', 'version_name')

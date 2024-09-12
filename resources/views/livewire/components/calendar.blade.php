@@ -5,28 +5,28 @@
                 <div>
                     <div class="relative" @keydown.escape="closeDatepicker()" @click.outside="closeDatepicker()">
                         <div class="sm:flex hidden flex-wrap md:gap-3 gap-2 items-center">
-                            <h3 class="text-sm font-semibold">Validity Period</h3>
-                            <h4 class="text-sm font-semibold">from</h4>
+                            <h3 class="text-sm font-semibold">{{ __('distributor_frontend.validity_period') }}</h3>
+                            <h4 class="text-sm font-semibold">{{ __('distributor_frontend.from') }}</h4>
                             <input type="text" class="input input-bordered input-xs text-neutral"
                                 @click="endToShow = 'from'; init(); showDatepicker = true" x-model="outputDateFromValue"
                                 :class="{ 'font-semibold': endToShow == 'from' }" />
-                            <h4 class="text-sm font-semibold">to</h4>
+                            <h4 class="text-sm font-semibold">{{ __('distributor_frontend.to') }}</h4>
                             <input type="text" class="input input-bordered input-xs text-neutral"
                                 @click="endToShow = 'to'; init(); showDatepicker = true" x-model="outputDateToValue"
                                 :class="{ 'font-semibold': endToShow == 'to' }" />
                         </div>
                         <div class="flex sm:hidden flex-wrap flex-col md:gap-3 gap-2">
                             <div class="flex flex-wrap gap-1">
-                                <h3 class="text-sm font-semibold">Validity Period</h3>
-                                <h4 class="text-sm font-semibold">from:</h4>
+                                <h3 class="text-sm font-semibold">{{ __('distributor_frontend.validity_period') }}</h3>
+                                <h4 class="text-sm font-semibold">{{ __('distributor_frontend.from') }}</h4>
                                 <div class="w-full"></div>
                                 <input type="text" class="input input-bordered input-xs text-neutral"
                                     @click="endToShow = 'from'; init(); showDatepicker = true"
                                     x-model="outputDateFromValue" :class="{ 'font-semibold': endToShow == 'from' }" />
                             </div>
                             <div class="flex flex-wrap gap-1">
-                                <h3 class="text-sm font-semibold">Validity Period</h3>
-                                <h4 class="text-sm font-semibold">to:</h4>
+                                <h3 class="text-sm font-semibold">{{ __('distributor_frontend.validity_period') }}</h3>
+                                <h4 class="text-sm font-semibold">{{ __('distributor_frontend.to') }}</h4>
                                 <div class="w-full"></div>
                                 <input type="text" class="input input-bordered input-xs text-neutral"
                                     @click="endToShow = 'to'; init(); showDatepicker = true" x-model="outputDateToValue"
@@ -100,9 +100,9 @@
 
                                 <div>
                                     <button @click="showDatepicker = false"
-                                        class="px-2 py-1 border border-gray-300 hover:border-gray-500 rounded-md">Cancel</button>
+                                        class="px-2 py-1 border border-gray-300 hover:border-gray-500 rounded-md">{{ __('distributor_frontend.cancel') }}</button>
                                     <button @click="outputDateValues(); showDatepicker = false"
-                                        class="px-2 py-1 border border-cine-highlight-1 bg-cine-highlight-1 hover:bg-cine-highlight-1/40 text-white rounded-md">OK</button>
+                                        class="px-2 py-1 border border-cine-highlight-1 bg-cine-highlight-1 hover:bg-cine-highlight-1/40 text-white rounded-md">{{ __('distributor_frontend.ok') }}</button>
                                 </div>
 
                             </div>

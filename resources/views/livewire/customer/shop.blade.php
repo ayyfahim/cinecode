@@ -17,7 +17,9 @@
                 <livewire:components.sort-menu :sort_array="$sort_array" :sort="$sort" />
             </div>
         </div>
-        <h6 class="mt-3 text-opacity-50" style="opacity: 0.5;">Total Pages: {{ $movies->total() }}</h6>
+        <h6 class="mt-3 text-opacity-50" style="opacity: 0.5;">{{ __('distributor_frontend.total_pages') }}
+            {{ $movies->total() }}
+        </h6>
     </div>
 
     <div class="grid gap-4 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 min-h-screen"
@@ -26,7 +28,7 @@
             <livewire:customer.shop-card :key="$movie->id" :movie="$movie" />
         @endforeach
         @if ($movies->count() == 0)
-            <h4>Sorry no movies exist.</h4>
+            <h4>{{ __('distributor_frontend.sorry_no_movies_exist') }}</h4>
         @endif
         <livewire:customer.shop-card-modal />
     </div>

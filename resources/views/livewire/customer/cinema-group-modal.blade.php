@@ -11,10 +11,12 @@
                 style="border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
 
                 <div class="flex flex-col items-center justify-center gap-y-4">
-                    <h2 class="text-2xl font-bold">{{ $editMode ? 'Edit Cinema Group' : 'Add Cinema Group' }}</h2>
+                    <h2 class="text-2xl font-bold">
+                        {{ $editMode ? __('distributor_frontend.edit_cinema_group') : __('distributor_frontend.add_cinema_group') }}
+                    </h2>
 
                     <div class="flex flex-wrap gap-x-3 items-center">
-                        <h3 class="text-sm font-semibold">Group Name</h3>
+                        <h3 class="text-sm font-semibold">{{ __('distributor_frontend.group_name') }}</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <input type="text" class="input input-bordered input-xs text-white"
                                 placeholder="Enter group name" wire:model="group_name" />
@@ -22,7 +24,7 @@
                     </div>
 
                     <div class="flex flex-wrap gap-x-3 items-center">
-                        <h3 class="text-sm font-semibold">Cinema</h3>
+                        <h3 class="text-sm font-semibold">{{ __('distributor_frontend.cinema') }}</h3>
                         <div class="flex flex-wrap gap-x-2 items-center relative">
                             <input wire:model.live.debounce.250ms="search_cinema" type="text"
                                 class="input input-bordered input-xs text-white"
@@ -75,8 +77,8 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Group Name</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('distributor_frontend.group_name') }}</th>
+                                        <th>{{ __('distributor_frontend.actions') }}</th>
                                     </tr>
                                 </thead>
 
@@ -86,7 +88,7 @@
                                             <th>{{ $key + 1 }}</th>
                                             <td>{{ $c_group->name }}</td>
                                             <td><button class="btn btn-ghost btn-xs"
-                                                    wire:click="editCinemaGroup({{ $c_group->id }})">Edit</button>
+                                                    wire:click="editCinemaGroup({{ $c_group->id }})">{{ __('distributor_frontend.edit') }}</button>
                                                 {{-- <button class="btn btn-ghost btn-xs">Delete</button> --}}
                                             </td>
 
@@ -104,22 +106,22 @@
                 <button type="button"
                     class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40 {{ $isLoading ? 'text-gray-500' : '' }}"
                     wire:click='toggleModal'>
-                    Close </button>
+                    {{ __('distributor_frontend.close') }} </button>
                 <button type="button"
                     class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40 {{ $isLoading ? 'text-gray-500' : '' }}"
                     wire:click='cancelEditCinemaGroup' x-show="editMode">
-                    Cancel Edit </button>
+                    {{ __('distributor_frontend.cancel_edit') }} </button>
                 <button type="button"
                     class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40 items-center gap-2"
                     wire:click='updateCinemaGroup' x-show="editMode">
                     <span class="loading loading-spinner w-4" x-show="isLoading"></span>
-                    Update
+                    {{ __('distributor_frontend.update') }}
                 </button>
                 <button type="button"
                     class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40 items-center gap-2"
                     wire:click='addCinemaGroup' x-show="!editMode">
                     <span class="loading loading-spinner w-4" x-show="isLoading"></span>
-                    Add
+                    {{ __('distributor_frontend.add') }}
                 </button>
 
             </div>

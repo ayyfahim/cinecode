@@ -5,11 +5,12 @@
         </aside>
         <nav class="grid-flow-col gap-4 md:place-self-center justify-self-center md:justify-self-end">
             <ul class="menu menu-horizontal px-1 md:justify-end justify-center">
-                <li><a>Contact</a></li>
-                <li><a>Data Protection</a></li>
-                <li><a>Imprint</a></li>
+                <li><a>{{ __('cinema_frontend.contact') }}</a></li>
+                <li><a>{{ __('cinema_frontend.data_protection') }}</a></li>
+                <li><a>{{ __('cinema_frontend.imprint') }}</a></li>
                 <li>
-                    <p>Copyright © 2024 - All right reserved</p>
+                    <p>{{ __('cinema_frontend.copyright_') }} {{ now()->format('Y') }} -
+                        {{ __('cinema_frontend.all_right_reserved') }}</p>
                 </li>
             </ul>
         </nav>

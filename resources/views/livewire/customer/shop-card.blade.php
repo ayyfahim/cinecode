@@ -8,7 +8,6 @@
             </figure>
             <div class="card-body">
                 <h2 class="card-title">{{ $movie->name }}</h2>
-                {{-- <p class="text-sm">{{ $movie->description }}</p> --}}
             </div>
         </div>
     </div>

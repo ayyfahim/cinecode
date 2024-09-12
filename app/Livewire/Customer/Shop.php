@@ -10,29 +10,30 @@ use Illuminate\Support\Facades\App;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
-#[Title('Shop | Cinecode Customer Portal')]
+#[Title('Order | Cinecode Customer Portal')]
 class Shop extends Component
 {
     use WithPagination;
 
     public string $search_query = '';
     public string $sort = 'release_date';
-    public array $sort_array = [
-        [
-            'name' => 'Name',
-            'value' => 'name'
-        ],
-        // [
-        //     'name' => 'Visibility',
-        //     'value' => 'visibility'
-        // ],
-        [
-            'name' => 'Release Date',
-            'value' => 'release_date'
-        ],
-    ];
+    public array $sort_array = [];
     public bool $isLoading = false;
     public bool $modalOpen = false;
+
+    public function mount()
+    {
+        $this->sort_array = [
+            [
+                'name' => __('distributor_frontend.Name'),
+                'value' => 'name'
+            ],
+            [
+                'name' => __('distributor_frontend.Release_Date'),
+                'value' => 'release_date'
+            ],
+        ];
+    }
 
     #[On('shop-sort-update')]
     public function updateSort(string $value)

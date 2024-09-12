@@ -1,13 +1,13 @@
 <div>
     <div class="min-h-screen">
         <div class="prose prose-sm md:prose-base max-w-full flex-grow pt-10">
-            <h1>Orders</h1>
+            <h1>{{ __('cinema_frontend.orders') }}</h1>
             <div class="flex flex-wrap sm:flex-row flex-col justify-between">
-                <p class="!mt-0">{{ $orders->total() }} Orders</p>
+                <p class="!mt-0">{{ $orders->total() }} {{ __('cinema_frontend.orders') }}</p>
 
                 <div class="flex flex-wrap items-center gap-4" x-data="{ filterByDownloaded: $wire.entangle('filterByDownloaded').live, filterByMovie: $wire.entangle('filterByMovie').live, filterOrderDateFrom: $wire.entangle('filterOrderDateFrom').live, filterOrderDateTo: $wire.entangle('filterOrderDateTo').live }">
                     <label class="input input-bordered flex items-center gap-2 h-10 sm:w-72 w-52">
-                        <input type="text" class="grow" placeholder="Search"
+                        <input type="text" class="grow" placeholder="{{ __('cinema_frontend.search') }}"
                             wire:model.live.debounce.250ms='search_query' />
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                             class="w-4 h-4 opacity-70">
@@ -34,19 +34,18 @@
                     <div>
                         <div class="font-bold">{{ $order->movie->name }}</div>
                         <span
-                            class="badge badge-{{ $order->downloaded ? 'primary' : 'error' }} badge-sm">{{ $order->downloaded ? 'Downloaded' : 'Not Downloaded' }}</span>
+                            class="badge badge-{{ $order->downloaded ? 'primary' : 'error' }} badge-sm">{{ $order->downloaded ? __('cinema_frontend.downloaded') : __('cinema_frontend.not_downloaded') }}</span>
                     </div>
                 </div>
             @endscope
 
             @scope('cell_fakeColumn', $order)
                 <div>
-                    <span class="text-sm font-medium">Start
-                        Date: </span>{{ $order->validity_period_from->format('d.m.Y') }}
+                    <span class="text-sm font-medium">{{ __('cinema_frontend.start_date') }}
+                    </span>{{ $order->validity_period_from->format('d.m.Y') }}
                 </div>
                 <div>
-                    <span class="text-sm font-medium">End
-                        Date:
+                    <span class="text-sm font-medium">{{ __('cinema_frontend.end_date') }}
                     </span>{{ $order->validity_period_to->format('d.m.Y') }}
                 </div>
             @endscope

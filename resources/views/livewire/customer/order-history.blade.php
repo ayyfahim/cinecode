@@ -2,12 +2,12 @@
     <div class="min-h-screen flex flex-wrap">
         <div class="xl:w-5/6 w-full">
             <div class="prose prose-sm md:prose-base max-w-full flex-grow pt-10">
-                <h1>Order History</h1>
+                <h1>{{ __('distributor_frontend.order_history') }}</h1>
                 <div class="flex flex-wrap sm:flex-row flex-col justify-between">
                     <p class="!mt-0">{{ $orders->total() }} Orders</p>
                     <div class="flex flex-wrap items-center gap-4" x-data="{ filterByDownloaded: $wire.entangle('filterByDownloaded').live, filterByMovie: $wire.entangle('filterByMovie').live, filterOrderDateFrom: $wire.entangle('filterOrderDateFrom').live, filterOrderDateTo: $wire.entangle('filterOrderDateTo').live }">
                         <label class="input input-bordered flex items-center gap-2 h-10 sm:w-72 w-52">
-                            <input type="text" class="grow" placeholder="Search"
+                            <input type="text" class="grow" placeholder="{{ __('distributor_frontend.search') }}"
                                 wire:model.live.debounce.250ms='search_query' />
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                                 class="w-4 h-4 opacity-70">
@@ -28,12 +28,12 @@
                             <!-- head -->
                             <thead>
                                 <tr>
-                                    <th>Movie</th>
-                                    <th>Versions</th>
-                                    <th>Cinema</th>
-                                    <th>City</th>
-                                    <th>Order Date</th>
-                                    <th>Validity Period</th>
+                                    <th>{{ __('distributor_frontend.movie') }}</th>
+                                    <th>{{ __('distributor_frontend.versions') }}</th>
+                                    <th>{{ __('distributor_frontend.cinema') }}</th>
+                                    <th>{{ __('distributor_frontend.city') }}</th>
+                                    <th>{{ __('distributor_frontend.order_date') }}</th>
+                                    <th>{{ __('distributor_frontend.validity_period') }}</th>
                                 </tr>
                                 <span class="badge badge-primary badge-sm hidden">Test</span>
                                 <span class="badge badge-error badge-sm hidden">Test</span>
@@ -42,7 +42,7 @@
 
                                 @if (!$orders->count())
                                     <tr>
-                                        <td colspan="6">No items found.</td>
+                                        <td colspan="6">{{ __('distributor_frontend.no_items_found') }}</td>
 
                                     </tr>
                                 @endif
@@ -60,7 +60,7 @@
                                                 <div>
                                                     <div class="font-bold">{{ $order->movie->name }}</div>
                                                     <span
-                                                        class="badge badge-{{ $order->downloaded ? 'primary' : 'error' }} badge-sm">{{ $order->downloaded ? 'Downloaded' : 'Not Downloaded' }}</span>
+                                                        class="badge badge-{{ $order->downloaded ? 'primary' : 'error' }} badge-sm">{{ $order->downloaded ? __('distributor_frontend.downloaded') : __('distributor_frontend.not_downloaded') }}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -89,12 +89,13 @@
                                         </td>
                                         <td class="min-w-60">
                                             <div>
-                                                <span class="text-sm font-medium">Start
-                                                    Date: </span>{{ $order->validity_period_from->format('d.m.Y') }}
+                                                <span
+                                                    class="text-sm font-medium">{{ __('distributor_frontend.start_date') }}
+                                                </span>{{ $order->validity_period_from->format('d.m.Y') }}
                                             </div>
                                             <div>
-                                                <span class="text-sm font-medium">End
-                                                    Date:
+                                                <span
+                                                    class="text-sm font-medium">{{ __('distributor_frontend.end_date') }}
                                                 </span>{{ $order->validity_period_to->format('d.m.Y') }}
                                             </div>
 
@@ -105,12 +106,12 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Movie</th>
-                                    <th>Versions</th>
-                                    <th>Cinema</th>
-                                    <th>City</th>
-                                    <th>Order Date</th>
-                                    <th>Validity Period</th>
+                                    <th>{{ __('distributor_frontend.movie') }}</th>
+                                    <th>{{ __('distributor_frontend.versions') }}</th>
+                                    <th>{{ __('distributor_frontend.cinema') }}</th>
+                                    <th>{{ __('distributor_frontend.city') }}</th>
+                                    <th>{{ __('distributor_frontend.order_date') }}</th>
+                                    <th>{{ __('distributor_frontend.validity_period') }}</th>
                                 </tr>
                             </tfoot>
 

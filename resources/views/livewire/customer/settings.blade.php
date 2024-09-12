@@ -15,16 +15,16 @@
                     </svg>
                 </button>
 
-                <h2 class="card-title">Change password.</h2>
-                <p class="font-medium text-base-content text-opacity-65 text-sm">To change your password, please fill in
-                    the fields below. Your password must contain at least & characters, it must also include at least
-                    one upper case letter, one lower case letter, one number, and one special character
+                <h2 class="card-title">{{ __('distributor_frontend.change_password') }}</h2>
+                <p class="font-medium text-base-content text-opacity-65 text-sm">
+                    {{ __('distributor_frontend.settings_text') }}
                 </p>
                 <form wire:submit="changePassword">
                     <div class="flex flex-col gap-3">
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text font-medium">Current Password</span>
+                                <span
+                                    class="label-text font-medium">{{ __('distributor_frontend.current_password') }}</span>
                             </div>
                             <label class="input input-bordered flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -33,13 +33,15 @@
                                         d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                <input type="password" class="grow" placeholder="Current Password"
+                                <input type="password" class="grow"
+                                    placeholder="{{ __('distributor_frontend.current_password') }}"
                                     wire:model='current_password' />
                             </label>
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text font-medium">New Password</span>
+                                <span
+                                    class="label-text font-medium">{{ __('distributor_frontend.new_password') }}</span>
                             </div>
                             <label class="input input-bordered flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -49,12 +51,13 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <input type="password" class="grow" wire:model='password'
-                                    placeholder="New Password" />
+                                    placeholder="{{ __('distributor_frontend.new_password') }}" />
                             </label>
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text font-medium">Confirm Password</span>
+                                <span
+                                    class="label-text font-medium">{{ __('distributor_frontend.confirm_password') }}</span>
                             </div>
                             <label class="input input-bordered flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -64,7 +67,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <input type="password" class="grow" wire:model='password_confirmation'
-                                    placeholder="Confirm Password" />
+                                    placeholder="{{ __('distributor_frontend.confirm_password') }}" />
                             </label>
                         </label>
                     </div>
@@ -72,8 +75,7 @@
 
                     <div class="card-actions">
                         <button class="btn btn-cine-highlight-1 text-opacity-100 font-bold w-full mt-4"
-                            type="submit">Change
-                            Password</button>
+                            type="submit">{{ __('distributor_frontend.change_password') }}</button>
                     </div>
                 </form>
             </div>

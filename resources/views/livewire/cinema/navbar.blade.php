@@ -4,12 +4,17 @@
             <div class="navbar-start">
                 <ul class="menu menu-horizontal px-1">
                     <li><a href="{{ route('cinema.email.index') . '?c=' . request()->c }}"
-                            class="{{ request()->is('emails') ? 'active' : '' }}">Emails</a></li>
+                            class="{{ request()->is('emails') ? 'active' : '' }}">{{ __('cinema_frontend.emails') }}</a>
+                    </li>
                     <li><a href="{{ route('cinema.order.index') . '?c=' . request()->c }}"
-                            class="{{ request()->is('orders') ? 'active' : '' }}">Order History</a></li>
+                            class="{{ request()->is('orders') ? 'active' : '' }}">{{ __('cinema_frontend.order_history') }}</a>
+                    </li>
                     <li><a href="{{ route('cinema.player.download') . '?c=' . request()->c }}"
-                            class="{{ request()->is('player') ? 'active' : '' }}">Player Download</a></li>
-                    <li><a href="https://www.cinecode.de/cinecodeplayerlite/help">Player Help</a></li>
+                            class="{{ request()->is('player') ? 'active' : '' }}">{{ __('cinema_frontend.player_download') }}</a>
+                    </li>
+                    <li><a
+                            href="https://www.cinecode.de/cinecodeplayerlite/help">{{ __('cinema_frontend.player_help') }}</a>
+                    </li>
                     {{-- @if (Auth('customer')->check())
                         <li><a href="{{ route('customer.shop') }}"
                                 class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>
@@ -74,25 +79,15 @@
                     <ul tabindex="0"
                         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a href="{{ route('cinema.email.index') . '?c=' . request()->c }}"
-                                class="{{ request()->is('emails') ? 'active' : '' }}">Emails</a></li>
+                                class="{{ request()->is('emails') ? 'active' : '' }}">{{ __('cinema_frontend.emails') }}</a>
+                        </li>
                         <li><a href="{{ route('cinema.order.index') . '?c=' . request()->c }}"
-                                class="{{ request()->is('orders') ? 'active' : '' }}">Order History</a></li>
-                        {{-- @if (Auth('customer')->check())
-                            <li><a href="{{ route('customer.shop') }}"
-                                    class="{{ request()->is('customer/shop') ? 'active' : '' }}">Order</a></li>
-                            <li><a href="{{ route('customer.order.history') }}"
-                                    class="{{ request()->is('customer/order/history') ? 'active' : '' }}">Order
-                                    History</a>
-                            </li>
-                            <li><a href="{{ route('customer.settings') }}"
-                                    class="{{ request()->is('customer/settings') ? 'active' : '' }}">Settings</a></li>
-                            <li wire:click='doLogout'><a>Logout</a></li>
-                        @endif --}}
+                                class="{{ request()->is('orders') ? 'active' : '' }}">{{ __('cinema_frontend.order_history') }}</a>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="navbar-center">
-                {{-- <a class="btn btn-ghost text-xl">daisyUI</a> --}}
             </div>
             <div class="navbar-end">
                 <a><img src="{{ asset('cinecode_logo.png') }}" alt="" class="w-32" /></a>

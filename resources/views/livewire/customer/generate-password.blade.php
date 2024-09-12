@@ -14,24 +14,27 @@
                     </svg>
                 </button>
 
-                <h2 class="card-title">Customer Portal</h2>
-                <p class="font-medium text-base-content text-opacity-65 text-sm">Generate Password</p>
+                <h2 class="card-title">{{ __('distributor_frontend.customer_portal') }}</h2>
+                <p class="font-medium text-base-content text-opacity-65 text-sm">
+                    {{ __('distributor_frontend.generate_password') }}
+                </p>
                 <form wire:submit="generatePassword">
-                    <input type="email" placeholder="Email Address" class="input input-bordered w-full mt-4 mb-2"
-                        wire:model='email' />
+                    <input type="email" placeholder="{{ __('distributor_frontend.email_address') }}"
+                        class="input input-bordered w-full mt-4 mb-2" wire:model='email' />
 
-                    <input type="password" placeholder="Password" class="input input-bordered w-full mt-4 mb-2"
-                        wire:model='password' />
+                    <input type="password" placeholder="{{ __('distributor_frontend.password') }}"
+                        class="input input-bordered w-full mt-4 mb-2" wire:model='password' />
 
-                    <input type="password" placeholder="Confirm Password" class="input input-bordered w-full mt-4 mb-2"
-                        wire:model='password_confirmation' />
+                    <input type="password" placeholder="{{ __('distributor_frontend.confirm_password') }}"
+                        class="input input-bordered w-full mt-4 mb-2" wire:model='password_confirmation' />
 
-                    <a href="{{ route('customer.login') }}" class="font-medium text-primary text-sm">Back to Login</a>
+                    <a href="{{ route('customer.login') }}"
+                        class="font-medium text-primary text-sm">{{ __('distributor_frontend.back_to_login') }}</a>
 
                     <div class="w-full flex flex-wrap justify-between mt-3">
                         <div class="card-actions justify-start">
-                            <button type="submit" class="btn btn-cine-highlight-1 text-opacity-100 font-bold">Generate
-                                Password</button>
+                            <button type="submit"
+                                class="btn btn-cine-highlight-1 text-opacity-100 font-bold">{{ __('distributor_frontend.generate_password') }}</button>
                         </div>
                     </div>
                 </form>

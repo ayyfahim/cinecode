@@ -3,23 +3,22 @@
         <div class="card lg:max-w-lg w-full bg-base-100 shadow-xl" id="step-1">
             <div class="card-body">
 
-                <h2 class="card-title">Cinema Portal</h2>
-                <p class="font-medium text-base-content text-opacity-65 text-sm">Download Player</p>
+                <h2 class="card-title">{{ __('cinema_frontend.cinema_portal') }}</h2>
+                <p class="font-medium text-base-content text-opacity-65 text-sm">
+                    {{ __('cinema_frontend.download_player') }}</p>
                 <form wire:submit="downloadPlayer">
-                    {{-- <input type="email" placeholder="Email Address" class="input input-bordered w-full mt-4 mb-2"
-                        wire:model='email' x-bind:disabled="isDisabled" /> --}}
 
                     <label class="cursor-pointer label justify-normal">
                         <input type="checkbox" wire:model='term'
                             class="checkbox [--chkbg:theme(colors.cine-highlight-1)] border-cine-highlight-1" />
-                        <span class="label-text ml-3">I here by accept the <a href="#"
-                                class="font-semibold text-cine-highlight-1">Terms</a></span>
+                        <span class="label-text ml-3">{{ __('cinema_frontend.i_here_by_accept_the') }} <a href="#"
+                                class="font-semibold text-cine-highlight-1">{{ __('cinema_frontend.terms') }}</a></span>
                     </label>
 
                     <div class="w-full flex flex-wrap justify-between mt-3">
                         <div class="card-actions justify-start">
                             <button type="submit"
-                                class="btn btn-cine-highlight-1 text-opacity-100 font-bold">Download</button>
+                                class="btn btn-cine-highlight-1 text-opacity-100 font-bold">{{ __('cinema_frontend.download') }}</button>
                         </div>
                     </div>
                 </form>

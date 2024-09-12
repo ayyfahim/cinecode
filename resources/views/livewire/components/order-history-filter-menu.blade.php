@@ -20,7 +20,7 @@
             <div class="grid gap-y-4 p-6">
                 <div class="flex items-center justify-between">
                     <h4 class="text-base font-semibold leading-6 text-gray-950">
-                        Filters
+                        {{ __('distributor_frontend.filters') }}
                     </h4>
 
                     <div>
@@ -40,7 +40,7 @@
                             <span
                                 class="font-semibold group-hover/link:underline group-focus-visible/link:underline text-sm text-red-600"
                                 wire:click='$parent.resetFilter()'>
-                                Reset
+                                {{ __('distributor_frontend.reset') }}
                             </span>
                         </button>
 
@@ -66,7 +66,7 @@
                                             <div class="flex items-center justify-between gap-x-3 ">
                                                 <label class="inline-flex items-center gap-x-3">
                                                     <span class="text-sm font-medium leading-6 text-gray-950">
-                                                        Downloaded
+                                                        {{ __('distributor_frontend.downloaded') }}
                                                     </span>
                                                 </label>
                                             </div>
@@ -74,9 +74,12 @@
                                                 <div class="form-control">
                                                     <select class="select select-bordered w-full max-w-xs"
                                                         x-model="filterByDownloaded">
-                                                        <option value="show-all">Show All</option>
-                                                        <option value="yes">Yes</option>
-                                                        <option value="no">No</option>
+                                                        <option value="show-all">
+                                                            {{ __('distributor_frontend.show_all') }}</option>
+                                                        <option value="yes">{{ __('distributor_frontend.yes') }}
+                                                        </option>
+                                                        <option value="no">{{ __('distributor_frontend.no') }}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -95,7 +98,7 @@
                                             <div class="flex items-center justify-between gap-x-3 ">
                                                 <label class="inline-flex items-center gap-x-3">
                                                     <span class="text-sm font-medium leading-6 text-gray-950">
-                                                        Movie
+                                                        {{ __('distributor_frontend.movie') }}
                                                     </span>
                                                 </label>
                                             </div>
@@ -103,7 +106,8 @@
                                                 <div class="form-control">
                                                     <select class="select select-bordered w-full max-w-xs"
                                                         x-model="filterByMovie">
-                                                        <option value="show-all">Show All</option>
+                                                        <option value="show-all">
+                                                            {{ __('distributor_frontend.show_all') }}</option>
                                                         @foreach ($movies as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }}
                                                             </option>
@@ -126,7 +130,7 @@
                                             <div class="flex items-center justify-between gap-x-3 ">
                                                 <label class="inline-flex items-center gap-x-3">
                                                     <span class="text-sm font-medium leading-6 text-gray-950">
-                                                        Order Date From
+                                                        {{ __('distributor_frontend.order_date_from') }}
                                                     </span>
                                                 </label>
                                             </div>
@@ -151,7 +155,7 @@
                                             <div class="flex items-center justify-between gap-x-3 ">
                                                 <label class="inline-flex items-center gap-x-3">
                                                     <span class="text-sm font-medium leading-6 text-gray-950">
-                                                        Order Date To
+                                                        {{ __('distributor_frontend.order_date_to') }}
                                                     </span>
                                                 </label>
                                             </div>

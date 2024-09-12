@@ -20,24 +20,25 @@
                 <div class="p-8 sm:pt-8 pt-4 overflow-y-auto text-white flex flex-wrap justify-center items-center md:gap-6 gap-3"
                     style="max-height: 70vh; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
                     <div class="flex flex-col gap-3">
-                        <h3 class="text-sm font-semibold">Name</h3>
+                        <h3 class="text-sm font-semibold">{{ __('distributor_frontend.name') }}</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <input type="text" class="input input-bordered input-xs text-neutral"
-                                placeholder="Enter cinema name" wire:model='cinemaName' />
+                                placeholder="{{ __('distributor_frontend.enter_cinema_name') }}"
+                                wire:model='cinemaName' />
                         </div>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <h3 class="text-sm font-semibold">City</h3>
+                        <h3 class="text-sm font-semibold">{{ __('distributor_frontend.city') }}</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <input type="text" class="input input-bordered input-xs text-neutral"
-                                placeholder="Enter city name" wire:model='cityName' />
+                                placeholder="{{ __('distributor_frontend.enter_city_name') }}" wire:model='cityName' />
                         </div>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <h3 class="text-sm font-semibold">Country</h3>
+                        <h3 class="text-sm font-semibold">{{ __('distributor_frontend.country') }}</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <select class="select select-xs text-neutral" wire:model='country'>
-                                <option selected>Please select a country.</option>
+                                <option selected>{{ __('distributor_frontend.please_select_a_country') }}</option>
                                 @foreach ($countries as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -48,7 +49,7 @@
                     <div class="basis-full h-0"></div>
 
                     <div class="flex flex-col gap-3">
-                        <h3 class="text-sm font-semibold self-center">Emails</h3>
+                        <h3 class="text-sm font-semibold self-center">{{ __('distributor_frontend.emails') }}</h3>
                         <div class="flex flex-wrap gap-2 justify-center">
                             @foreach ($emails as $key => $item)
                                 <div class="badge gap-2">
@@ -64,7 +65,7 @@
                         </div>
                         <div class="flex flex-wrap gap-x-2 items-center self-center">
                             <input type="text" class="input input-bordered input-xs text-neutral"
-                                placeholder="Enter email..." wire:model='email' />
+                                placeholder="{{ __('distributor_frontend.enter_email') }}" wire:model='email' />
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 cursor-pointer"
                                 viewBox="0 0 1000 1000" fill="currentColor" wire:click='add_emails'>
                                 <metadata>IcoFont Icons</metadata>
@@ -80,11 +81,11 @@
                 <div class="px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-row">
                     <button type="button" wire:click='toggle_cinema_mode'
                         class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
-                        Cancel </button>
+                        {{ __('distributor_frontend.cancel') }} </button>
                     <button type="button"
                         class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40"
                         wire:click='add_cinema'>
-                        Add Cinema </button>
+                        {{ __('distributor_frontend.add_cinema') }} </button>
                 </div>
             @endif
 
@@ -101,7 +102,7 @@
                     <div class="col-span-3 grid grid-flow-rows gap-y-5">
                         <h2 class="text-2xl font-bold">{{ $movie['name'] }}</h2>
                         <div class="flex flex-wrap gap-x-3 items-center">
-                            <h3 class="text-sm font-semibold">Version</h3>
+                            <h3 class="text-sm font-semibold">{{ __('distributor_frontend.version') }}</h3>
                             <select class="select select-bordered select-xs w-full max-w-40 text-black"
                                 wire:model='selected_version'>
                                 @foreach ($movie['versions'] as $item)
@@ -111,10 +112,10 @@
                         </div>
                         <livewire:components.calendar />
                         <div class="flex flex-wrap gap-x-3 items-center">
-                            <h3 class="text-sm font-semibold">Cinema</h3>
+                            <h3 class="text-sm font-semibold">{{ __('distributor_frontend.cinema') }}</h3>
                             <div class="flex flex-wrap gap-x-2 items-center">
                                 <input type="text" class="input input-bordered input-xs text-neutral"
-                                    placeholder="Enter cinema, city or group..."
+                                    placeholder="{{ __('distributor_frontend.enter_cinema_city_or_group') }}"
                                     wire:model.live.debounce.250ms="search_query" />
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                                     class="w-6 h-6 cursor-pointer">
@@ -138,14 +139,14 @@
                             @if (!empty($search_query))
                                 <h3 class="text-sm font-semibold">
                                     @if ($cinemaGroups->count() > 0)
-                                        {{ $cinemaGroups->count() }} Groups Found.
+                                        {{ $cinemaGroups->count() }} {{ __('distributor_frontend.groups_found') }}
                                     @else
-                                        No Groups Found.
+                                        {{ __('distributor_frontend.no_groups_found') }}
                                     @endif
                                     @if ($cinemas->count() > 0)
-                                        {{ $cinemas->count() }} Cinemas Found.
+                                        {{ $cinemas->count() }} {{ __('distributor_frontend.cinemas_found') }}
                                     @else
-                                        No Cinemas Found.
+                                        {{ __('distributor_frontend.no_cinemas_found') }}
                                     @endif
                                 </h3>
                             @endif
@@ -155,7 +156,8 @@
                         <div
                             class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] block sm:hidden">
                             @if (empty($search_query))
-                                <h3 class="text-sm font-semibold">No cinemas and groups. Please start searching.</h3>
+                                <h3 class="text-sm font-semibold">
+                                    {{ __('distributor_frontend.no_cinemas_and_groups_please_start_searching') }}</h3>
                             @endif
                             @foreach ($cinemaGroups as $item)
                                 <div class="px-4 ">
@@ -164,7 +166,8 @@
                                             <h4 class="text-base font-bold truncate">{{ $item->name }}</h4>
                                             <div class="flex gap-1">
                                                 <h4 class="text-sm font-medium truncate">
-                                                    {{ $item->cinemas()->count() }} cinemas</h4>
+                                                    {{ $item->cinemas()->count() }}
+                                                    {{ __('distributor_frontend.cinemas') }}</h4>
                                             </div>
                                         </div>
                                         <input type="checkbox" value="{{ $item->id }}"
@@ -184,11 +187,15 @@
                                         <div>
                                             <h4 class="text-base font-bold truncate">{{ $item->name }}</h4>
                                             <div class="flex gap-1">
-                                                <h4 class="text-sm font-medium truncate">City: </h4>
+                                                <h4 class="text-sm font-medium truncate">
+                                                    {{ __('distributor_frontend.city') }}
+                                                </h4>
                                                 <h4 class="text-sm font-semibold truncate">{{ $item->city_name }}</h4>
                                             </div>
                                             <div class="flex gap-1">
-                                                <h4 class="text-sm font-medium truncate">Country: </h4>
+                                                <h4 class="text-sm font-medium truncate">
+                                                    {{ __('distributor_frontend.country') }}
+                                                </h4>
                                                 <h4 class="text-sm font-semibold truncate">{{ $item->country->name }}
                                                 </h4>
                                             </div>
@@ -212,12 +219,14 @@
                             class="border-gray-500 p-2 overflow-y-scroll border rounded max-h-60 gap-y-2 overflow-x-scroll min-w-[350px] hidden sm:block">
 
                             @if (empty($search_query))
-                                <h3 class="text-sm font-semibold">No cinemas and groups. Please start searching.</h3>
+                                <h3 class="text-sm font-semibold">
+                                    {{ __('distributor_frontend.no_cinemas_and_groups_please_start_searching') }}</h3>
                             @endif
 
                             @if ($cinemaGroups->count() > 0)
                                 <div class="mb-2">
-                                    <h3 class="text-sm font-semibold underline mb-3">Groups:</h3>
+                                    <h3 class="text-sm font-semibold underline mb-3">
+                                        {{ __('distributor_frontend.groups') }}</h3>
 
                                     <div class="flex flex-nowrap gap-2 justify-between">
                                         @foreach ($cinemaGroups as $item)
@@ -238,7 +247,8 @@
 
 
                             @if ($cinemas->count() > 0)
-                                <h3 class="text-sm font-semibold underline mb-3">Cinemas:</h3>
+                                <h3 class="text-sm font-semibold underline mb-3">
+                                    {{ __('distributor_frontend.cinemas') }}</h3>
                                 <div class="flex flex-nowrap gap-2 justify-between">
                                     <div class="flex flex-col gap-2">
                                         @foreach ($cinemas as $item)
@@ -360,7 +370,7 @@
                         class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
                         <button type="submit"
                             class="inline-flex self-end text-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm max-w-40">
-                            Confirm Order </button>
+                            {{ __('distributor_frontend.confirm_order') }} </button>
                     </form>
                 </div>
             @endif
