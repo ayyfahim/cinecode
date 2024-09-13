@@ -106,5 +106,10 @@ return [
     'data_protection' => 'Data Protection',
     'imprint' => 'Imprint',
     'copyright_' => 'Copyright ©',
-    'all_right_reserved' => 'All right reserved'
+    'all_right_reserved' => 'All right reserved',
+    'email' => 'Email',
+    'enter_your_email' => 'Enter your email.',
+    'save' => 'Save',
+    'save' => 'Save',
+    'click_cancel_or_press_esc_to_exit' => 'Click "cancel" or press ESC to exit.'
 ];

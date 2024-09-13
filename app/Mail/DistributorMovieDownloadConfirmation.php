@@ -32,7 +32,7 @@ class DistributorMovieDownloadConfirmation extends Mailable implements HasLocale
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'cinecode Player Screening - Download confirmation',
+            subject: __('site_emails.cinecode_player_screening__download_confirmation', [], $this->locale),
         );
     }
 

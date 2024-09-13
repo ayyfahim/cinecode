@@ -26,7 +26,7 @@ class CinemaPortalAccess extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'cinecode Cinema-Portal - Access',
+            subject: __('site_emails.cinecode_cinemaportal__access', [], $this->locale),
         );
     }
 

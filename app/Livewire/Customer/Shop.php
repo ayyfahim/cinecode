@@ -69,7 +69,7 @@ class Shop extends Component
         if ($this->sort) {
             switch ($this->sort) {
                 case 'release_date':
-                    $m = $m->orderBy('release_date');
+                    $m = $m->orderBy('release_date', 'DESC');
                     break;
 
                 case 'name':
@@ -85,7 +85,7 @@ class Shop extends Component
                     break;
             }
         }
-        $m = $m->latest()->paginate(30);
+        $m = $m->paginate(30);
         $this->isLoading = false;
         // }
 

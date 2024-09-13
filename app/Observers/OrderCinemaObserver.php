@@ -17,6 +17,21 @@ class OrderCinemaObserver
      */
     public function created(OrderCinema $orderCinema): void
     {
+        if (empty($orderCinema?->download_token) || $orderCinema?->download_token == null) {
+            $string = sha1(rand());
+            $token = substr($string, 0, 10);
+
+            $orderCinema->update([
+                'download_token' => $token
+            ]);
+        }
+
+        $orderCinema = $orderCinema->fresh();
+
+        if (!$orderCinema?->cinema || !$orderCinema?->cinema->emails->count()) {
+            return;
+        }
+
         $orderCinema = $orderCinema->load('cinema', 'cinema.country', 'order', 'order.movie', 'order.version', 'order.distributor', 'order.distributor.distributor');
         $data = [];
         $order = $orderCinema->order;
@@ -54,7 +69,7 @@ class OrderCinemaObserver
                 break;
         }
 
-        foreach ($orderCinema?->cinema->emails as $email) {
+        foreach ($orderCinema?->cinema?->emails as $email) {
             Mail::to($email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
             sleep(1);
             // if (env('MAIL_HOST', false) == 'smtp.mailtrap.io') {

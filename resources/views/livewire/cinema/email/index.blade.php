@@ -1,14 +1,14 @@
 <div>
     <div class="min-h-screen">
         <div class="prose prose-sm md:prose-base max-w-full flex-grow pt-10">
-            <h1>Emails</h1>
+            <h1>{{ __('cinema_frontend.emails') }}</h1>
             <div class="text-red-500 label-text-alt p-1 hidden"></div>
             <div class="flex flex-wrap sm:flex-row flex-col justify-between">
-                <p class="!mt-0">{{ $emails->total() }} Emails</p>
+                <p class="!mt-0">{{ $emails->total() }} {{ __('cinema_frontend.emails') }}</p>
 
                 <div class="flex flex-wrap items-center gap-4">
                     <label class="input input-bordered flex items-center gap-2 h-10 sm:w-72 w-52">
-                        <input type="text" class="grow" placeholder="Search"
+                        <input type="text" class="grow" placeholder="{{ __('cinema_frontend.search') }}"
                             wire:model.live.debounce.250ms='search_query' />
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                             class="w-4 h-4 opacity-70">
@@ -54,34 +54,35 @@
         <x-modal wire:model="emailCreateModal" class="backdrop-blur" box-class="bg-cine-neutral/90">
             <label class="pt-0 label label-text font-semibold text-white">
                 <span>
-                    Email
+                    {{ __('cinema_frontend.email') }}
                 </span>
             </label>
-            <x-input placeholder="Enter your email." wire:model="email" />
+            <x-input placeholder="{{ __('cinema_frontend.enter_your_email') }}" wire:model="email" />
             <x-slot:actions>
-                <x-button label="Save" wire:click='createEmail'
+                <x-button label="{{ __('cinema_frontend.save') }}" wire:click='createEmail'
                     class="bg-black text-white border-transparent hover:bg-black hover:text-white hover:border-transparent" />
-                <x-button label="Cancel"
+                <x-button label="{{ __('cinema_frontend.cancel') }}"
                     class="bg-black text-white border-transparent hover:bg-black hover:text-white hover:border-transparent"
                     @click="$wire.emailCreateModal = false, $wire.email = '', $wire.selectedEmail = null" />
             </x-slot:actions>
         </x-modal>
 
         <x-modal wire:model="editModal" class="backdrop-blur">
-            <x-input label="Email" placeholder="{{ $selectedEmail?->email }}" wire:model="editedEmail" />
+            <x-input label="{{ __('cinema_frontend.email') }}" placeholder="{{ $selectedEmail?->email }}"
+                wire:model="editedEmail" />
             <x-slot:actions>
-                <x-button label="Save" wire:click='saveEmail' />
-                <x-button label="Cancel"
+                <x-button label="{{ __('cinema_frontend.save') }}" wire:click='saveEmail' />
+                <x-button label="{{ __('cinema_frontend.cancel') }}"
                     @click="$wire.editModal = false, $wire.editedEmail = '', $wire.selectedEmail = null" />
             </x-slot:actions>
         </x-modal>
 
         <x-modal wire:model="deleteModal" class="backdrop-blur" title="Are you sure?">
-            <div>Click "cancel" or press ESC to exit.</div>
+            <div>{{ __('cinema_frontend.click_cancel_or_press_esc_to_exit') }}</div>
             <x-slot:actions>
-                <x-button label="Cancel"
+                <x-button label="{{ __('cinema_frontend.cancel') }}"
                     @click="$wire.deleteModal = false, $wire.editedEmail = '', $wire.selectedEmail = null" />
-                <x-button label="Confirm" class="btn-primary" wire:click='deleteEmail' />
+                <x-button label="{{ __('cinema_frontend.confirm') }}" class="btn-primary" wire:click='deleteEmail' />
             </x-slot:actions>
         </x-modal>
     </div>

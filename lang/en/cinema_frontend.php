@@ -94,10 +94,10 @@ return [
     'start_date' => 'Start Date:',
     'end_date' => 'End Date:',
     'emails' => 'Emails',
+    'emails_2' => 'emails',
     'order_history' => 'Order History',
     'player_download' => 'Player Download',
     'player_help' => 'Player Help',
-    'emails' => 'Emails',
     'order_history' => 'Order History',
     'sign_in' => 'Sign In',
     'email_address' => 'Email Address',
@@ -106,5 +106,10 @@ return [
     'data_protection' => 'Data Protection',
     'imprint' => 'Imprint',
     'copyright_' => 'Copyright ©',
-    'all_right_reserved' => 'All right reserved'
+    'all_right_reserved' => 'All right reserved',
+    'email' => 'Email',
+    'enter_your_email' => 'Enter your email.',
+    'save' => 'Save',
+    'save' => 'Save',
+    'click_cancel_or_press_esc_to_exit' => 'Click "cancel" or press ESC to exit.'
 ];

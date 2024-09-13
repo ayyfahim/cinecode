@@ -40,7 +40,7 @@ Route::domain(config('filament.customer_portal_url'))->group(
     function () {
         Route::prefix('customer')->middleware([CustomerAuthCheck::class, SwitchLanguageLocale::class, SetLanguageBasedOnCountry::class])->as('customer.')->group(function () {
 
-            Route::get('shop', CustomerShop::class)->name('shop');
+            Route::get('order', CustomerShop::class)->name('shop');
             Route::get('order/history', CustomerOrderHistory::class)->name('order.history');
             Route::get('settings', CustomerSettings::class)->name('settings');
             Route::get('settings/cinemas', CustomerCinemaIndex::class)->name('settings.cinema.index');
@@ -84,4 +84,8 @@ Route::domain(config('filament.customer_portal_url'))->middleware([SwitchLanguag
 
 Route::get('storage-link', function () {
     Artisan::call('storage:link');
+});
+
+Route::get('cache-clear', function () {
+    Artisan::call('cache:clear');
 });

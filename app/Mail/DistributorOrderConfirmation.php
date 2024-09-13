@@ -27,7 +27,7 @@ class DistributorOrderConfirmation extends Mailable implements HasLocalePreferen
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'cinecode Player Screening - Order confirmation',
+            subject: __('site_emails.cinecode_player_screening__order_confirmation', [], $this->locale),
         );
     }
 

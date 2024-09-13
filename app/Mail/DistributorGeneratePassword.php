@@ -27,7 +27,7 @@ class DistributorGeneratePassword extends Mailable implements HasLocalePreferenc
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'cinecode Distributor-Portal - Generate Password',
+            subject: __('site_emails.cinecode_distributorportal__generate_password', [], $this->locale),
         );
     }
 
