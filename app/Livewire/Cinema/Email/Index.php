@@ -108,7 +108,7 @@ class Index extends BaseComponent
 
         $headers = [
             ['key' => 'fakeColumn', 'label' => '#'],
-            ['key' => 'email', 'label' => 'Email'],
+            ['key' => 'email', 'label' => __('cinema_frontend.email')],
         ];
 
         return view('livewire.cinema.email.index', [

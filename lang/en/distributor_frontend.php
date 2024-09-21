@@ -106,4 +106,7 @@ return [
     'filters' => 'Filters',
     'Name' => 'Name',
     'Release_Date' => 'Release Date',
+    'enter_cinema_city_or_country' => 'Enter cinema, city or country',
+    'enter_group_name' => 'Enter group name',
+    'orders' => 'Orders'
 ];

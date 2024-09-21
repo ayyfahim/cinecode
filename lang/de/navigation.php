@@ -8,5 +8,7 @@ return [
     'dist_mng' => 'Distributor Management',
     'movie_mng' => 'Movie Management',
     'order_mng' => 'Order Management',
+    "English" => "Englisch",
+    "German" => "Deutsch"
 
 ];

@@ -78,7 +78,8 @@
                                         <span
                                             class="badge badge-sm badge-outline !pl-1.5 !pr-1 pt-px font-mono !text-[.6rem] font-bold tracking-widest opacity-50">
                                             {{ $conf_locale['code'] }}</span>
-                                        <span class="font-[sans-serif]">{{ $conf_locale['name'] }}</span>
+                                        <span
+                                            class="font-[sans-serif]">{{ __("navigation.{$conf_locale['name']}") }}</span>
                                     </button>
                                 </li>
                             @endforeach

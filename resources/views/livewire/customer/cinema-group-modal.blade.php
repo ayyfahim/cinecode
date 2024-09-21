@@ -19,7 +19,8 @@
                         <h3 class="text-sm font-semibold">{{ __('distributor_frontend.group_name') }}</h3>
                         <div class="flex flex-wrap gap-x-2 items-center">
                             <input type="text" class="input input-bordered input-xs text-white"
-                                placeholder="Enter group name" wire:model="group_name" />
+                                placeholder="{{ __('distributor_frontend.enter_group_name') }}"
+                                wire:model="group_name" />
                         </div>
                     </div>
 
@@ -28,7 +29,7 @@
                         <div class="flex flex-wrap gap-x-2 items-center relative">
                             <input wire:model.live.debounce.250ms="search_cinema" type="text"
                                 class="input input-bordered input-xs text-white"
-                                placeholder="Enter cinema, city or country" />
+                                placeholder="{{ __('distributor_frontend.enter_cinema_city_or_country') }}" />
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                                 class="w-6 h-6 cursor-pointer">
                                 <path fill-rule="evenodd"

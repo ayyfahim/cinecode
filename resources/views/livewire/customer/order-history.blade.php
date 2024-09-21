@@ -4,7 +4,7 @@
             <div class="prose prose-sm md:prose-base max-w-full flex-grow pt-10">
                 <h1>{{ __('distributor_frontend.order_history') }}</h1>
                 <div class="flex flex-wrap sm:flex-row flex-col justify-between">
-                    <p class="!mt-0">{{ $orders->total() }} Orders</p>
+                    <p class="!mt-0">{{ $orders->total() }} {{ __('distributor_frontend.orders') }}</p>
                     <div class="flex flex-wrap items-center gap-4" x-data="{ filterByDownloaded: $wire.entangle('filterByDownloaded').live, filterByMovie: $wire.entangle('filterByMovie').live, filterOrderDateFrom: $wire.entangle('filterOrderDateFrom').live, filterOrderDateTo: $wire.entangle('filterOrderDateTo').live }">
                         <label class="input input-bordered flex items-center gap-2 h-10 sm:w-72 w-52">
                             <input type="text" class="grow" placeholder="{{ __('distributor_frontend.search') }}"

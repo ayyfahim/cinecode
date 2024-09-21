@@ -85,11 +85,11 @@ class OrderHistory extends BaseComponent
         }
 
         $headers = [
-            ['key' => 'distributor.distributor.distributor_name', 'label' => 'Distributor'],
-            ['key' => 'movie.name', 'label' => 'Movie'],
-            ['key' => 'version.version_name', 'label' => 'Version'],
-            ['key' => 'created_at', 'label' => 'Order Date'],
-            ['key' => 'fakeColumn', 'label' => 'Validity Period'],
+            ['key' => 'distributor.distributor.distributor_name', 'label' => __('cinema_frontend.distributor')],
+            ['key' => 'movie.name', 'label' => __('cinema_frontend.movie')],
+            ['key' => 'version.version_name', 'label' => __('cinema_frontend.version')],
+            ['key' => 'created_at', 'label' => __('cinema_frontend.order_date')],
+            ['key' => 'fakeColumn', 'label' => __('cinema_frontend.validity_period')],
             ['key' => 'downloadColumn', 'label' => ''],
         ];
 

@@ -111,5 +111,10 @@ return [
     'enter_your_email' => 'Enter your email.',
     'save' => 'Save',
     'save' => 'Save',
-    'click_cancel_or_press_esc_to_exit' => 'Click "cancel" or press ESC to exit.'
+    'click_cancel_or_press_esc_to_exit' => 'Click "cancel" or press ESC to exit.',
+    'distributor' => 'Distributor',
+    'movie' => 'Movie',
+    'version' => 'Version',
+    'order_date' => 'Order Date',
+    'validity_period' => 'Validity Period'
 ];

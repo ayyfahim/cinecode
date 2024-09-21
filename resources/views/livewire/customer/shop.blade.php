@@ -3,7 +3,7 @@
         <div class="grid sm:grid-cols-3 grid-cols-2 gap-3">
             <div class="sm:col-span-2 flex gap-4">
                 <label class="input input-bordered flex items-center gap-2 h-12 sm:w-72 w-full">
-                    <input type="text" class="grow" placeholder="Search"
+                    <input type="text" class="grow" placeholder="{{ __('distributor_frontend.search') }}"
                         wire:model.live.debounce.250ms='search_query' />
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                         class="w-4 h-4 opacity-70">

@@ -9,5 +9,7 @@ return [
     'movie_mng' => 'Movie Management',
     'order_mng' => 'Order Management',
     'dashboard' => 'Dashboard',
+    "English" => "English",
+    "German" => "German"
 
 ];
