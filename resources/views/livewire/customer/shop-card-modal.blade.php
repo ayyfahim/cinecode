@@ -40,7 +40,7 @@
                             <select class="select select-xs text-neutral" wire:model='country'>
                                 <option selected>{{ __('distributor_frontend.please_select_a_country') }}</option>
                                 @foreach ($countries as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    <option value="{{ $item->id }}">{{ __("countries.{$item->name}") }}</option>
                                 @endforeach
                             </select>
                         </div>

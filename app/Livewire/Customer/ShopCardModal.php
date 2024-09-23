@@ -162,10 +162,12 @@ class ShopCardModal extends BaseComponent
         }
 
         $user_credits = auth('customer')->user()->distributor->credits;
+        $user_allow_credit = auth('customer')->user()->distributor->allow_credit;
 
+        // __('distributor_frontend.order_has_been_created')
 
         if (auth('customer')->user()->distributor->allow_credit && $user_credits <= 0) {
-            $this->error('The order cannot be processed.');
+            $this->error(__('distributor_frontend.the_order_cannot_be_processed'));
             return;
         }
 
@@ -208,7 +210,7 @@ class ShopCardModal extends BaseComponent
             return;
         }
 
-        if ($user_credits !== null) {
+        if ($user_allow_credit && $user_credits !== null && $user_credits >= 0) {
             auth('customer')->user()->distributor()->update([
                 'credits' => $user_credits - 1
             ]);
@@ -218,7 +220,7 @@ class ShopCardModal extends BaseComponent
 
         $this->dispatch('shop-select-movie');
 
-        $this->success('Order has been created');
+        $this->success(__('distributor_frontend.order_has_been_created'));
 
         $this->reset();
 
@@ -242,10 +244,6 @@ class ShopCardModal extends BaseComponent
         $data['validity_from'] = $order->validity_period_from->format('d.m.Y');
         $data['validity_to'] = $order->validity_period_to->format('d.m.Y');
         $mailLocale = App::getLocale();
-        $data['cinema_name'] = [];
-        foreach ($order->cinemas as $cinema) {
-            array_push($data['cinema_name'], $cinema->name . " " . $cinema->city_name);
-        }
         switch ($order->distributor->distributor->country->name) {
             case 'Germany':
                 $mailLocale = 'de';
@@ -263,6 +261,15 @@ class ShopCardModal extends BaseComponent
             default:
                 break;
         }
+
+        $data['subject'] = __('site_emails.cinecode_player_screening__order_confirmation', [], $mailLocale);
+        $data['subject'] = "{$data['subject']} - {$data['movie_title']}";
+        $data['cinema_name'] = [];
+        foreach ($order->cinemas as $cinema) {
+            array_push($data['cinema_name'], $cinema->name . " " . $cinema->city_name);
+            $data['subject'] = "{$data['subject']} - {$cinema->name}";
+        }
+
         foreach ($distributor_emails = DistributorEmail::where('distributor_id', $order?->distributor?->distributor_id)->get() as $value) {
             Mail::to($value?->email)->locale($mailLocale)->send(new DistributorOrderConfirmation($data));
             sleep(1);

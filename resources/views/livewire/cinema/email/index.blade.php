@@ -67,13 +67,23 @@
             </x-slot:actions>
         </x-modal>
 
-        <x-modal wire:model="editModal" class="backdrop-blur">
-            <x-input label="{{ __('cinema_frontend.email') }}" placeholder="{{ $selectedEmail?->email }}"
-                wire:model="editedEmail" />
+        <x-modal wire:model="editModal" class="backdrop-blur" class="backdrop-blur" box-class="bg-cine-neutral/90">
+            {{-- <x-input label="{{ __('cinema_frontend.email') }}" placeholder="{{ $selectedEmail?->email }}"
+                wire:model="editedEmail" /> --}}
+
+            <label class="pt-0 label label-text font-semibold text-white">
+                <span>
+                    {{ __('cinema_frontend.email') }}
+                </span>
+            </label>
+            <x-input placeholder="{{ $selectedEmail?->email }}" wire:model="editedEmail" />
+
             <x-slot:actions>
-                <x-button label="{{ __('cinema_frontend.save') }}" wire:click='saveEmail' />
+                <x-button label="{{ __('cinema_frontend.save') }}" wire:click='saveEmail'
+                    class="bg-black text-white border-transparent hover:bg-black hover:text-white hover:border-transparent" />
                 <x-button label="{{ __('cinema_frontend.cancel') }}"
-                    @click="$wire.editModal = false, $wire.editedEmail = '', $wire.selectedEmail = null" />
+                    @click="$wire.editModal = false, $wire.editedEmail = '', $wire.selectedEmail = null"
+                    class="bg-black text-white border-transparent hover:bg-black hover:text-white hover:border-transparent" />
             </x-slot:actions>
         </x-modal>
 

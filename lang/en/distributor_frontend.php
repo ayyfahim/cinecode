@@ -108,5 +108,7 @@ return [
     'Release_Date' => 'Release Date',
     'enter_cinema_city_or_country' => 'Enter cinema, city or country',
     'enter_group_name' => 'Enter group name',
-    'orders' => 'Orders'
+    'orders' => 'Orders',
+    'order_has_been_created' => 'Order has been created',
+    'the_order_cannot_be_processed' => 'The order cannot be processed.'
 ];

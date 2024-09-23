@@ -23,10 +23,10 @@ class Index extends BaseComponent
 
     public $search_query = '';
 
-    #[Validate('required|email')]
+    #[Validate('required_if_accepted:editModal|email')]
     public $editedEmail = '';
 
-    #[Validate('required|email')]
+    #[Validate('required_if_accepted:emailCreateModal|email')]
     public $email = '';
 
     public function createEmail()

@@ -34,7 +34,7 @@
                     <div>
                         <div class="font-bold">{{ $order->movie->name }}</div>
                         <span
-                            class="badge badge-{{ $order->downloaded ? 'primary' : 'error' }} badge-sm">{{ $order->downloaded ? __('cinema_frontend.downloaded') : __('cinema_frontend.not_downloaded') }}</span>
+                            class="badge badge-{{ $order->downloaded ? 'cine-highlight-1' : 'error' }} badge-sm">{{ $order->downloaded ? __('cinema_frontend.downloaded') : __('cinema_frontend.not_downloaded') }}</span>
                     </div>
                 </div>
             @endscope

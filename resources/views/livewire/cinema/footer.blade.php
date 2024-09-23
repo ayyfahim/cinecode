@@ -5,12 +5,20 @@
         </aside>
         <nav class="grid-flow-col gap-4 md:place-self-center justify-self-center md:justify-self-end">
             <ul class="menu menu-horizontal px-1 md:justify-end justify-center">
-                <li><a>{{ __('cinema_frontend.contact') }}</a></li>
-                <li><a>{{ __('cinema_frontend.data_protection') }}</a></li>
-                <li><a>{{ __('cinema_frontend.imprint') }}</a></li>
+                <li><a href="{{ __('footer.httpswwwcinecodedecontact') }}">{{ __('distributor_frontend.contact') }}</a>
+                </li>
+                <li><a
+                        href="{{ __('footer.httpswwwcinecodededatenschutzerklaerung') }}">{{ __('distributor_frontend.data_protection') }}</a>
+                </li>
+                <li><a
+                        href="{{ __('footer.httpswwwcinecodedeimpressum') }}">{{ __('distributor_frontend.imprint') }}</a>
+                </li>
                 <li>
-                    <p>{{ __('cinema_frontend.copyright_') }} {{ now()->format('Y') }} -
-                        {{ __('cinema_frontend.all_right_reserved') }}</p>
+                    <p>
+                        <a href="{{ __('footer.copyright') }}">{{ __('distributor_frontend.copyright_') }}
+                            {{ now()->format('Y') }} -
+                            {{ __('distributor_frontend.all_right_reserved') }}</a>
+                    </p>
                 </li>
             </ul>
         </nav>

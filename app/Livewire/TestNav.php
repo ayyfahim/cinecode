@@ -3,12 +3,19 @@
 namespace App\Livewire;
 
 use App\Models\Cinema;
+use App\Models\Country;
 use Livewire\Component;
 
 class TestNav extends Component
 {
     public function mount()
     {
+        $countries = Country::pluck('name')->mapWithKeys(function ($country) {
+            return [$country => $country];  // Mapping country names with empty values
+        })->toArray();
+
+        dd(json_encode($countries, JSON_PRETTY_PRINT));
+
         $cinema = Cinema::find(27);
 
         dd($this->verifyChecksum($cinema));

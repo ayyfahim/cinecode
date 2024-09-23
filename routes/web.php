@@ -25,6 +25,7 @@ use App\Livewire\TestNav;
 use BezhanSalleh\FilamentLanguageSwitch\Http\Middleware\SwitchLanguageLocale;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -89,3 +90,7 @@ Route::get('storage-link', function () {
 Route::get('cache-clear', function () {
     Artisan::call('cache:clear');
 });
+
+Route::get('reset-password', CustomerResetPassword::class)->name('password.reset');
+
+URL::forceScheme('https');

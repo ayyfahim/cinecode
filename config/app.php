@@ -141,7 +141,7 @@ return [
         'CinemaUniqueAuth' => App\Helpers\CinemaUniqueAuthFacade::class,
     ])->toArray(),
 
-    'win_player_name' => env('WIN_PLAYER_NAME', 'player.exe'),
-    'mac_sil_player_name' => env('MACS_PLAYER_NAME', 'player.exe'),
-    'mac_intel_player_name' => env('MACI_PLAYER_NAME', 'player.exe'),
+    'win_player_name' => env('WIN_PLAYER_NAME', 'cinecode_Player_Lite_1.0.8_Setup.exe'),
+    'mac_sil_player_name' => env('MACS_PLAYER_NAME', 'cinecode_Player_Lite_1.0.8_Installer_Silicon.dmg'),
+    'mac_intel_player_name' => env('MACI_PLAYER_NAME', 'cinecode_Player_Lite_1.0.8_Installer_Intel'),
 ];

@@ -70,6 +70,10 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->autoTranslateLabels();
+
+        if ($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
     }
 
     private function autoTranslateLabels()

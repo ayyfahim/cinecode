@@ -19,8 +19,8 @@ class OrderObserver
      */
     public function created(Order $order): void
     {
-        $order = $order->load('version');
-        $this->saveCckFile($order);
+        // $order = $order->load('version', 'cinemas');
+        // $this->saveCckFile($order);
         // try {
         //     $data = [];
         //     $data['movie_title'] = $order->movie->name;
@@ -43,6 +43,7 @@ class OrderObserver
         $validityStart = $order->validity_period_from;
         $validityEnd = $order->validity_period_to;
         $oneTimeKey = "False";
+        $cinemahash = $order->cinemas->first()->unique_hash;
 
         // Perform key file validation
         $keyFileParts = explode(":", $keyFileContent);
@@ -80,9 +81,9 @@ class OrderObserver
 
                 $filePath = $outputFolder . "/" . $fileName;
                 $hashNumber = sprintf("%05d", $numFiles + 1);
-                $finalHashObject = hash("sha256", $validityStart->format('Y-m-d') . $validityEnd->format('Y-m-d') . $oneTimeKey . $hashNumber . $savedHash);
+                $finalHashObject = hash("sha256", $validityStart->format('Y-m-d') . $validityEnd->format('Y-m-d') . $oneTimeKey . $hashNumber . $cinemahash . $savedHash);
 
-                $keyString = "$key:$savedHash:{$validityStart->format('Y-m-d')}:{$validityEnd->format('Y-m-d')}:$oneTimeKey:$hashNumber:$finalHashObject";
+                $keyString = "$key:$savedHash:{$validityStart->format('Y-m-d')}:{$validityEnd->format('Y-m-d')}:$oneTimeKey:$hashNumber:$cinemahash:$finalHashObject";
 
                 // Insert random characters every second position
                 $newKeyString = '';
