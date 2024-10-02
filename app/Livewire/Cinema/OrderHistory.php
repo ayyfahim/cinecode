@@ -45,7 +45,7 @@ class OrderHistory extends BaseComponent
         return redirect($url);
     }
 
-    public function downloadMcck($id)
+    public function downloadMcck(int $id)
     {
         $order = Order::find($id);
         // $file = Storage::disk('public')->get($order->version->mcck_file);

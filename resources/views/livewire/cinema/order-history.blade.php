@@ -33,6 +33,7 @@
                     </div>
                     <div>
                         <div class="font-bold">{{ $order->movie->name }}</div>
+                        <span class="badge-cine-highlight-1 hidden"></span>
                         <span
                             class="badge badge-{{ $order->downloaded ? 'cine-highlight-1' : 'error' }} badge-sm">{{ $order->downloaded ? __('cinema_frontend.downloaded') : __('cinema_frontend.not_downloaded') }}</span>
                     </div>

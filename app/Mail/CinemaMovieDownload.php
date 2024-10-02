@@ -28,7 +28,7 @@ class CinemaMovieDownload extends Mailable implements HasLocalePreference
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('site_emails.cinecode_player_screening__download', [], $this->locale),
+            subject: $this->data['subject'],
         );
     }
 

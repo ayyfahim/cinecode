@@ -74,6 +74,9 @@ class OrderCinemaObserver
                 break;
         }
 
+        $data['subject'] = __('site_emails.cinecode_player_screening__download', [], $mailLocale);
+        $data['subject'] = "{$data['subject']} - {$data['movie_title']} - {$orderCinema?->cinema?->name} {$orderCinema?->cinema?->city_name}";
+
         foreach ($orderCinema?->cinema?->emails as $email) {
             Mail::to($email)->locale($mailLocale)->send(new CinemaMovieDownload($data));
             sleep(1);
@@ -201,6 +204,9 @@ class OrderCinemaObserver
                 default:
                     break;
             }
+
+            $data['subject'] = __('site_emails.cinecode_player_screening__download_confirmation', [], $mailLocale);
+            $data['subject'] = "{$data['subject']} - {$data['movie_title']} - {$data['cinema']} {$data['cinema_city']}";
 
             foreach ($distributor_emails = DistributorEmail::where('distributor_id', $order?->distributor?->distributor_id)->get() as $value) {
                 Mail::to($value?->email)->locale($mailLocale)->send(new DistributorMovieDownloadConfirmation($data));

@@ -91,6 +91,10 @@ Route::get('cache-clear', function () {
     Artisan::call('cache:clear');
 });
 
+Route::get('optimize-clear', function () {
+    Artisan::call('optimize:clear');
+});
+
 Route::get('reset-password', CustomerResetPassword::class)->name('password.reset');
 
 URL::forceScheme('https');

@@ -166,7 +166,7 @@ class ShopCardModal extends BaseComponent
 
         // __('distributor_frontend.order_has_been_created')
 
-        if (auth('customer')->user()->distributor->allow_credit && $user_credits <= 0) {
+        if ($user_allow_credit && $user_credits <= 0) {
             $this->error(__('distributor_frontend.the_order_cannot_be_processed'));
             return;
         }
@@ -267,7 +267,7 @@ class ShopCardModal extends BaseComponent
         $data['cinema_name'] = [];
         foreach ($order->cinemas as $cinema) {
             array_push($data['cinema_name'], $cinema->name . " " . $cinema->city_name);
-            $data['subject'] = "{$data['subject']} - {$cinema->name}";
+            $data['subject'] = "{$data['subject']} - {$cinema->name} {$cinema->city_name}";
         }
 
         foreach ($distributor_emails = DistributorEmail::where('distributor_id', $order?->distributor?->distributor_id)->get() as $value) {
