@@ -295,6 +295,8 @@ class ShopCardModal extends BaseComponent
     public function toggle_cinema_mode()
     {
         $this->cinema_mode = !$this->cinema_mode;
+        // $this->dispatch('updateOutputDateFromValue', $this->dateFrom);
+        // $this->dispatch('updateOutputDateToValue', $this->dateTo);
     }
 
     #[On('shop-select-movie')]

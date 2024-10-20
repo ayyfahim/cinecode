@@ -101,6 +101,20 @@ export default () => ({
         this.setDateValues();
         this.getMeridansFrom();
         this.getMeridansTo();
+
+        // Livewire.on("updateOutputDateFromValue", (newValue) => {
+        //     this.outputDateFromValue = this.formatDateTime(
+        //         new Date(Date.parse(newValue[0])),
+        //         this.meridiemFrom
+        //     );
+        // });
+
+        // Livewire.on("updateOutputDateToValue", (newValue) => {
+        //     this.outputDateToValue = this.formatDateTime(
+        //         new Date(Date.parse(newValue[0])),
+        //         this.meridiemTo
+        //     );
+        // });
     },
 
     changeTimeMode() {
