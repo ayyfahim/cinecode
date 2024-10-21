@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Interfaces\UserInterface;
 use App\Mail\CinemaPortalAccess;
+use App\Mail\CinemaTheaterId;
 use App\Observers\CinemaObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -91,6 +92,36 @@ class Cinema extends Authenticatable implements UserInterface
 
         foreach ($this->emails as $value) {
             Mail::to($value->email)->locale($mailLocale)->send(new CinemaPortalAccess($data));
+            sleep(1);
+        }
+    }
+
+    public function sendTheaterIdMail()
+    {
+        $mailLocale = App::getLocale();
+        switch ($this->country->name) {
+            case 'Germany':
+                $mailLocale = 'de';
+                break;
+            case 'Austria':
+                $mailLocale = 'de';
+                break;
+            case 'Switzerland':
+                $mailLocale = 'de';
+                break;
+            case 'Luxembourg':
+                $mailLocale = 'de';
+                break;
+
+            default:
+                break;
+        }
+
+        $data = [];
+        $data['cinema_hash'] = $this->unique_hash;
+
+        foreach ($this->emails as $value) {
+            Mail::to($value->email)->locale($mailLocale)->send(new CinemaTheaterId($data));
             sleep(1);
         }
     }

@@ -133,6 +133,43 @@ class CinemaResource extends Resource
                     ->relationship('country', 'name')
                     ->searchable()
                     ->preload(),
+
+                Tables\Filters\TernaryFilter::make('downloaded_player')
+                    ->query(function (Builder $query, array $data): Builder {
+                        if ($data['value'] == "1") {
+                            return $query->whereNotNull('downloaded_player');
+                        } elseif ($data['value'] == "0") {
+                            return $query->whereNull('downloaded_player');
+                        }
+                        return $query;
+                    }),
+
+                Tables\Filters\Filter::make('downloaded_player_date')
+                    ->form([
+                        Forms\Components\DatePicker::make('downloaded_from'),
+                        Forms\Components\DatePicker::make('downloaded_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['downloaded_from'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('downloaded_player', '>=', $date),
+                            )
+                            ->when(
+                                $data['downloaded_until'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('downloaded_player', '<=', $date),
+                            );
+                    }),
+            ])
+            ->filtersFormSchema(fn(array $filters): array => [
+                $filters['city_name'],
+                $filters['country'],
+                Forms\Components\Section::make('Player')
+                    ->schema([
+                        $filters['downloaded_player'],
+                        $filters['downloaded_player_date'],
+                    ])
+                    ->columnSpanFull(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -148,6 +185,12 @@ class CinemaResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+
+                    Tables\Actions\BulkAction::make('sendTheaterIdMail')
+                        ->label('Send Theater ID Mail')
+                        ->icon('heroicon-o-paper-airplane')
+                        ->requiresConfirmation()
+                        ->action(fn(Collection $records) => $records->each->sendTheaterIdMail())
                 ]),
             ]);
     }

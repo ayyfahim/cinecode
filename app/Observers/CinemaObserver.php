@@ -60,7 +60,9 @@ class CinemaObserver
      */
     public function updated(Cinema $cinema): void
     {
-        //
+        if ($cinema->isDirty('downloaded_player') && $cinema->downloaded_player) {
+            $cinema->sendTheaterIdMail();
+        }
     }
 
     /**
